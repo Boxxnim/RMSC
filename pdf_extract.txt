@@ -1,0 +1,541 @@
+=== PAGE 1 ===
+Ex vivo machine perfusion of extended criteria
+donor livers: a Bayesian network meta-analysis
+Minseok Kanga, Nguyen Thi Huyen Trang, PhDb,c, Seonju Kim, PhDd, Ji Hyun Shin, PhDa, Yun Kyung Jung, MD, PhDa,
+Kyung Keun Lee, MDa, Kyeong Sik Kim, MDa,*, Boyoung Park, MD, PhDb,c,*, Dongho Choi, MD, PhDa,c,e,*
+Background: Ex vivo liver perfusion offers benefits over static cold storage (SCS) for organ preservation, but specific advantages
+of different perfusion protocols require further evaluation.
+Materials and Methods: Randomized controlled trials and matched studies conducted until December 2024 comparing ex vivo
+machine perfusion and SCS were evaluated. A Bayesian network meta-analysis was conducted to assess the effects of varying
+temperature settings, cannulation techniques, and perfusion duration in extended criteria donor (ECD) liver grafts. The relative
+perfusion time within total preservation time was assessed to distinguish between long-term and short-term perfusion.
+Results: The meta-analysis included 11 hypothermic oxygenated perfusion (HOPE) studies and 10 normothermic machine
+perfusion (NMP) studies. Compared to SCS, HOPE reduced the risks of early allograft dysfunction (EAD) [risk ratio 0.46
+(95% CI 0.31–0.67)], major complications [0.40 (0.25–0.63)], and acute cellular rejection (ACR) [0.47 (0.27–0.80)] (high-certainty).
+Compared to NMP, HOPE reduced the risks of EAD, non-anastomotic biliary stricture (NAS), total biliary complications (TBC), and
+ACR (moderate-certainty). HOPE reduced the risks of NAS in both single [0.18 (0.05–0.51)] and dual [0.32 (0.12–0.77)] cannulation
+settings compared with SCS (high-certainty). Compared to SCS, short-term and long-term HOPE prevented EAD [long-term:
+0.41 (0.22–0.74); short-term: 0.50 (0.29–0.84)], major complications [long-term: 0.48 (0.24–0.92); short-term: 0.32 (0.15–0.64)],
+and NAS [long-term: 0.14 (0.02–0.56); short-term: 0.30 (0.13–0.66)] (high-certainty). Compared to short-term NMP, long-term
+NMP reduced the risk of NAS [0.26 (0.07–0.93)] (high-certainty).
+Conclusion: HOPE is more effective than NMP in preventing EAD, TBC, NAS, and ACR in ECD grafts. Both single and dual HOPE
+are effective, and early initiation of NMP may prevent NAS.
+Keywords: hypothermic machine perfusion, hypothermic oxygenated machine perfusion, liver grafting, liver transplantation,
+machine perfusion, network meta-analysis, normothermic machine perfusion, organ preservation, perfusion, postoperative
+complications, static cold storage
+Introduction
+Organ shortage remains a pressing challenge in modern medicine,
+with <10% of the global demand for transplants being met[1].
+This issue is exacerbated by the limitations of organ preservation
+techniques, which restrict the viable window for deceased donor
+transplantation. Although static cold storage (SCS) is the con-
+ventional method for preserving organs by lowering cellular
+metabolism[2], it does not replicate physiological conditions,
+thereby increasing the risk of ischemia-reperfusion injury (IRI)
+and limiting preservation times. In liver transplantation, compli-
+cations such as early allograft dysfunction (EAD) and non-ana-
+stomotic biliary strictures (NAS) are frequently observed[3,4].
+These challenges are more pronounced when donation after cir-
+culatory death (DCD) or extended criteria donor (ECD) organs
+are used, restricting the available donor pool[5].
+HIGHLIGHTS
+●A network meta-analysis highlighted the advantages of
+HOPE over NMP in ECD livers.
+●In HOPE, no additional benefit was observed from can-
+nulating the hepatic artery.
+●In NMP, increasing the proportion of perfusion time pre-
+vents NAS in ECD grafts.
+aDepartment of Surgery, Hanyang University College of Medicine, Seoul, Republic
+of Korea, bDepartment of Preventive Medicine, Hanyang University College of
+Medicine, Seoul, Republic of Korea, cHanyang Institute of Bioscience and
+Biotechnology, Hanyang University, Seoul, Republic of Korea, dDepartment of
+Public Health Sciences, Hanyang University College of Medicine, Seoul, Republic of
+Korea and eDepartment of HY-KIST Bio-convergence, Hanyang University, Seoul,
+Republic of Korea
+Minseok Kang and Nguyen Thi Huyen Trang contributed equally to this article as
+co-first authors.
+Sponsorships or competing interests that may be relevant to content are disclosed
+at the end of this article.
+*Corresponding authors. Address: Department of Surgery, Hanyang University
+College of Medicine, Seoul 04763, Republic of Korea. Tel.: +82 2 2290 8449.
+E-mail: crane87@hanyang.ac.kr (D. Choi); Department of Preventive Medicine,
+Hanyang University College of Medicine, 222 Wangsimni-ro, Seongdong-gu, Seoul
+04763, Republic of Korea. E-mail: hayejine@hanmail.net (B. Park); Department of
+Surgery, Hanyang University College of Medicine, Seoul 04763, Republic of Korea.
+Tel.: +82-2-2290-8448. E-mail: toopjoo12@gmail.com (K. S. Kim).
+Copyright © 2025 The Author(s). Published by Wolters Kluwer Health, Inc. This is an
+open access article distributed under the Creative Commons Attribution License 4.0
+(CCBY), which permits unrestricted use, distribution, and reproduction in any medium,
+provided the original work is properly cited.
+International Journal of Surgery (2025) 111:4736–4745
+Received 12 February 2025; Accepted 2 May 2025
+Supplemental Digital Content is available for this article. Direct URL citations are
+provided in the HTML and PDF versions of this article on the journal’s website,
+www.lww.com/international-journal-of-surgery.
+Published online 29 May 2025
+http://dx.doi.org/10.1097/JS9.0000000000002525
+4736
+Systematic Review/Meta-analysis
+
+
+=== PAGE 2 ===
+Ex vivo liver perfusion is an emerging technology that has
+several advantages over SCS. By actively circulating fluids,
+machine perfusion supports metabolism, assesses viability,
+extends preservation, and reduces IRI. The benefits of machine
+perfusion are now established following major clinical trials[6,7],
+with several European countries adopting it as the standard for
+organ preservation and the US FDA approving perfusion devices
+in 2021.
+Beyond the benefits of machine perfusion, its indications and
+protocols remain inconclusive with limited evidence. This study
+aims to address three critical questions:[1] the selection of
+hypothermic oxygenated perfusion (HOPE) versus normother-
+mic machine perfusion (NMP) for ECD livers[2], whether to
+cannulate only the portal vein or both the portal vein and
+hepatic artery in HOPE, and[3] whether to initiate the perfusion
+at the donor or recipient hospital.
+Material and methods
+Data sources and search strategy
+This meta-analysis followed PRISMA[8] (Preferred Reporting Items
+for Systematic Reviews and Meta-Analyses) and AMSTAR[9]
+(Assessing the methodological quality of systematic reviews) guide-
+lines for network meta-analysis and was registered in PROSPERO.
+Although ethical approval was not required, a waiver was
+granted. Studies were identified by two authors in PubMed,
+EMBASE, and OVID (Table S1 http://links.lww.com/JS9/
+E260). Randomized controlled trials (RCTs), matched non-
+randomized studies (NRSs) comparing HOPE or NMP with
+SCS in adult liver transplants were included. Non-comparative,
+non-human, multi-organ transplant studies, and studies with
+combinatorial perfusion methods were excluded. Other meta-
+analyses or reviews were also examined. The risk of bias was
+evaluated by two authors using the RoB2 tool for RCTs[10] and
+the ROBINS-I tool[11] for NRSs. The GRADE approach was
+applied to classify the certainty of evidence into high, moder-
+ate, low, or very low[12]. Certainty was assessed by examining
+the risk of bias, inconsistency, indirectness, imprecision, tran-
+sitivity, and related factors. Publication bias was assessed by
+Egger’s and Begg’s tests. Disagreements were resolved through
+discussion.
+Data extraction and analysis
+Two authors independently extracted data to minimize potential
+bias. ECD was defined as per the provided definition[5], with
+studies[13–15] that included sub-analyses of high donor risk index
+(DRI) or donor-specific indications also included. Given the
+inherent risk of bias in NRSs, their inclusion alongside RCTs
+was justified by a predefined assessment of risk of bias and sub-
+group consistency. Specifically, eligible outcomes for network
+meta-analysis were selected based on initial pairwise meta-analysis
+results, ensuring no significant differences between RCT and NRS
+subgroups. The outcomes of interest for network meta-analysis
+were selected based on the results of the initial pairwise meta-
+analysis of EAD, major complications, total biliary complications
+(TBC), NAS, hepatic artery thrombosis (HAT), primary non-func-
+tion (PNF), post-reperfusion syndrome, acute cellular rejection
+(ACR), retransplantation, acute kidney injury (AKI), renal repla-
+cement therapy (RRT), hospital stay, 1-year graft loss, and 1-year
+patient death. To ensure comparability, outcomes required at least
+three studies in both HOPE and NMP versus SCS comparisons
+and no significant publication bias. Biliary complications were
+addressed by network meta-analysis of single and dual HOPE
+versus SCS. For outcomes with six or more studies, rankings
+based on the estimated perfusion-to-preservation time ratio of
+each studies classified the bottom 50th percentile as short-term
+(<p50) and the top 50th percentile as long-term (≥p50) for further
+network meta-analysis and meta-regression. Definitions of out-
+comes were collected from each study to address inconsistencies
+in terminology (Table S2 http://links.lww.com/JS9/E260).
+Bayesian network meta-analysis was performed using the gemtc
+package in R Studio (v4.3.3). The deviance information criterion
+was used to choose between random and fixed effects models,
+selecting the fixed effects model when the difference in criteria was
+≤3. Each analysis included network diagrams, and similarity was
+examined by evaluating patient characteristics. Strategies were
+ranked and displayed using a rankogram. Additional details
+including analytical methods are provided in the supplementary
+materials available at: http://links.lww.com/JS9/E260.
+Results
+Figure 1 illustrates the study selection process with 27 studies
+eligible for systematic review and meta-analysis. In HOPE,
+a total of 826 ECD liver grafts were included (388 from 5
+RCTs[15–19] and 438 from 6 NRSs[20–25]), and 1041 grafts were
+included in NMP (116 from 3 RCTs[7,14,26] and 925 from 7
+NRSs[13,27–32]). An overview of the characteristics of the included
+studies and perfusion settings is presented in Tables S3 and S4
+http://links.lww.com/JS9/E260. No study directly compared
+HOPE and NMP or single and dual HOPE. The time metrics
+for each study, including perfusion-to-preservation time ratios,
+are listed in Table S5 http://links.lww.com/JS9/E260. The over-
+all risk of bias is detailed in Tables S6 and S7 http://links.lww.
+com/JS9/E260. NRSs with a high risk of bias[33–35] and studies of
+heterogenous populations, where ECD outcomes were not
+extractable[36,37], were excluded from the meta-analysis.
+A pairwise meta-analysis was carried out (Fig. S1, Table S8
+http://links.lww.com/JS9/E260) as a preliminary step to the net-
+work meta-analysis, selecting EAD, major complications, NAS,
+TBC, ACR, retransplantation, HAT, PNF, and RRT as out-
+comes of interest based on the previously stated criteria. The
+deviance information criterion is in Table S9, and Figure S2
+http://links.lww.com/JS9/E260 shows the per-study residual
+deviance for each analysis. The certainty of evidence was compre-
+hensively evaluated (Table S10 http://links.lww.com/JS9/E260).
+Concerns regarding transitivity were minimal due to the restriction
+of the donor population to ECDs, consistent preservation times
+across control arms, and the preference of transplant centers exper-
+tizing a single perfusion technique rather than varying methods for
+different donor types.
+HOPE and NMP vs. SCS
+The network plots and rankograms for HOPE and NMP versus
+SCS are presented in Figure 2 and Figure S3 http://links.lww.com/
+JS9/E260, with the results summarized in Figure 3. Compared with
+SCS, high-certainty evidence showed that HOPE reduced the inci-
+dence of EAD [eight studies[16,18–24]; risk ratio (RR) 0.46 (95% CI
+0.31–0.67)], major complications [seven studies[15,16,18,20,22–24];
+4737
+Kang et al. International Journal of Surgery (2025)
+
+
+=== PAGE 3 ===
+0.40 (0.25–0.63)], and ACR [six studies[16,19,20,22,23,25]; 0.47
+(0.27–0.80)]. Moderate-certainty evidence indicated that
+HOPE reduced the risks of NAS [six studies[17,19,20,22,24,25];
+0.26 (0.12–0.51)], TBC [nine studies[16–20,22–25]; 0.61 (0.43–0.87)],
+retransplantation [five studies[16,18–20,24]; 0.28 (0.10–0.69)], and
+HAT [five studies[16,18–20,25]; 0.49 (0.16–1.32)]. The evidence for
+HOPE in reducing PNF and RRT was low. High-certainty
+evidence demonstrated that NMP was associated with a lower
+risk of PNF [five studies[26–29,31]; 0.17 (0.01–1.09)]. Moderate-
+certainty showed that NMP lowered the risks of retransplanta-
+tion [four studies[26,28,30,31]; 0.38 (0.15–0.84)] and RRT [three
+studies[14,28,32]; 0.53 (0.33–0.82)]. Low to very low certainty
+evidence suggested minimal difference between NMP and SCS
+in preventing EAD, major complications, NAS, TBC, ACR, and
+HAT for ECD liver transplantation.
+Compared to NMP, HOPE showed moderate-certainty evidence
+for reducing the risks of EAD [15 studies[13,14,16,18–24,26–29,31]; 0.54
+(0.29–0.97)], NAS [14 studies[7,13,17,19,20,22,24–26,28,29,31,32]; 0.30
+(0.12–0.71)], TBC [16 studies[13,16–20,22–29,31,32]; 0.61 (0.38–0.99)],
+and ACR [10 studies[16,19,20,22,23,25,28–30,32]; 0.42 (0.21–0.81)]. The
+evidence was low to very low for the superiority of HOPE in
+reducing the risks of retransplantation, HAT, PNF, and RRT.
+Single and dual HOPE vs. SCS
+Biliary complications, including NAS and TBC, were inspected
+for single- and dual-cannulated HOPE versus SCS (Fig. 4 and
+Fig. S3 http://links.lww.com/JS9/E260). Compared to SCS, high-
+certainty evidence demonstrated that single HOPE prevents
+NAS [three studies[20,24,25]; 0.18 (0.05–0.51)] and TBC [five
+studies[16,20,23–25]; 0.59 (0.37–0.95)], and moderate-certainty
+evidence showed that dual HOPE prevents NAS [three
+studies[17,19,22]; 0.32 (0.12–0.77)]. The certainty of evidence for
+dual HOPE reducing TBC risk was low. Evidence with low to
+very low certainty suggested no advantage of dual HOPE over
+single HOPE in reducing NAS or TBC. The pairwise subgroup
+meta-analysis for single and dual HOPE is detailed in Table S9
+http://links.lww.com/JS9/E260 for all relevant outcomes.
+7,363 Records identified 
+through database:
+3,392 PubMed 
+3,971 EMBASE & OVID 
+MEDLINE
+Records removed before 
+screening:
+Duplicate records removed 
+(n = 3935)
+Records screened
+(n = 3428)
+Records excluded**
+(n = 3386)
+Reports sought for retrieval
+(n = 44)
+Reports not retrieved
+(n = 0)
+Reports assessed for eligibility
+(n = 44)
+Reports excluded:
+Unmatched cohort study
+(n=6)
+Heterogenous perfusion 
+technique (n=5)
+Insufficient data (n=5)
+Retransplanted patient 
+population (n=1)
+Studies included in review
+(n = 27)
+Reports of included studies
+(n = 27)
+Identification of studies via databases and registers
+n
+o
+it
+a
+c
+ifit
+n
+e
+d
+I
+Screening
+Included
+Figure 1. PRISMA flow diagram of the study selection process. A total of 21 studies (8 randomized controlled trials and 13 matched studies) were identified for inclusion in
+the meta-analysis.
+4738
+Kang et al. International Journal of Surgery (2025)
+International Journal of Surgery
+
+
+=== PAGE 4 ===
+Long-term and short-term HOPE vs. SCS
+EAD, major complications, NAS, TBC, PNF, and RRT were
+assessed for long-term and short-term perfusion of HOPE versus
+SCS (Fig. 5 and Fig. S3 http://links.lww.com/JS9/E260). Scatter
+plots present the perfusion-to-preservation time ratio of each
+study and its corresponding classification into long-term or
+short-term subgroups for every outcome analyzed (Fig. S4
+http://links.lww.com/JS9/E260). Compared with SCS, high-
+certainty evidence suggested that long-term HOPE is asso-
+ciated with a lower risk of EAD [three studies[18,20,22]; 0.41
+(0.22–0.74)], major complications [three studies[18,20,22]; 0.48
+(0.24–0.92)], NAS [three studies[17,20,22]; 0.14 (0.02–0.56)],
+and PNF [four studies[18,20,22,25]; 0.00 (0.00–0.23)]. Similar
+associations were observed in short-term HOPE with EAD
+[three studies[16,19,24]; 0.50 (0.29–0.84)], major complications
+[three studies[15,16,24]; 0.32 (0.15–0.64)], and NAS [three
+studies[19,24,25]; 0.30 (0.13–0.66)], with PNF being the exception.
+Moderate-certainty evidence indicated that long-term HOPE is
+associated with a reduction in TBC [four studies[16,19,24,25]; 0.53
+(0.29–0.93)].
+Compared to short-term HOPE, long-term HOPE was asso-
+ciated with a reduced risk of PNF [seven studies[16,18–20,22,24,25];
+0.00 (0.00–0.25)], supported by high-certainty evidence. For
+EAD, MC, NAS, TBC, and RRT, the certainty of evidence was
+low to very low regarding the superiority of long-term HOPE
+over short-term HOPE. In meta-regression, the percentage of
+perfusion-to-preservation time did not show a significant linear
+association with the prevention of post-transplant complications
+(Fig. S5 http://links.lww.com/JS9/E260).
+Long-term and short-term NMP vs. SCS
+Long-term and short-term NMP were compared to SCS for
+EAD, major complications, NAS, and TBC (Figs 5 and S3
+http://links.lww.com/JS9/E260). Scatter plots show the perfu-
+sion-to-preservation time ratio and subgroup classification for
+each outcome (Fig. S4 http://links.lww.com/JS9/E260). The
+overall certainty of evidence was low to very low for both
+long-term and short-term NMP in preventing EAD, major com-
+plications, NAS, and TBC when compared to SCS. While NMP
+showed limited effectiveness in ECD liver transplantation, high-
+certainty evidence demonstrated that long-term NMP is more
+effective in preventing NAS than short-term NMP [eight
+studies[7,13,26,28,29,31,32]; 0.26 (0.07–0.93)]. In meta-regression,
+no significant linear correlation was observed between the per-
+centage of perfusion-to-preservation time and the reduction of
+EAD, major complications, NAS, and TBC (Fig. S5 http://links.
+lww.com/JS9/E260).
+Discussion
+This study expands on previous meta-analyses[38,39] by provid-
+ing a detailed Bayesian network meta-analysis of ECD liver graft
+outcomes, incorporating newly available studies and a broader
+range of clinically relevant outcomes, while ensuring minimal
+heterogeneity in the donor population. High-certainty evidence
+demonstrated that compared with SCS, HOPE lowers the risk of
+EAD, major complications and ACR, whereas NMP only
+reduces the risk of PNF. Compared with NMP, HOPE showed
+moderate-certainty benefits in reducing EAD, NAS, TBC, and
+SCS
+676 participants
+NMP
+192 participants
+HOPE
+291 participants
+8 (529)
+8 (650)
+A Early allograft dysfunction
+B Major complications
+NMP
+310 participants
+HOPE
+177 participants
+SCS
+874 participants
+7 (480)
+7 (881)
+NMP
+339 participants
+HOPE
+218 participants
+SCS
+891 participants
+8 (912)
+6 (536)
+C Non-anastomotic biliary stricture
+SCS
+1010 participants
+NMP
+322 participants
+HOPE
+231 participants
+9 (732)
+6 (536)
+D Total biliary complications
+E Acute cellular rejection
+SCS
+756 participants
+NMP
+252 participants
+HOPE
+211 participants
+6 (492)
+5 (727)
+Figure 2. Network maps and rankograms for hypothermic and NMP versus SCS in ECD liver
+transplantation. The left panel shows the network map, where head-to-head
+comparisons between liver preservation strategies are depicted by connect-
+ing lines. Line thickness reflects the number of studies, and node size repre-
+sents the number of participants. Numbers on the nodes represent the total
+number of participants for each strategy, while the numbers on the lines
+correspond to the number of studies and participants included in each com-
+parison. HOPE, NMP, and SCS are indicated by blue, red, and black nodes,
+respectively. The right panel displays the rankogram, where the tallest bar for
+rank 1 indicates the most effective treatment, and the tallest bar for rank 2
+suggests the second most effective option. Comparisons between HOPE,
+NMP, and SCS across various outcomes showed that in ECD liver transplan-
+tation, HOPE had the highest likelihood of preventing EAD (A), major compli-
+cations (B), NAS (C), TBC (D), and ACR (E). HOPE, hypothermic oxygenated
+perfusion; NMP, normothermic machine perfusion; SCS, static cold storage;
+EAD, early allograft dysfunction; ACR, acute cellular rejection; NAS, non-
+anastomotic biliary stricture; TBC, total biliary complications; and ECD,
+extended criteria donor.
+4739
+Kang et al. International Journal of Surgery (2025)
+
+
+=== PAGE 5 ===
+ACR. Single HOPE demonstrated high-certainty evidence for
+reducing NAS and TBC compared to SCS, whereas dual HOPE
+showed moderate-certainty benefits for NAS but lacked signifi-
+cant evidence for TBC. No added benefit of dual HOPE over
+single HOPE was observed. Long-term HOPE outperformed
+SCS with high-certainty evidence for reducing EAD, major com-
+plications, NAS, and PNF, and with moderate-certainty evidence
+for TBC, while short-term HOPE showed similar benefits but low
+to very low certainty for TBC, PNF, and RRT. Long-term NMP
+reduced NAS compared to short-term NMP with high-certainty
+evidence, but both had low to very low certainty evidence for
+other outcomes.
+HOPE and NMP vs. SCS
+Although studies comparing HOPE and NMP are limited, the
+existing literature suggests that divergent immune responses play
+a crucial role. In rodent DCD transplantation models, HOPE
+demonstrated reduced injury and improved survival compared
+to NMP, possibly due to the alteration of non-parenchymal cell
+Favors 
+intervention
+Favors 
+comparator
+Figure 3. Network meta-analysis comparisons of hypothermic and NMP versus SCS in ECD liver transplantation. The forest plot is scaled from 0 to 2.5, where the box (blue: HOPE,
+red: NMP, and skyblue: indirect estimate) indicates the risk ratio and the black line represents the 95% CI. HOPE demonstrated high-certainty reductions in EAD,
+major complications, and ACR compared to SCS, with moderate-certainty benefits for NAS, TBC, retransplantation, and HAT. The evidence for HOPE reducing
+PNF and RRT was low. Although NMP reduced PNF, retransplantation, and RRT with high to moderate certainty, it showed limited overall benefit compared to
+SCS for ECD liver transplantation outcomes. Compared to NMP, HOPE demonstrated moderate-certainty advantages in reducing EAD, NAS, TBC, and ACR,
+while evidence for its superiority in retransplantation, HAT, PNF, and RRT was low to very low. Overall, HOPE showed broad benefits over SCS and advantages
+over NMP in key outcomes. A random-effects model was applied for retransplantation due to a deviance information criterion difference exceeding 3, while
+a fixed-effects model was used for all other outcomes. HOPE, hypothermic oxygenated perfusion; NMP, normothermic machine perfusion; SCS, static cold
+storage; EAD, early allograft dysfunction; ACR, acute cellular rejection; NAS, non-anastomotic biliary stricture; TBC, total biliary complications; HAT, hepatic
+artery thrombosis; PNF, primary non-function; RRT, renal replacement therapy; and ECD, extended criteria donor.
+4740
+Kang et al. International Journal of Surgery (2025)
+International Journal of Surgery
+
+
+=== PAGE 6 ===
+phenotypes and downstream signaling pathways during
+normothermic perfusion[40]. Data from an ongoing RCT
+(NCT04644744) suggest that NMP leads to a significant rise
+in circulating leukocytes, whereas HOPE perfusate contains
+fewer granulocytes but a higher proportion of those expres-
+sing programmed death-ligand 1[41].
+Our study builds on these findings by providing clinical evi-
+dence through a network meta-analysis that combines studies
+with low-to-moderate bias and minimal heterogeneity, further
+supported by pairwise meta-analysis results. The consistent
+advantages of HOPE over NMP across various outcomes sug-
+gest that HOPE provides superior protection against IRI in ECD
+livers. However, immunological response during normothermic
+perfusion differs between donor types and the quality of the
+grafts, as shown in both rodent[40] and human liver studies[42].
+Therefore, it is premature to claim that HOPE is generally super-
+ior to NMP outside of ECD grafts without further subgroup
+analyses of non-ECD grafts (Fig. S6A http://links.lww.com/
+JS9/E260) or high-DRI and low-DRI grafts, as performed by
+Grąt et al[15].
+While HOPE might hold an edge in addressing post-trans-
+plant complications of ECD grafts, the distinct proponents for
+each method should not be overlooked. One of the major
+strengths of NMP is its capacity to extend preservation time
+compared to HOPE, as demonstrated in Table S5 http://links.
+lww.com/JS9/E260. This prolonged preservation window not
+only facilitates logistical flexibility in organ allocation and trans-
+plantation but also provides additional time for viability assess-
+ment, potentially reducing the risk of graft discard. This was
+observed in three major RCTs[7,14,37] on normothermic perfu-
+sion, with meta-analysis revealing a significant increase (Fig. S6B
+http://links.lww.com/JS9/E260). Despite the Zurich group pro-
+posing that mitochondrial flavin mononucleotide in the HOPE
+perfusate can predict liver function and graft outcomes[43],
+further human trials are needed to confirm its clinical value
+over NMP. Overall, the current evidence suggests that HOPE
+should be prioritized for high-risk donors, while NMP may
+be more suitable in settings where extended preservation is
+needed due to the geographical distance between donor and
+recipient.
+Single and dual HOPE vs. SCS
+The question of whether to perform machine perfusion via the
+portal vein alone or both the portal vein and hepatic artery
+remains debatable[44–46]. Anatomically, the intrahepatic biliary
+tree is supplied by both the portal vein and hepatic artery,
+whereas the extrahepatic portion is mainly supplied by the peri-
+biliary vascular plexus that arises from the hepatic artery[47]. In
+normothermic settings where cellular metabolism is active, a dual
+blood supply is necessary to preserve biliary function[48,49]. In
+contrast, oxygen demand is reduced in hypothermic perfusion,
+and several groups have suggested that single-portal vein can-
+nulation is adequate for restoring ATP in liver cells, including
+extrahepatic cholangiocytes[46,50]. Concerns also arise with the
+cannulation of the hepatic artery as it can cause mechanical
+damage to endothelial cells and potentially lead to arterial
+complications.
+A retrospective cohort study, excluded from the current
+study, demonstrated that compared to single HOPE, dual
+HOPE reduced biliary complications and the need for surgical
+revisions[51]. However, the authors acknowledged that selection
+bias is inevitable, as surgeons are likely to choose livers with
+more preserved hepatic arteries for dual HOPE. Although the
+need for RCTs is clear, conducting one may be challenging since
+many centers have established preferences and randomization to
+an unaccustomed method could present practical barriers. In
+this study, the network meta-analysis of SCS, single HOPE,
+and dual HOPE found no indirect evidence supporting dual
+HOPE over single HOPE. Overall, our findings suggest that
+single HOPE is clinically non-inferior to dual HOPE.
+Long-term and short-term NMP vs. SCS
+The machine perfusion system integrates multiple specialized
+devices, such as pumps, an oxygenator, a heat exchanger, and
+a reservoir. Owing to its complexity, transporting the system to
+and from the donor hospital requires both a technical team and
+a modified ambulance with an internal power supply. Many
+centers have adopted a practical approach to HOPE using
+short-term end-ischemic HOPE followed by SCS. This practice
+may be explained by rapid mitochondrial reprogramming
+Favors 
+intervention
+Favors 
+comparator
+Figure 4. Network meta-analysis comparisons of single and dual cannulated HOPE versus SCS in ECD liver transplantation. The forest plot is scaled from 0 to 2.5, where the box
+(blue: HOPE, red: NMP, and skyblue: indirect estimate) indicates the risk ratio and the black line represents the 95% CI. Analysis of NAS and TBC for single portal
+vein HOPE and dual portal vein and hepatic artery HOPE versus SCS revealed high-certainty evidence for single HOPE in reducing NAS and TBC. Moderate-
+certainty evidence supported dual HOPE for NAS, but evidence for its effect on TBC was low. Dual HOPE showed no significant benefit over single HOPE with
+low to very low certainty. All outcomes were analyzed using a fixed-effects model. HOPE, hypothermic oxygenated perfusion; NMP, normothermic machine
+perfusion; SCS, static cold storage; NAS, non-anastomotic biliary stricture; TBC, total biliary complications; and ECD, extended criteria donor.
+4741
+Kang et al. International Journal of Surgery (2025)
+
+

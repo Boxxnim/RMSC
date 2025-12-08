@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# API Keys and secrets
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+
+# Output files (can be regenerated)
+*_results.csv
+*_cost_report.json
+*_cost_summary.csv
+test_*.csv
+
+# Keep the screening_records.csv input file
+!screening_records.csv
+
+# OS files
+.DS_Store
+Thumbs.db
