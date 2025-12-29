@@ -1,0 +1,252 @@
+{
+  "full_extraction": {
+    "study_characteristics": {
+      "study_id": "vanRijn_2021",
+      "first_author": "van Rijn",
+      "year": 2021,
+      "title": "Hypothermic Machine Perfusion in Liver Transplantation — A Randomized Trial",
+      "journal": "The New England Journal of Medicine",
+      "doi": "10.1056/NEJMoa2031532",
+      "study_design": "RCT",
+      "is_multicenter": true,
+      "countries": [
+        "Netherlands",
+        "Belgium",
+        "United Kingdom"
+      ],
+      "centers": [
+        "University Medical Center Groningen",
+        "Erasmus University Medical Center",
+        "Leiden University Medical Center",
+        "University Hospitals of Leuven",
+        "Ghent University Hospital",
+        "Kings College Hospital NHS Foundation Trust"
+      ],
+      "enrollment_period_start": "2016-01",
+      "enrollment_period_end": "2019-07",
+      "registry_id": "NCT02584283",
+      "data_source": "DHOPE-DCD Trial",
+      "intervention_type": "DHOPE",
+      "comparator": "SCS",
+      "n_intervention": 78,
+      "n_control": 78,
+      "n_total": 156,
+      "donor_type": "DCD"
+    },
+    "perfusion_settings": {
+      "device_name": "Liver Assist (Organ Assist)",
+      "cannulation": "Dual (PV+HA)",
+      "perfusate_type": "Belzer machine-perfusion solution (Bridge to Life) + 3 mmol glutathione",
+      "temperature_setting": "Hypothermic",
+      "temperature_celsius": 10,
+      "study_id": "vanRijn_2021"
+    },
+    "time_metrics": {
+      "perfusion_initiation": "End-ischemic (after transportation to transplant center)",
+      "perfusion_time_hours": 2.2,
+      "cold_ischemia_time_hours": 6.18,
+      "warm_ischemia_time_minutes": 11,
+      "study_id": "vanRijn_2021"
+    },
+    "outcome_data": {
+      "follow_up_months": 12,
+      "ead": {
+        "reported": true,
+        "definition": "Olthoff criteria",
+        "intervention_events": 20,
+        "intervention_total": 78,
+        "control_events": 31,
+        "control_total": 78,
+        "rr": 0.61,
+        "ci_lower": 0.39,
+        "ci_upper": 0.96,
+        "p_value": 0.03,
+        "source_location": "Table 2"
+      },
+      "nas": {
+        "reported": true,
+        "definition": "Symptomatic nonanastomotic biliary strictures within 6 months",
+        "follow_up_for_nas_months": 6,
+        "intervention_events": 5,
+        "intervention_total": 78,
+        "control_events": 14,
+        "control_total": 78,
+        "rr": 0.36,
+        "ci_lower": 0.14,
+        "ci_upper": 0.94,
+        "p_value": 0.03,
+        "source_location": "Table 2"
+      },
+      "tbc": {
+        "reported": true,
+        "definition": "NAS + anastomotic stricture + anastomotic leakage",
+        "intervention_events": 34,
+        "intervention_total": 78,
+        "control_events": 44,
+        "control_total": 78,
+        "source_location": "Table 2"
+      },
+      "pnf": {
+        "reported": true,
+        "intervention_events": 0,
+        "intervention_total": 78,
+        "control_events": 1,
+        "control_total": 78,
+        "source_location": "Table 2"
+      },
+      "acr": {
+        "reported": true,
+        "definition": "Rejection of transplanted liver",
+        "timeframe": "6 months",
+        "intervention_events": 9,
+        "intervention_total": null,
+        "control_events": 16,
+        "control_total": null,
+        "source_location": "Table 4"
+      },
+      "hat": {
+        "reported": true,
+        "intervention_events": 2,
+        "intervention_total": 78,
+        "control_events": 2,
+        "control_total": 78,
+        "source_location": "Table 2"
+      },
+      "retransplantation": {
+        "reported": true,
+        "timeframe": "6 months",
+        "intervention_events": 3,
+        "intervention_total": 78,
+        "control_events": 6,
+        "control_total": 78,
+        "source_location": "Table 2"
+      },
+      "rrt": {
+        "reported": true,
+        "intervention_events": 7,
+        "intervention_total": 78,
+        "control_events": 7,
+        "control_total": 78,
+        "source_location": "Table 2"
+      },
+      "aki": {
+        "reported": true,
+        "definition": "Renal event",
+        "intervention_events": 47,
+        "intervention_total": null,
+        "control_events": 36,
+        "control_total": null,
+        "source_location": "Table 4"
+      },
+      "prs": {
+        "reported": true,
+        "definition": ">30% decrease in mean systemic arterial blood pressure within 10 minutes after reperfusion",
+        "intervention_events": 9,
+        "intervention_total": 72,
+        "control_events": 19,
+        "control_total": 70,
+        "source_location": "Table 2"
+      },
+      "major_complications": {
+        "reported": true,
+        "definition": "Clavien-Dindo classification",
+        "intervention_events": null,
+        "intervention_total": 78,
+        "control_events": null,
+        "control_total": 78,
+        "source_location": "Supplementary Table S8"
+      },
+      "graft_survival_1yr": {
+        "reported": true,
+        "intervention_percent": 94,
+        "control_percent": 94,
+        "hr": 0.65,
+        "ci_lower": 0.18,
+        "ci_upper": 2.29,
+        "p_value": null,
+        "source_location": "Supplementary Figure S3"
+      },
+      "patient_survival_1yr": {
+        "reported": true,
+        "intervention_percent": 92,
+        "control_percent": 95,
+        "hr": 2.45,
+        "source_location": "Supplementary Figure S3"
+      },
+      "hospital_stay_days": {
+        "reported": true,
+        "intervention_value": 15,
+        "intervention_sd_or_iqr": "12-20",
+        "control_value": 15,
+        "control_sd_or_iqr": "12-26",
+        "measure": "median",
+        "source_location": "Table 2"
+      },
+      "icu_stay_days": {
+        "reported": true,
+        "intervention_value": 2,
+        "intervention_sd_or_iqr": "2-5",
+        "control_value": 2,
+        "control_sd_or_iqr": "1-4",
+        "measure": "median",
+        "source_location": "Table 2"
+      },
+      "study_id": "vanRijn_2021"
+    },
+    "extraction_notes": {
+      "data_quality_concerns": [
+        "Adverse event percentages in Table 4 are based on total number of events, not total number of patients."
+      ],
+      "unclear_items_for_review": [
+        "Total patients with Clavien-Dindo >=3 not explicitly summed; provided as individual grades in Table S8."
+      ],
+      "general_notes": "PRS denominator (72/70) reflects available data. CIT and Perfusion times converted from median hours/minutes to decimal hours."
+    }
+  },
+  "rob_information": {
+    "study_id": "vanRijn_2021",
+    "d1_randomization": {
+      "judgment": "Low",
+      "rationale": "The study used a centralized, computer-generated, balanced-block randomization sequence. Allocation concealment was maintained as randomization occurred only after the liver was accepted for a specific recipient, and the sequence was managed centrally.",
+      "support_quotes": [
+        "Centralized balanced-block randomization (in blocks of six) was computer-generated, with stratification according to trial center and primary sclerosing cholangitis as an indication for transplantation (yes or no).",
+        "Randomization took place immediately after a donor liver had been deemed to be suitable and had been accepted by the transplantation surgeon for a recipient."
+      ]
+    },
+    "d2_deviations": {
+      "judgment": "Low",
+      "rationale": "While the surgical teams could not be blinded to the intervention (machine vs. static storage), patients and organ-procurement teams were unaware of the assignments. The analysis followed a pre-specified plan, and there is no evidence that deviations from the intended intervention affected the results.",
+      "support_quotes": [
+        "Patients and the organ-procurement teams were unaware of the trial-group assignments.",
+        "All end-point analyses were prespecified in the protocol and statistical analysis plan, which was finalized before the database was locked."
+      ]
+    },
+    "d3_missing_data": {
+      "judgment": "Low",
+      "rationale": "Data for the primary outcome were available for all 156 patients who underwent transplantation. The four patients excluded after randomization did not receive the intervention at all due to clinical reasons discovered post-randomization but pre-procedure, and their exclusion is unlikely to bias the results.",
+      "support_quotes": [
+        "A total of 160 patients were enrolled, of whom 78 received a machine-perfused liver and 78 received a liver after static cold storage only (4 patients did not receive a liver in this trial).",
+        "Missing data were assumed to be missing at random, and multiple imputation was performed when more than 10% of all the patients had missing data for a specific variable."
+      ]
+    },
+    "d4_measurement": {
+      "judgment": "Low",
+      "rationale": "The primary outcome (NAS) was assessed using objective radiologic criteria. Crucially, the cholangiographies were reviewed by two independent radiologists who were blinded to the treatment group assignment.",
+      "support_quotes": [
+        "All the cholangiographies, both in patients who were symptomatic and in those who were asymptomatic, were reviewed by two independent radiologists who were unaware of the preservation method and clinical symptoms."
+      ]
+    },
+    "d5_selection": {
+      "judgment": "Low",
+      "rationale": "The trial was registered prospectively, and the analysis plan was finalized before the database was locked. The reported results align with the pre-specified primary and secondary outcomes.",
+      "support_quotes": [
+        "The trial protocol, which is available with the full text of this article at NEJM.org, has been published previously.",
+        "All end-point analyses were prespecified in the protocol and statistical analysis plan, which was finalized before the database was locked."
+      ]
+    },
+    "overall_judgment": "Low",
+    "overall_rationale": "The study was a well-conducted multicenter RCT with robust randomization, clear allocation concealment, and blinded outcome assessment for the primary endpoint. The low rate of missing data and adherence to a pre-specified protocol further support a low risk of bias."
+  },
+  "study_type": "RCT",
+  "study_id": "vanRijn_2021"
+}

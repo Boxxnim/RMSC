@@ -1,0 +1,147 @@
+{
+  "full_extraction": {
+    "study_characteristics": {
+      "study_id": "van Rijn_2021",
+      "first_author": "van Rijn",
+      "year": 2021,
+      "title": "Hypothermic Machine Perfusion in Liver Transplantation — A Randomized Trial",
+      "journal": "New England Journal of Medicine",
+      "doi": "10.1056/NEJMoa2031532",
+      "study_design": "RCT",
+      "is_multicenter": true,
+      "countries": [
+        "Netherlands",
+        "Belgium",
+        "United Kingdom"
+      ],
+      "registry_id": "NCT02584283",
+      "intervention_type": "DHOPE",
+      "comparator": "SCS",
+      "n_intervention": 78,
+      "n_control": 78,
+      "n_total": 156,
+      "donor_type": "DCD"
+    },
+    "perfusion_settings": {
+      "device_name": "Liver Assist",
+      "cannulation": "Dual (PV+HA)",
+      "perfusate_type": "Belzer machine-perfusion solution (UW MP) with 3 mmol/L glutathione",
+      "temperature_setting": "Hypothermic",
+      "temperature_celsius": 10.0,
+      "study_id": "van Rijn_2021"
+    },
+    "time_metrics": {
+      "perfusion_initiation": "End-ischemic (after transportation)",
+      "perfusion_time_hours": 2.2,
+      "study_id": "van Rijn_2021"
+    },
+    "outcome_data": {
+      "follow_up_months": 12.0,
+      "ead": {
+        "reported": true,
+        "definition": "Olthoff criteria (bilirubin >= 171 umol/L [10 mg/dL] on day 7, INR >= 1.6 on day 7, or ALT/AST > 2000 U/L within first 7 days)",
+        "intervention_events": 20,
+        "intervention_total": 78,
+        "control_events": 31,
+        "control_total": 78,
+        "rr": 0.61,
+        "ci_lower": 0.39,
+        "ci_upper": 0.96,
+        "source_quote": "Early allograft dysfunction occurred in 26% of the machine-perfused livers, as compared with 40% of control livers (risk ratio, 0.61; 95% CI, 0.39 to 0.96).",
+        "source_location": "Abstract and Table 2"
+      },
+      "nas": {
+        "reported": true,
+        "definition": "Symptomatic nonanastomotic biliary strictures within 6 months after transplantation",
+        "follow_up_for_nas_months": 6.0,
+        "intervention_events": 5,
+        "intervention_total": 78,
+        "control_events": 14,
+        "control_total": 78,
+        "rr": 0.36,
+        "ci_lower": 0.14,
+        "ci_upper": 0.94,
+        "p_value": 0.03,
+        "source_quote": "Nonanastomotic biliary strictures occurred in 6% of the patients in the machine-perfusion group and in 18% of those in the control group (risk ratio, 0.36; 95% CI, 0.14 to 0.94; P=0.03).",
+        "source_location": "Abstract and Table 2"
+      },
+      "pnf": {
+        "reported": true,
+        "intervention_events": 0,
+        "intervention_total": 78,
+        "control_events": 1,
+        "control_total": 78,
+        "source_quote": "Primary nonfunction 0 [in MP] 1 (1) [in Control]",
+        "source_location": "Table 2"
+      },
+      "graft_survival_1yr": {
+        "reported": true,
+        "intervention_percent": 94.0,
+        "control_percent": 94.0,
+        "hr": 0.65,
+        "ci_lower": 0.18,
+        "ci_upper": 2.29,
+        "source_quote": "Hazard ratio for graft survival 0.65 (95% CI, 0.18 – 2.29)",
+        "source_location": "Supplementary Appendix, Figure S3"
+      },
+      "patient_survival_1yr": {
+        "reported": true,
+        "intervention_percent": 92.0,
+        "control_percent": 95.0,
+        "hr": 2.45,
+        "source_quote": "Hazard ratio for patient survival 2.45 (95% CI, 0.77 – 7.85)",
+        "source_location": "Supplementary Appendix, Figure S3"
+      },
+      "study_id": "van Rijn_2021"
+    },
+    "extraction_notes": {
+      "general_notes": "The DHOPE-DCD trial specifically evaluated dual hypothermic oxygenated machine perfusion in DCD liver grafts. The primary endpoint was symptomatic NAS at 6 months. Survival data was extracted from the supplementary appendix."
+    }
+  },
+  "rob_information": {
+    "study_id": "van Rijn_2021",
+    "d1_randomization": {
+      "judgment": "Low",
+      "rationale": "The study used a centralized, computer-generated, balanced-block randomization sequence. Allocation concealment was maintained as randomization occurred only after the liver was accepted for a specific recipient, and the sequence was managed centrally.",
+      "support_quotes": [
+        "Centralized balanced-block randomization (in blocks of six) was computer-generated, with stratification according to trial center and primary sclerosing cholangitis as an indication for transplantation (yes or no).",
+        "Randomization took place immediately after a donor liver had been deemed to be suitable and had been accepted by the transplantation surgeon for a recipient."
+      ]
+    },
+    "d2_deviations": {
+      "judgment": "Low",
+      "rationale": "While the surgical teams could not be blinded to the intervention (machine vs. static storage), patients and organ-procurement teams were unaware of the assignments. The analysis followed a pre-specified plan, and there is no evidence that deviations from the intended intervention affected the results.",
+      "support_quotes": [
+        "Patients and the organ-procurement teams were unaware of the trial-group assignments.",
+        "All end-point analyses were prespecified in the protocol and statistical analysis plan, which was finalized before the database was locked."
+      ]
+    },
+    "d3_missing_data": {
+      "judgment": "Low",
+      "rationale": "Data for the primary outcome were available for all 156 patients who underwent transplantation. The four patients excluded after randomization did not receive the intervention at all due to clinical reasons discovered post-randomization but pre-procedure, and their exclusion is unlikely to bias the results.",
+      "support_quotes": [
+        "A total of 160 patients were enrolled, of whom 78 received a machine-perfused liver and 78 received a liver after static cold storage only (4 patients did not receive a liver in this trial).",
+        "Missing data were assumed to be missing at random, and multiple imputation was performed when more than 10% of all the patients had missing data for a specific variable."
+      ]
+    },
+    "d4_measurement": {
+      "judgment": "Low",
+      "rationale": "The primary outcome (NAS) was assessed using objective radiologic criteria. Crucially, the cholangiographies were reviewed by two independent radiologists who were blinded to the treatment group assignment.",
+      "support_quotes": [
+        "All the cholangiographies, both in patients who were symptomatic and in those who were asymptomatic, were reviewed by two independent radiologists who were unaware of the preservation method and clinical symptoms."
+      ]
+    },
+    "d5_selection": {
+      "judgment": "Low",
+      "rationale": "The trial was registered prospectively, and the analysis plan was finalized before the database was locked. The reported results align with the pre-specified primary and secondary outcomes.",
+      "support_quotes": [
+        "The trial protocol, which is available with the full text of this article at NEJM.org, has been published previously.",
+        "All end-point analyses were prespecified in the protocol and statistical analysis plan, which was finalized before the database was locked."
+      ]
+    },
+    "overall_judgment": "Low",
+    "overall_rationale": "The study was a well-conducted multicenter RCT with robust randomization, clear allocation concealment, and blinded outcome assessment for the primary endpoint. The low rate of missing data and adherence to a pre-specified protocol further support a low risk of bias."
+  },
+  "study_type": "RCT",
+  "study_id": "van Rijn_2021"
+}

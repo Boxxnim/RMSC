@@ -1,0 +1,117 @@
+# Extraction Pipeline Configuration
+# For systematic review on ex vivo machine perfusion in ECD liver transplantation
+
+# =============================================================================
+# API Configuration
+# =============================================================================
+
+[api]
+# Primary extraction model (Claude recommended for complex reasoning)
+extraction_model = "claude-sonnet-4-20250514"
+
+# Validation model (different provider for diversity)
+validation_model = "gemini-2.5-pro"
+
+# Alternative models
+# extraction_model = "gpt-4o"
+# validation_model = "claude-sonnet-4-20250514"
+
+[api.anthropic]
+# Set via environment variable: ANTHROPIC_API_KEY
+max_tokens = 4096
+temperature = 0.1  # Low temperature for consistent extraction
+
+[api.google]
+# Set via environment variable: GOOGLE_API_KEY
+max_tokens = 4096
+temperature = 0.1
+
+# =============================================================================
+# Processing Options
+# =============================================================================
+
+[processing]
+# Require dual model verification
+require_dual_verification = true
+
+# Minimum confidence to auto-accept (High, Medium, Low)
+confidence_threshold = "Medium"
+
+# Retry failed extractions
+max_retries = 3
+
+# Flag studies for manual review if validation disagrees
+flag_on_disagreement = true
+
+# =============================================================================
+# Eligibility Criteria
+# =============================================================================
+
+[eligibility]
+# Intervention types to include
+valid_interventions = ["HOPE", "D-HOPE", "NMP"]
+
+# Comparators to include
+valid_comparators = ["SCS"]
+
+# Population requirements
+require_ecd_or_dcd = true
+adult_only = true
+
+# Automatic exclusion triggers
+auto_exclude_co_interventions = [
+    "tPA",
+    "alteplase", 
+    "thrombolytic",
+    "defatting",
+    "stem cell",
+    "gene therapy"
+]
+
+auto_exclude_selection_criteria = [
+    "FMN-guided",
+    "FMN-based",
+    "viability-based discard",
+    "viability criteria for discard"
+]
+
+# =============================================================================
+# Output Configuration
+# =============================================================================
+
+[output]
+# Excel template
+template_path = "cohort_tracking_template_v3.xlsx"
+
+# Output directory for results
+output_dir = "extraction_outputs"
+
+# Save intermediate JSON
+save_raw_json = true
+
+# =============================================================================
+# Study ID Generation
+# =============================================================================
+
+[study_id]
+# Format: {INTERVENTION}_{CENTER}_{YEAR}{suffix}
+# Examples: HOPE_Zurich_2021, NMP_CCF_2025a
+
+# Center code mappings (partial list - expand as needed)
+[study_id.center_codes]
+"Cleveland Clinic" = "CCF"
+"University Hospital Zurich" = "Zurich_USZ"
+"University Medical Center Groningen" = "Groningen_UMCG"
+"Mount Sinai" = "MountSinai_NYC"
+"Queen Elizabeth Hospital Birmingham" = "Birmingham_QE"
+"Cambridge" = "Cambridge_Addenbrookes"
+"Addenbrooke" = "Cambridge_Addenbrookes"
+
+# =============================================================================
+# Logging
+# =============================================================================
+
+[logging]
+level = "INFO"
+log_file = "extraction.log"
+log_api_calls = true
