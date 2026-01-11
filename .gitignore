@@ -23,7 +23,15 @@ env/
 test_*.csv
 
 # Keep the screening_records.csv input file
-!screening_records.csv
+!data/screening_records.csv
+
+# Info_extractor test/temp outputs
+Info_extractor/test_*.json
+Info_extractor/test_*.xlsx
+Info_extractor/pilot_*.xlsx
+Info_extractor/pilot_run.log
+Info_extractor/batch_results_v*.xlsx
+!Info_extractor/batch_results_final.xlsx
 
 # OS files
 .DS_Store
