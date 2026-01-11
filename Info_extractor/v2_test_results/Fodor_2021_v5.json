@@ -1,0 +1,469 @@
+{
+  "result": {
+    "study_id": "Fodor_2021",
+    "study_design": "NRS",
+    "population": {
+      "type": "Mixed",
+      "subgroup_available": true,
+      "subgroup_used": "Propensity score-matched cohort (N=118) and donor-predominant indications subgroup (N=84)",
+      "matching": "PSM 1:1"
+    },
+    "arms": {
+      "intervention": {
+        "name": "NMP",
+        "N": 59
+      },
+      "control": {
+        "name": "SCS",
+        "N": 59
+      }
+    },
+    "outcomes": [
+      {
+        "outcome_name": "EAD",
+        "definition": {
+          "criteria": "Olthoff criteria",
+          "timeframe": "within 7 days",
+          "source": "Methods, p. 1083"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Early allograft dysfunction 20 of 58 (34) vs 19 (32)",
+            "intervention": {
+              "n": 19,
+              "N": 59,
+              "pct": 32.0
+            },
+            "control": {
+              "n": 20,
+              "N": 58,
+              "pct": 34.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Early Allograft Dysfunction 16 (39) vs 15 (36)",
+            "intervention": {
+              "n": 15,
+              "N": 42,
+              "pct": 36.0
+            },
+            "control": {
+              "n": 16,
+              "N": 41,
+              "pct": 39.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for marginal/ECD livers (donor-predominant indications) prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "PNF",
+        "definition": {
+          "criteria": "Primary non-function",
+          "timeframe": "Not specified",
+          "source": "Results, p. 1084"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Text",
+              "page": 3
+            },
+            "quote": "No primary non-function was recorded in the two groups.",
+            "intervention": {
+              "n": 0,
+              "N": 59,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 0,
+              "N": 59,
+              "pct": 0.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 0,
+        "selection_reason": "Only mention available."
+      },
+      {
+        "outcome_name": "NAS",
+        "definition": {
+          "criteria": "Non-anastomotic strictures",
+          "timeframe": "Minimum follow-up 3 months",
+          "source": "Methods, p. 1082"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Non-anastomotic strictures 10 (17) vs 5 (8)",
+            "intervention": {
+              "n": 5,
+              "N": 59,
+              "pct": 8.0
+            },
+            "control": {
+              "n": 10,
+              "N": 59,
+              "pct": 17.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Non Anastomotic Strictures 7 (17) vs 4 (10)",
+            "intervention": {
+              "n": 4,
+              "N": 42,
+              "pct": 10.0
+            },
+            "control": {
+              "n": 7,
+              "N": 42,
+              "pct": 17.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for marginal/ECD livers prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "ITBL",
+        "definition": {
+          "criteria": "Ischaemic-type biliary lesions (ITBL)",
+          "timeframe": "Minimum follow-up 3 months",
+          "source": "Methods, p. 1082"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "ITBL 8 (14) vs 2 (3)",
+            "intervention": {
+              "n": 2,
+              "N": 59,
+              "pct": 3.0
+            },
+            "control": {
+              "n": 8,
+              "N": 59,
+              "pct": 14.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Ischemic Type Biliary Lesions (ITBL) 6 (14) vs 2 (5)",
+            "intervention": {
+              "n": 2,
+              "N": 42,
+              "pct": 5.0
+            },
+            "control": {
+              "n": 6,
+              "N": 42,
+              "pct": 14.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for marginal/ECD livers prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "TBC",
+        "definition": {
+          "criteria": "Bile duct complications",
+          "timeframe": "Minimum follow-up 3 months",
+          "source": "Methods, p. 1082"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Bile duct complications 29 (49) vs 30 (51)",
+            "intervention": {
+              "n": 30,
+              "N": 59,
+              "pct": 51.0
+            },
+            "control": {
+              "n": 29,
+              "N": 59,
+              "pct": 49.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Bile Duct Complications 20 (48) vs 19 (45)",
+            "intervention": {
+              "n": 19,
+              "N": 42,
+              "pct": 45.0
+            },
+            "control": {
+              "n": 20,
+              "N": 42,
+              "pct": 48.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for marginal/ECD livers prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "HAT",
+        "definition": {
+          "criteria": "Arterial thrombosis",
+          "timeframe": "Minimum follow-up 3 months",
+          "source": "Methods, p. 1082"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Arterial thrombosis 4 (7) vs .",
+            "intervention": {
+              "n": 0,
+              "N": 59,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 4,
+              "N": 59,
+              "pct": 7.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Arterial Thrombosis 4 (10) vs .",
+            "intervention": {
+              "n": 0,
+              "N": 42,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 4,
+              "N": 42,
+              "pct": 10.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for marginal/ECD livers prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "AKI",
+        "definition": {
+          "criteria": "Acute kidney failure",
+          "timeframe": "Minimum follow-up 3 months",
+          "source": "Methods, p. 1082"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Acute kidney failure 8 (14) vs 5 (8)",
+            "intervention": {
+              "n": 5,
+              "N": 59,
+              "pct": 8.0
+            },
+            "control": {
+              "n": 8,
+              "N": 59,
+              "pct": 14.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Acute Kidney Failure 7 (17) vs 5 (12)",
+            "intervention": {
+              "n": 5,
+              "N": 42,
+              "pct": 12.0
+            },
+            "control": {
+              "n": 7,
+              "N": 42,
+              "pct": 17.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for marginal/ECD livers prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "MC",
+        "definition": {
+          "criteria": "Clavien-Dindo grade IIIb or above",
+          "timeframe": "Minimum follow-up 3 months",
+          "source": "Results, p. 1084"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Clavien Dindo classification... IIIb 12 (20) vs 12 of 57 (21); IVa 17 (29) vs 18 of 57 (32); V 5 (8) vs 7 of 57 (12)",
+            "intervention": {
+              "n": 37,
+              "N": 59,
+              "pct": 62.7
+            },
+            "control": {
+              "n": 34,
+              "N": 59,
+              "pct": 57.6
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Clavien Dindo Classification... IIIb 7 (17) vs 6 (15); IVa 11 (26) vs 13 (32); V 4 (10) vs 6 (15)",
+            "intervention": {
+              "n": 25,
+              "N": 41,
+              "pct": 61.0
+            },
+            "control": {
+              "n": 22,
+              "N": 42,
+              "pct": 52.4
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for marginal/ECD livers prioritized per extraction rules. Definition of MC (IIIb+) follows the authors' primary reporting of severe complications."
+      },
+      {
+        "outcome_name": "Retx",
+        "definition": {
+          "criteria": "Retransplantation",
+          "timeframe": "Minimum follow-up 3 months",
+          "source": "Methods, p. 1082"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Text",
+              "page": 3
+            },
+            "quote": "Of the four patients with arterial thrombosis in the SCS group... one was successfully retransplanted... Two patients were retransplanted... all belonging to the SCS group [due to ITBL].",
+            "intervention": {
+              "n": 0,
+              "N": 59,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 3,
+              "N": 59,
+              "pct": 5.1
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 0,
+        "selection_reason": "Aggregated from text mentions of retransplantation due to HAT and ITBL."
+      }
+    ],
+    "extraction_notes": {
+      "data_quality_concerns": [
+        "The text in the Results section (p. 1084) incorrectly labels absolute counts of Clavien-Dindo IIIb+ complications as percentages (37% vs 34% instead of n=37 vs n=34).",
+        "EAD denominator for the SCS group in Table 3 is 58, while the total matched cohort N is 59."
+      ],
+      "ambiguities": [
+        "Retransplantation count is aggregated from separate text mentions of ITBL-related and HAT-related re-LT."
+      ],
+      "general_notes": "The study provides a detailed subgroup analysis for 'donor-predominant indications' (marginal livers) in the supplementary file, which was prioritized for extraction where available."
+    }
+  }
+}

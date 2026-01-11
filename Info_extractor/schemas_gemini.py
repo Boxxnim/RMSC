@@ -60,6 +60,7 @@ FULL_EXTRACTION_SCHEMA = types.Schema(
                 "n_control": types.Schema(type="INTEGER", description="대조군 환자 수"),
                 "n_total": types.Schema(type="INTEGER", description="총 환자 수"),
                 "donor_type": types.Schema(type="STRING", description="DCD, DBD, ECD-DBD, Mixed 중 하나"),
+                "ecd_criteria": types.Schema(type="STRING", description="ECD 정의 기준 (UNOS criteria, DRI-based, center-specific 등)", nullable=True),
             },
             required=["study_id", "first_author", "year", "study_design", "intervention_type", "n_intervention", "n_control", "n_total", "donor_type"]
         ),

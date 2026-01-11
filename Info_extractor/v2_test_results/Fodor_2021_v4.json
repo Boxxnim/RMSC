@@ -1,0 +1,428 @@
+{
+  "result": {
+    "study_id": "Fodor_2021",
+    "study_design": "NRS",
+    "population": {
+      "type": "Mixed",
+      "subgroup_available": true,
+      "subgroup_used": "Donor-predominant indications (DCD, ECD, steatosis, etc.)",
+      "matching": "PSM 1:1"
+    },
+    "arms": {
+      "intervention": {
+        "name": "NMP",
+        "N": 59
+      },
+      "control": {
+        "name": "SCS",
+        "N": 59
+      }
+    },
+    "outcomes": [
+      {
+        "outcome_name": "EAD",
+        "definition": {
+          "criteria": "Olthoff criteria",
+          "timeframe": "within 7 days",
+          "source": "Methods, p. 1083"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Early allograft dysfunction 20 of 58 (34) [SCS] 19 (32) [NMP]",
+            "intervention": {
+              "n": 19,
+              "N": 59,
+              "pct": 32.0
+            },
+            "control": {
+              "n": 20,
+              "N": 58,
+              "pct": 34.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Early Allograft Dysfunction 41 16 (39) [SCS] 42 15 (36) [NMP]",
+            "intervention": {
+              "n": 15,
+              "N": 42,
+              "pct": 36.0
+            },
+            "control": {
+              "n": 16,
+              "N": 41,
+              "pct": 39.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for donor-predominant indications (ECD/DCD) prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "PNF",
+        "definition": {
+          "criteria": "Not explicitly defined",
+          "timeframe": "Not explicitly defined",
+          "source": "Results, p. 1084"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Text",
+              "page": 3
+            },
+            "quote": "No primary non-function was recorded in the two groups.",
+            "intervention": {
+              "n": 0,
+              "N": 59
+            },
+            "control": {
+              "n": 0,
+              "N": 59
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 0,
+        "selection_reason": "Only mention available."
+      },
+      {
+        "outcome_name": "NAS",
+        "definition": {
+          "criteria": "ITBL: stricture, dilatation or irregularity of the intra- or extrahepatic bile ducts in the absence of hepatic artery stenosis or thrombosis",
+          "timeframe": "Minimum follow-up of 3 months",
+          "source": "Methods, p. 1083"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "ITBL 8 (14) [SCS] 2 (3) [NMP]",
+            "intervention": {
+              "n": 2,
+              "N": 59,
+              "pct": 3.0
+            },
+            "control": {
+              "n": 8,
+              "N": 59,
+              "pct": 14.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Ischemic Type Biliary Lesions (ITBL) 42 6 (14) [SCS] 42 2 (5) [NMP]",
+            "intervention": {
+              "n": 2,
+              "N": 42,
+              "pct": 5.0
+            },
+            "control": {
+              "n": 6,
+              "N": 42,
+              "pct": 14.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for donor-predominant indications (ECD/DCD) prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "TBC",
+        "definition": {
+          "criteria": "Total bile duct complications",
+          "timeframe": "Minimum follow-up of 3 months",
+          "source": "Methods, p. 1083"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Bile duct complications 29 (49) [SCS] 30 (51) [NMP]",
+            "intervention": {
+              "n": 30,
+              "N": 59,
+              "pct": 51.0
+            },
+            "control": {
+              "n": 29,
+              "N": 59,
+              "pct": 49.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Bile Duct Complications 42 20 (48) [SCS] 42 19 (45) [NMP]",
+            "intervention": {
+              "n": 19,
+              "N": 42,
+              "pct": 45.0
+            },
+            "control": {
+              "n": 20,
+              "N": 42,
+              "pct": 48.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for donor-predominant indications (ECD/DCD) prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "HAT",
+        "definition": {
+          "criteria": "Arterial thrombosis",
+          "timeframe": "Minimum follow-up of 3 months",
+          "source": "Methods, p. 1083"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Arterial thrombosis 4 (7) [SCS] . [NMP]",
+            "intervention": {
+              "n": 0,
+              "N": 59,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 4,
+              "N": 59,
+              "pct": 7.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Arterial Thrombosis 42 4 (10) [SCS] 42 . [NMP]",
+            "intervention": {
+              "n": 0,
+              "N": 42,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 4,
+              "N": 42,
+              "pct": 10.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for donor-predominant indications (ECD/DCD) prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "AKI",
+        "definition": {
+          "criteria": "Acute kidney failure",
+          "timeframe": "Not explicitly defined",
+          "source": "Results, Table 3"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Acute kidney failure 8 (14) [SCS] 5 (8) [NMP]",
+            "intervention": {
+              "n": 5,
+              "N": 59,
+              "pct": 8.0
+            },
+            "control": {
+              "n": 8,
+              "N": 59,
+              "pct": 14.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Acute Kidney Failure 42 7 (17) [SCS] 42 5 (12) [NMP]",
+            "intervention": {
+              "n": 5,
+              "N": 42,
+              "pct": 12.0
+            },
+            "control": {
+              "n": 7,
+              "N": 42,
+              "pct": 17.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for donor-predominant indications (ECD/DCD) prioritized per extraction rules."
+      },
+      {
+        "outcome_name": "MC",
+        "definition": {
+          "criteria": "Clavien-Dindo grade IIIb or above",
+          "timeframe": "Not explicitly defined",
+          "source": "Results, p. 1084"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 3",
+              "page": 7
+            },
+            "quote": "Clavien Dindo classification ... IIIb 12 (20) [SCS] 12 of 57 (21) [NMP] ... IVa 17 (29) [SCS] 18 of 57 (32) [NMP] ... V 5 (8) [SCS] 7 of 57 (12) [NMP]",
+            "intervention": {
+              "n": 37,
+              "N": 57,
+              "pct": 64.9
+            },
+            "control": {
+              "n": 34,
+              "N": 59,
+              "pct": 57.6
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Table S7",
+              "page": 15
+            },
+            "quote": "Clavien Dindo Classification ... IIIb 7 (17) [SCS] 6 (15) [NMP] ... IVa 11 (26) [SCS] 13 (32) [NMP] ... V 4 (10) [SCS] 6 (15) [NMP]",
+            "intervention": {
+              "n": 25,
+              "N": 41,
+              "pct": 61.0
+            },
+            "control": {
+              "n": 22,
+              "N": 42,
+              "pct": 52.4
+            },
+            "is_subgroup": true,
+            "subgroup_type": "Donor-predominant indications",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Subgroup data for donor-predominant indications (ECD/DCD) prioritized per extraction rules. Note: N for NMP is 41 in the subgroup table for this outcome."
+      },
+      {
+        "outcome_name": "Retx",
+        "definition": {
+          "criteria": "Liver retransplantation",
+          "timeframe": "1 year",
+          "source": "Results, p. 1084, 1086"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Text",
+              "page": 3
+            },
+            "quote": "Of the four patients with arterial thrombosis in the SCS group... one was successfully retransplanted",
+            "intervention": {
+              "n": 0,
+              "N": 59
+            },
+            "control": {
+              "n": 1,
+              "N": 59
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Results",
+              "element": "Text",
+              "page": 5
+            },
+            "quote": "Two patients were retransplanted ... all belonging to the SCS group [in ITBL section]",
+            "intervention": {
+              "n": 0,
+              "N": 59
+            },
+            "control": {
+              "n": 2,
+              "N": 59
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "Aggregated count from text mentions (1 from HAT + 2 from ITBL = 3 total for SCS)."
+      }
+    ],
+    "extraction_notes": {
+      "data_quality_concerns": [
+        "The paper abstract and text report Clavien-Dindo >= IIIb as 37% vs 34%, but these are actually the raw counts (37/57 and 34/59).",
+        "N for NMP varies in tables (59 vs 57 vs 58) due to missing data for specific outcomes."
+      ],
+      "ambiguities": [],
+      "general_notes": "NAS is extracted as ITBL (Ischaemic-type biliary lesions) as per the study's primary focus. Subgroup data from Supplementary Table S7 (Donor-predominant indications) was prioritized for most outcomes as it aligns with the ECD/DCD focus."
+    }
+  }
+}

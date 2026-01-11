@@ -1,0 +1,266 @@
+{
+  "full_extraction": {
+    "time_metrics": {
+      "cold_ischemia_time_hours": 6.18,
+      "warm_ischemia_time_minutes": 11,
+      "perfusion_initiation": "End-ischemic",
+      "perfusion_time_hours": 2.2,
+      "study_id": "vanRijn_2021"
+    },
+    "outcome_data": {
+      "ead": {
+        "rr": 0.61,
+        "reported": true,
+        "intervention_events": 20,
+        "control_events": 31,
+        "control_total": 78,
+        "definition": "Olthoff criteria: bilirubin ≥10 mg/dL on day 7, INR ≥1.6 on day 7, or ALT/AST >2000 U/L within first 7 days.",
+        "intervention_total": 78,
+        "p_value": 0.03,
+        "source_location": "Table 2, Page 1396"
+      },
+      "nas": {
+        "definition": "Symptomatic nonanastomotic biliary strictures: radiologically confirmed narrowing of donor bile ducts (excluding anastomosis) with clinical symptoms or cholestatic lab elevation, with patent hepatic artery.",
+        "reported": true,
+        "p_value": 0.03,
+        "control_total": 78,
+        "control_events": 14,
+        "source_location": "Table 2, Page 1396; Page 1393",
+        "intervention_events": 5,
+        "intervention_total": 78,
+        "rr": 0.36
+      },
+      "hat": {
+        "control_total": 78,
+        "intervention_total": 78,
+        "source_location": "Table 2, Page 1396",
+        "rr": 0.94,
+        "control_events": 2,
+        "intervention_events": 2,
+        "reported": true
+      },
+      "major_complications": {
+        "reported": false
+      },
+      "follow_up_months": 6,
+      "icu_stay_days": {
+        "control_sd_or_iqr": "1 to 4",
+        "control_value": 2,
+        "reported": true,
+        "intervention_value": 2,
+        "source_location": "Table 2, Page 1396",
+        "intervention_sd_or_iqr": "2 to 5",
+        "measure": "median"
+      },
+      "rrt": {
+        "source_location": "Table 2, Page 1396",
+        "intervention_total": 78,
+        "intervention_events": 7,
+        "rr": 0.79,
+        "reported": true,
+        "definition": "Renal failure leading to dialysis.",
+        "control_total": 78,
+        "control_events": 7
+      },
+      "pnf": {
+        "source_location": "Table 2, Page 1396; Page 1393-1394",
+        "intervention_events": 0,
+        "definition": "Liver failure without identifiable cause necessitating retransplantation or leading to death within 7 days.",
+        "reported": true,
+        "control_total": 78,
+        "intervention_total": 78,
+        "control_events": 1
+      },
+      "prs": {
+        "rr": 0.43,
+        "control_total": 70,
+        "control_events": 19,
+        "definition": ">30% decrease in mean arterial pressure within 10 minutes after reperfusion.",
+        "source_location": "Table 2, Page 1396; Page 1393",
+        "p_value": 0.03,
+        "reported": true,
+        "intervention_total": 72,
+        "intervention_events": 9
+      },
+      "acr": {
+        "reported": false
+      },
+      "graft_survival_1yr": {
+        "source_location": "Page 1394, 1399, 1400",
+        "reported": true
+      },
+      "aki": {
+        "reported": false
+      },
+      "retransplantation": {
+        "definition": "Retransplantation within 6 months.",
+        "rr": 0.49,
+        "control_total": 78,
+        "reported": true,
+        "intervention_total": 78,
+        "source_location": "Table 2, Page 1396",
+        "control_events": 6,
+        "intervention_events": 3
+      },
+      "patient_survival_1yr": {
+        "source_location": "Page 1394, 1399, 1400",
+        "reported": true
+      },
+      "hospital_stay_days": {
+        "control_value": 15,
+        "control_sd_or_iqr": "12 to 26",
+        "measure": "median",
+        "intervention_value": 15,
+        "intervention_sd_or_iqr": "12 to 20",
+        "reported": true,
+        "source_location": "Table 2, Page 1396"
+      },
+      "tbc": {
+        "intervention_total": 78,
+        "control_total": 78,
+        "definition": "Sum of NAS (14), anastomotic strictures (22), and biliary leakage (8).",
+        "reported": true,
+        "intervention_events": 34,
+        "control_events": 44,
+        "source_location": "Table 2, Page 1396"
+      },
+      "study_id": "vanRijn_2021"
+    },
+    "extraction_notes": {
+      "potential_overlaps": [
+        "DHOPE-DCD trial primary publication."
+      ],
+      "unclear_items_for_review": [
+        "ACR is only reported as 'Rejection of transplanted liver' in the adverse events table (Table 4), where the denominator for percentages is the total number of events, not patients. Therefore, patient-level ACR incidence is not clearly reported in the main text."
+      ],
+      "data_quality_concerns": [],
+      "general_notes": "This is a high-quality multicenter RCT (DHOPE-DCD trial) comparing dual hypothermic oxygenated machine perfusion (DHOPE) with static cold storage (SCS) in DCD liver transplantation. The primary outcome was symptomatic NAS at 6 months."
+    },
+    "perfusion_settings": {
+      "cannulation": "Dual (PV+HA)",
+      "temperature_setting": "Hypothermic",
+      "perfusate_type": "Belzer machine-perfusion solution (Bridge to Life) + 3 mmol/L glutathione",
+      "temperature_celsius": 10,
+      "device_name": "Liver Assist (Organ Assist)",
+      "study_id": "vanRijn_2021"
+    },
+    "rob_rct": {
+      "d3_missing_data": {
+        "rationale": "Primary and secondary outcomes were available for all 156 patients who underwent transplantation. Only 4 patients (randomized but not transplanted) were excluded, which is unlikely to bias results.",
+        "judgment": "Low risk",
+        "support_quotes": [
+          "A total of 160 patients were enrolled, of whom 78 received a machine-perfused liver and 78 received a liver after static cold storage only (4 patients did not receive a liver in this trial)."
+        ]
+      },
+      "d5_selection": {
+        "support_quotes": [
+          "The trial protocol, which is available with the full text of this article at NEJM.org, has been published previously.17"
+        ],
+        "judgment": "Low risk",
+        "rationale": "The trial was registered (NCT02584283), the protocol was published in advance, and the reported results align with the pre-specified analysis plan."
+      },
+      "overall_judgment": "Low risk",
+      "overall_rationale": "The study is a well-designed, multicenter RCT with robust randomization, blinding of outcome assessors for the primary endpoint, and complete follow-up for transplanted patients.",
+      "d2_deviations": {
+        "support_quotes": [
+          "Patients and the organ-procurement teams were unaware of the trial-group assignments.",
+          "The trial did not interfere with the regular process of organ allocation or acceptance."
+        ],
+        "judgment": "Low risk",
+        "rationale": "Intention-to-treat analysis was performed. Patients and procurement teams were blinded. Although surgeons could not be blinded to the perfusion method, the trial followed a strict protocol and deviations were minimal."
+      },
+      "d4_measurement": {
+        "support_quotes": [
+          "All the cholangiographies, both in patients who were symptomatic and in those who were asymptomatic, were reviewed by two independent radiologists who were unaware of the preservation method and clinical symptoms."
+        ],
+        "judgment": "Low risk",
+        "rationale": "The primary outcome (NAS) was assessed by two independent radiologists who were blinded to the treatment group and clinical symptoms. This significantly reduces the risk of detection bias."
+      },
+      "d1_randomization": {
+        "judgment": "Low risk",
+        "rationale": "Centralized computer-generated balanced-block randomization with stratification. Allocation sequence was concealed until after donor liver acceptance. Baseline characteristics were well matched.",
+        "support_quotes": [
+          "Centralized balanced-block randomization (in blocks of six) was computer-generated, with stratification according to trial center and primary sclerosing cholangitis as an indication for transplantation (yes or no).",
+          "Randomization took place immediately after a donor liver had been deemed to be suitable and had been accepted by the transplantation surgeon for a recipient."
+        ]
+      },
+      "study_id": "vanRijn_2021"
+    },
+    "study_characteristics": {
+      "donor_type": "DCD",
+      "n_intervention": 78,
+      "study_design": "RCT",
+      "enrollment_period_end": "July 2019",
+      "journal": "The New England Journal of Medicine",
+      "title": "Hypothermic Machine Perfusion in Liver Transplantation — A Randomized Trial",
+      "study_id": "vanRijn_2021",
+      "n_control": 78,
+      "enrollment_period_start": "January 2016",
+      "centers": [
+        "University Medical Center Groningen, Netherlands",
+        "Erasmus University Medical Center, Rotterdam, Netherlands",
+        "Leiden University Medical Center, Netherlands",
+        "Kings College Hospital, London, UK",
+        "University Hospitals Leuven, Belgium",
+        "Ghent University Hospital, Belgium"
+      ],
+      "year": 2021,
+      "n_total": 156,
+      "is_multicenter": true,
+      "first_author": "R. van Rijn",
+      "registry_id": "NCT02584283",
+      "countries": [
+        "Netherlands",
+        "Belgium",
+        "United Kingdom"
+      ],
+      "doi": "10.1056/NEJMoa2031532",
+      "intervention_type": "HOPE",
+      "comparator": "Static Cold Storage (SCS)"
+    }
+  },
+  "rob_information": {
+    "d3_missing_data": {
+      "rationale": "Primary and secondary outcomes were available for all 156 patients who underwent transplantation. Only 4 patients (randomized but not transplanted) were excluded, which is unlikely to bias results.",
+      "judgment": "Low risk",
+      "support_quotes": [
+        "A total of 160 patients were enrolled, of whom 78 received a machine-perfused liver and 78 received a liver after static cold storage only (4 patients did not receive a liver in this trial)."
+      ]
+    },
+    "d5_selection": {
+      "support_quotes": [
+        "The trial protocol, which is available with the full text of this article at NEJM.org, has been published previously.17"
+      ],
+      "judgment": "Low risk",
+      "rationale": "The trial was registered (NCT02584283), the protocol was published in advance, and the reported results align with the pre-specified analysis plan."
+    },
+    "overall_judgment": "Low risk",
+    "overall_rationale": "The study is a well-designed, multicenter RCT with robust randomization, blinding of outcome assessors for the primary endpoint, and complete follow-up for transplanted patients.",
+    "d2_deviations": {
+      "support_quotes": [
+        "Patients and the organ-procurement teams were unaware of the trial-group assignments.",
+        "The trial did not interfere with the regular process of organ allocation or acceptance."
+      ],
+      "judgment": "Low risk",
+      "rationale": "Intention-to-treat analysis was performed. Patients and procurement teams were blinded. Although surgeons could not be blinded to the perfusion method, the trial followed a strict protocol and deviations were minimal."
+    },
+    "d4_measurement": {
+      "support_quotes": [
+        "All the cholangiographies, both in patients who were symptomatic and in those who were asymptomatic, were reviewed by two independent radiologists who were unaware of the preservation method and clinical symptoms."
+      ],
+      "judgment": "Low risk",
+      "rationale": "The primary outcome (NAS) was assessed by two independent radiologists who were blinded to the treatment group and clinical symptoms. This significantly reduces the risk of detection bias."
+    },
+    "d1_randomization": {
+      "judgment": "Low risk",
+      "rationale": "Centralized computer-generated balanced-block randomization with stratification. Allocation sequence was concealed until after donor liver acceptance. Baseline characteristics were well matched.",
+      "support_quotes": [
+        "Centralized balanced-block randomization (in blocks of six) was computer-generated, with stratification according to trial center and primary sclerosing cholangitis as an indication for transplantation (yes or no).",
+        "Randomization took place immediately after a donor liver had been deemed to be suitable and had been accepted by the transplantation surgeon for a recipient."
+      ]
+    },
+    "study_id": "vanRijn_2021"
+  },
+  "study_type": "RCT",
+  "study_id": "vanRijn_2021"
+}

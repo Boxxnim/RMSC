@@ -1,0 +1,582 @@
+{
+  "study_id": "Mergental_2020",
+  "model_name": "gemini-3-flash-preview",
+  "timestamp": "2026-01-11T18:13:44.766495",
+  "conversation_history": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "You are a systematic review data extractor for liver transplantation machine perfusion studies.\n\n## YOUR TASK\nExtract ALL available data from this paper for meta-analysis and assess Risk of Bias.\n\n## WORKFLOW\n1. Read the paper carefully and determine the study design (RCT or NRS)\n2. Call get_rob_skill(study_type, study_id) to get detailed RoB assessment instructions\n3. Extract all data following the returned instructions\n4. Call submit_extraction() with complete results\n\n## STUDY CONTEXT\nThis systematic review compares:\n- HOPE (Hypothermic Oxygenated Perfusion) vs SCS (Static Cold Storage)\n- NMP (Normothermic Machine Perfusion) vs SCS\n- In extended criteria donor (ECD) liver transplantation\n\n## OUTCOME DEFINITIONS AND HETEROGENEITY\nDifferent papers may use different definitions for the same outcome. Handle this as follows:\n1. ALWAYS record the paper's EXACT definition in the 'definition' field\n2. If the paper's definition differs from standard criteria, still extract the data\n3. For composite outcomes (like TBC/Total Biliary Complications), sum ALL component types mentioned\n4. When multiple time points are available, prefer 6 months for NAS, 1 year for survival\n5. If definition is unclear or non-standard, note this in 'extraction_notes.unclear_items_for_review'\n\nCommon definition variations to watch for:\n- EAD: Olthoff criteria vs other criteria (always specify which)\n- NAS: different follow-up periods (6mo, 12mo, etc.)\n- PRS: 20% vs 30% MAP threshold\n- AKI: KDIGO vs RIFLE vs AKIN criteria\n- Major complications: Clavien-Dindo grade threshold\n\n## NRS: MATCHED DATA ONLY\nFor non-randomized studies (NRS):\n1. Extract data from MATCHED cohorts ONLY, not unmatched/entire cohort\n2. If the paper reports both matched and unmatched results, use ONLY the matched results\n3. Record matching details in study_characteristics:\n   - matching_method: PSM, IPTW, case-control, caliper matching, etc.\n   - matching_ratio: 1:1, 1:2, 1:3, etc.\n   - matching_variables: list of variables used (age, MELD, DRI, donor type, etc.)\n4. n_intervention and n_control should reflect the MATCHED sample sizes\n5. If no matching was performed, note this in extraction_notes\n\n## ECD/DCD SUBGROUP PRIORITY\nThis systematic review focuses on EXTENDED CRITERIA DONORS (ECD). \n\n### ECD Definition:\nExtended Criteria Donors include:\n- Age ≥60 years, OR\n- Age 50-60 with 2+ of: hypertension, terminal creatinine >1.5, CVA as cause of death\n- DCD (Donation after Circulatory Death) donors\n- High DRI (Donor Risk Index) donors (typically DRI >1.5 or >1.7)\n\n### Extraction Rules:\n1. If the paper includes both standard and ECD/DCD donors:\n   - PRIORITIZE the DCD or ECD SUBGROUP data over the full cohort\n   - If DCD-specific outcomes are reported separately, use those numbers\n2. If the paper reports results for DCD donors separately (e.g., \"DCD subgroup analysis\"):\n   - Extract from the DCD subgroup, NOT the entire cohort\n3. Record in study_characteristics.donor_type: \"DCD\", \"DBD\", \"ECD-DBD\", or \"Mixed\"\n4. If only pooled data is available (no ECD/DCD breakdown), extract the pooled data \n   and note \"No DCD/ECD subgroup available - using pooled data\" in extraction_notes.general_notes\n\n## UNCERTAINTY FLAGGING\nWhen you encounter ambiguity, FLAG it explicitly:\n1. If MULTIPLE COHORTS exist (e.g., matched vs unmatched, different time periods):\n   - Add to unclear_items_for_review: \"Multiple cohorts: [describe options and which you chose]\"\n2. If N values seem inconsistent across outcomes:\n   - Add to data_quality_concerns: \"N inconsistency: [describe]\"\n3. If outcome definition is unclear:\n   - Add to unclear_items_for_review: \"[Outcome] definition unclear: [describe]\"\n\n## N VALUE CONSISTENCY\n- n_intervention and n_control should be CONSISTENT across all outcomes\n- If you extract EAD with N=50/25, all other outcomes should use the same N\n- If N differs for survival outcomes (due to follow-up), note this in general_notes\n\n## COHORT IDENTIFICATION (CRITICAL FOR OVERLAP DETECTION)\nFor the study_characteristics, you MUST extract these fields for cohort tracking:\n\n1. **enrollment_period_start** and **enrollment_period_end**: \n   - Look for \"patients enrolled between...\", \"study period\", \"from X to Y\"\n   - Format as \"YYYY-MM\" or \"YYYY\" if only year available\n   - Example: \"2018-01\" to \"2020-12\"\n\n2. **centers**: List of transplant centers/hospitals by name\n   - Look in Methods section, typically \"patients were enrolled at...\"\n   - Include city/country if center name alone is ambiguous\n   - Example: [\"University Hospital Zurich\", \"King's College London\"]\n\n3. **registry_id**: Clinical trial registration (NCT number, ISRCTN, etc.)\n   - Look at end of abstract, methods, or supplementary\n   - Include the full ID, e.g., \"NCT02584283\"\n\n4. **countries**: All countries where patients were enrolled\n\nThese are essential for detecting overlapping patient cohorts between studies!\n\n## IMPORTANT\n- Use null for missing values\n- Include source_location for all extracted data points\n- For RCT studies, complete rob_rct in submit_extraction\n- For NRS studies, complete rob_nrs in submit_extraction\n\nStart by identifying the study design and calling get_rob_skill()."
+        }
+      ],
+      "timestamp": "2026-01-11T18:13:44.766595"
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "function_response": {
+            "name": "get_rob_skill",
+            "response": {
+              "instructions": "[SKILL INJECTED]"
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-01-11T18:14:14.331672"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "get_rob_skill",
+            "args": {
+              "study_type": "NRS",
+              "study_id": "Mergental_2020"
+            }
+          },
+          "thought_signature": "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"
+        }
+      ],
+      "timestamp": "2026-01-11T18:14:14.331875"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "submit_extraction",
+            "args": {
+              "time_metrics": {
+                "total_ischemia_intervention": {
+                  "median": 17.88,
+                  "iqr_upper": 21.8,
+                  "iqr_lower": 16.28,
+                  "source": "Table 2, Page 8 (converted from minutes)",
+                  "n": 22
+                },
+                "perfusion_initiation": "Back-to-base (after arrival at transplant centre)",
+                "wit_intervention": {
+                  "n": 10,
+                  "source": "Table 1, Page 5 (DCD only)",
+                  "iqr_upper": 35,
+                  "median": 22.5,
+                  "iqr_lower": 19
+                },
+                "perfusion_duration_intervention": {
+                  "median": 9.78,
+                  "iqr_upper": 11.75,
+                  "iqr_lower": 7.5,
+                  "n": 22,
+                  "source": "Table 2, Page 8 (converted from minutes)"
+                },
+                "cit_intervention": {
+                  "median": 7.53,
+                  "iqr_lower": 5.27,
+                  "source": "Table 2, Page 8 (converted from minutes)",
+                  "n": 22,
+                  "iqr_upper": 10
+                }
+              },
+              "study_characteristics": {
+                "centers": [
+                  "Queen Elizabeth Hospital Birmingham"
+                ],
+                "n_control": 44,
+                "registry_id": "NCT02740608",
+                "n_total": 66,
+                "matching_variables": [
+                  "Donor graft type",
+                  "UKELD Score",
+                  "Donor age",
+                  "Donor sex"
+                ],
+                "donor_type": "Mixed",
+                "study_id": "Mergental_2020",
+                "comparator": "Contemporary matched controls (standard transplantable livers)",
+                "study_design": "Prospective cohort",
+                "first_author": "Hynek Mergental",
+                "matching_method": "Case-control matching",
+                "intervention_type": "NMP",
+                "is_multicenter": false,
+                "journal": "Nature Communications",
+                "matching_ratio": "1:2",
+                "enrollment_period_end": "2018-02",
+                "n_intervention": 22,
+                "countries": [
+                  "UK"
+                ],
+                "doi": "10.1038/s41467-020-16251-3",
+                "enrollment_period_start": "2016-11",
+                "year": 2020,
+                "title": "Transplantation of discarded livers following viability testing with normothermic machine perfusion"
+              },
+              "extraction_notes": {
+                "general_notes": "This is a phase 2 trial (VITTAL) using NMP to assess discarded livers. The intervention group consists of livers that were rejected by all UK centres, while the control group consists of standard transplantable livers matched for donor type, UKELD, age, and sex.",
+                "unclear_items_for_review": [
+                  "PRS and ACR data for the control group are not explicitly reported in the tables."
+                ],
+                "data_quality_concerns": [
+                  "N inconsistency: 31 livers enrolled, but only 22 transplanted. Outcomes are reported for the 22 transplanted livers.",
+                  "Measurement bias: Systematic MRCP was performed in the intervention group but not in the control group for biliary complications."
+                ],
+                "potential_overlaps": [
+                  "Mergental 2016 (Phase 1 pilot)"
+                ]
+              },
+              "perfusion_settings": {
+                "device_name": "OrganOx Metra",
+                "temperature_setting": "Normothermic",
+                "temperature_celsius": 37,
+                "cannulation": "Dual (PV+HA)",
+                "perfusate_type": "Blood-based (packed red cells, colloid, nutrients, medications)"
+              },
+              "outcome_data": {
+                "follow_up_months": 18,
+                "hat": {
+                  "definition": "Hepatic artery thrombosis confirmed by imaging",
+                  "intervention_events": 1,
+                  "intervention_total": 22,
+                  "reported": true,
+                  "source_location": "Page 3 OCR"
+                },
+                "prs": {
+                  "intervention_total": 22,
+                  "intervention_events": 10,
+                  "source_location": "Table 2, Page 8",
+                  "definition": "Decrease in mean arterial pressure (MAP) of more than 30% from the baseline value for more than one minute during the first five minutes after reperfusion",
+                  "reported": true
+                },
+                "patient_survival_1yr": {
+                  "reported": true,
+                  "source_location": "Table 3, Page 8",
+                  "control_percent": 95.5,
+                  "intervention_percent": 100
+                },
+                "acr": {
+                  "reported": false
+                },
+                "ead": {
+                  "source_location": "Table 3, Page 8",
+                  "intervention_events": 7,
+                  "ci_lower": 1.14,
+                  "reported": true,
+                  "control_total": 44,
+                  "control_events": 4,
+                  "definition": "Olthoff criteria: bilirubin ≥10 mg/dL on day 7, INR ≥1.6 on day 7, or ALT/AST >2000 U/L within first 7 days",
+                  "intervention_total": 22,
+                  "rr": 5.62,
+                  "p_value": 0.034,
+                  "ci_upper": 27.79
+                },
+                "retransplantation": {
+                  "intervention_total": 22,
+                  "source_location": "Page 3 OCR",
+                  "intervention_events": 4,
+                  "reported": true
+                },
+                "graft_survival_1yr": {
+                  "reported": true,
+                  "ci_lower": 0.18,
+                  "control_percent": 86.4,
+                  "source_location": "Table 3, Page 8",
+                  "ci_upper": 5.46,
+                  "hr": 1,
+                  "intervention_percent": 86.4,
+                  "p_value": 1
+                },
+                "rrt": {
+                  "p_value": 0.542,
+                  "source_location": "Table 3, Page 8",
+                  "intervention_total": 22,
+                  "definition": "Renal replacement therapy requirement post-transplant",
+                  "control_total": 44,
+                  "control_events": 11,
+                  "reported": true,
+                  "intervention_events": 4,
+                  "rr": 0.68
+                },
+                "aki": {
+                  "intervention_events": 4,
+                  "p_value": 0.542,
+                  "source_location": "Table 3, Page 8",
+                  "intervention_total": 22,
+                  "rr": 0.68,
+                  "reported": true,
+                  "control_total": 44,
+                  "definition": "Renal replacement therapy (RRT) requirement post-transplant",
+                  "control_events": 11
+                },
+                "icu_stay_days": {
+                  "control_sd_or_iqr": "1-5",
+                  "intervention_value": 3.5,
+                  "control_value": 2,
+                  "measure": "median",
+                  "reported": true,
+                  "source_location": "Table 3, Page 8",
+                  "intervention_sd_or_iqr": "3-4"
+                },
+                "tbc": {
+                  "reported": true,
+                  "definition": "Total biliary complications (Anastomotic + Non-anastomotic strictures)",
+                  "intervention_events": 6,
+                  "intervention_total": 22,
+                  "control_events": 4,
+                  "source_location": "Table 3, Page 8",
+                  "control_total": 44
+                },
+                "nas": {
+                  "source_location": "Table 3, Page 8",
+                  "ci_lower": 0.89,
+                  "intervention_total": 22,
+                  "reported": true,
+                  "p_value": 0.063,
+                  "intervention_events": 4,
+                  "ci_upper": 71.58,
+                  "control_events": 1,
+                  "control_total": 44,
+                  "definition": "Non-anastomotic biliary strictures (extra-anastomotic biliary structuring in the absence of hepatic artery thrombosis) assessed by MRCP at 6 months",
+                  "rr": 8
+                },
+                "hospital_stay_days": {
+                  "intervention_value": 10,
+                  "measure": "median",
+                  "intervention_sd_or_iqr": "8-17",
+                  "source_location": "Table 3, Page 8",
+                  "control_value": 9,
+                  "control_sd_or_iqr": "8-11",
+                  "reported": true
+                },
+                "pnf": {
+                  "p_value": 1,
+                  "rr": 1,
+                  "definition": "Irreversible graft dysfunction requiring emergency liver replacement during the first 10 days after liver transplantation, in the absence of technical or immunological causes.",
+                  "control_events": 1,
+                  "intervention_total": 22,
+                  "intervention_events": 0,
+                  "source_location": "Table 3, Page 8",
+                  "reported": true,
+                  "control_total": 44
+                },
+                "major_complications": {
+                  "intervention_events": 7,
+                  "control_events": 17,
+                  "definition": "Clavien-Dindo grade ≥3",
+                  "source_location": "Table 3, Page 8",
+                  "p_value": 0.089,
+                  "control_total": 44,
+                  "reported": true,
+                  "intervention_total": 22
+                }
+              },
+              "rob_nrs": {
+                "overall_rationale": "The study is limited by the inherent difference in organ quality between the intervention (discarded) and control (transplantable) groups, and by the differential assessment of biliary outcomes (systematic MRCP in intervention only).",
+                "overall_judgment": "Moderate",
+                "d2_selection": {
+                  "judgment": "Low",
+                  "rationale": "Prospective enrollment of all eligible discarded livers meeting high-risk criteria."
+                },
+                "d7_selection": {
+                  "rationale": "Outcomes were reported according to the pre-specified protocol.",
+                  "judgment": "Low"
+                },
+                "d4_deviations": {
+                  "rationale": "No significant deviations from the intended intervention were reported.",
+                  "judgment": "Low"
+                },
+                "d3_classification": {
+                  "rationale": "Intervention (NMP) was clearly defined and determined prospectively.",
+                  "judgment": "Low"
+                },
+                "d5_missing_data": {
+                  "rationale": "Complete follow-up for the primary and secondary outcomes.",
+                  "judgment": "Low"
+                },
+                "d1_confounding": {
+                  "rationale": "The study matched for donor type, UKELD, donor age, and sex. However, the intervention group consisted of discarded livers (high DRI), while the control group consisted of transplantable livers. This inherent difference in organ quality is a major confounder that cannot be fully adjusted for.",
+                  "judgment": "Moderate"
+                },
+                "d6_measurement": {
+                  "judgment": "Moderate",
+                  "rationale": "Biliary complications (NAS) were assessed by systematic MRCP in the intervention group but not in the control group, leading to potential detection bias."
+                }
+              }
+            }
+          },
+          "thought_signature": "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"
+        }
+      ],
+      "timestamp": "2026-01-11T18:14:47.776104"
+    }
+  ],
+  "final_result": {
+    "time_metrics": {
+      "total_ischemia_intervention": {
+        "median": 17.88,
+        "iqr_upper": 21.8,
+        "iqr_lower": 16.28,
+        "source": "Table 2, Page 8 (converted from minutes)",
+        "n": 22
+      },
+      "perfusion_initiation": "Back-to-base (after arrival at transplant centre)",
+      "wit_intervention": {
+        "n": 10,
+        "source": "Table 1, Page 5 (DCD only)",
+        "iqr_upper": 35,
+        "median": 22.5,
+        "iqr_lower": 19
+      },
+      "perfusion_duration_intervention": {
+        "median": 9.78,
+        "iqr_upper": 11.75,
+        "iqr_lower": 7.5,
+        "n": 22,
+        "source": "Table 2, Page 8 (converted from minutes)"
+      },
+      "cit_intervention": {
+        "median": 7.53,
+        "iqr_lower": 5.27,
+        "source": "Table 2, Page 8 (converted from minutes)",
+        "n": 22,
+        "iqr_upper": 10
+      }
+    },
+    "study_characteristics": {
+      "centers": [
+        "Queen Elizabeth Hospital Birmingham"
+      ],
+      "n_control": 44,
+      "registry_id": "NCT02740608",
+      "n_total": 66,
+      "matching_variables": [
+        "Donor graft type",
+        "UKELD Score",
+        "Donor age",
+        "Donor sex"
+      ],
+      "donor_type": "Mixed",
+      "study_id": "Mergental_2020",
+      "comparator": "Contemporary matched controls (standard transplantable livers)",
+      "study_design": "Prospective cohort",
+      "first_author": "Hynek Mergental",
+      "matching_method": "Case-control matching",
+      "intervention_type": "NMP",
+      "is_multicenter": false,
+      "journal": "Nature Communications",
+      "matching_ratio": "1:2",
+      "enrollment_period_end": "2018-02",
+      "n_intervention": 22,
+      "countries": [
+        "UK"
+      ],
+      "doi": "10.1038/s41467-020-16251-3",
+      "enrollment_period_start": "2016-11",
+      "year": 2020,
+      "title": "Transplantation of discarded livers following viability testing with normothermic machine perfusion"
+    },
+    "extraction_notes": {
+      "general_notes": "This is a phase 2 trial (VITTAL) using NMP to assess discarded livers. The intervention group consists of livers that were rejected by all UK centres, while the control group consists of standard transplantable livers matched for donor type, UKELD, age, and sex.",
+      "unclear_items_for_review": [
+        "PRS and ACR data for the control group are not explicitly reported in the tables."
+      ],
+      "data_quality_concerns": [
+        "N inconsistency: 31 livers enrolled, but only 22 transplanted. Outcomes are reported for the 22 transplanted livers.",
+        "Measurement bias: Systematic MRCP was performed in the intervention group but not in the control group for biliary complications."
+      ],
+      "potential_overlaps": [
+        "Mergental 2016 (Phase 1 pilot)"
+      ]
+    },
+    "perfusion_settings": {
+      "device_name": "OrganOx Metra",
+      "temperature_setting": "Normothermic",
+      "temperature_celsius": 37,
+      "cannulation": "Dual (PV+HA)",
+      "perfusate_type": "Blood-based (packed red cells, colloid, nutrients, medications)"
+    },
+    "outcome_data": {
+      "follow_up_months": 18,
+      "hat": {
+        "definition": "Hepatic artery thrombosis confirmed by imaging",
+        "intervention_events": 1,
+        "intervention_total": 22,
+        "reported": true,
+        "source_location": "Page 3 OCR"
+      },
+      "prs": {
+        "intervention_total": 22,
+        "intervention_events": 10,
+        "source_location": "Table 2, Page 8",
+        "definition": "Decrease in mean arterial pressure (MAP) of more than 30% from the baseline value for more than one minute during the first five minutes after reperfusion",
+        "reported": true
+      },
+      "patient_survival_1yr": {
+        "reported": true,
+        "source_location": "Table 3, Page 8",
+        "control_percent": 95.5,
+        "intervention_percent": 100
+      },
+      "acr": {
+        "reported": false
+      },
+      "ead": {
+        "source_location": "Table 3, Page 8",
+        "intervention_events": 7,
+        "ci_lower": 1.14,
+        "reported": true,
+        "control_total": 44,
+        "control_events": 4,
+        "definition": "Olthoff criteria: bilirubin ≥10 mg/dL on day 7, INR ≥1.6 on day 7, or ALT/AST >2000 U/L within first 7 days",
+        "intervention_total": 22,
+        "rr": 5.62,
+        "p_value": 0.034,
+        "ci_upper": 27.79
+      },
+      "retransplantation": {
+        "intervention_total": 22,
+        "source_location": "Page 3 OCR",
+        "intervention_events": 4,
+        "reported": true
+      },
+      "graft_survival_1yr": {
+        "reported": true,
+        "ci_lower": 0.18,
+        "control_percent": 86.4,
+        "source_location": "Table 3, Page 8",
+        "ci_upper": 5.46,
+        "hr": 1,
+        "intervention_percent": 86.4,
+        "p_value": 1
+      },
+      "rrt": {
+        "p_value": 0.542,
+        "source_location": "Table 3, Page 8",
+        "intervention_total": 22,
+        "definition": "Renal replacement therapy requirement post-transplant",
+        "control_total": 44,
+        "control_events": 11,
+        "reported": true,
+        "intervention_events": 4,
+        "rr": 0.68
+      },
+      "aki": {
+        "intervention_events": 4,
+        "p_value": 0.542,
+        "source_location": "Table 3, Page 8",
+        "intervention_total": 22,
+        "rr": 0.68,
+        "reported": true,
+        "control_total": 44,
+        "definition": "Renal replacement therapy (RRT) requirement post-transplant",
+        "control_events": 11
+      },
+      "icu_stay_days": {
+        "control_sd_or_iqr": "1-5",
+        "intervention_value": 3.5,
+        "control_value": 2,
+        "measure": "median",
+        "reported": true,
+        "source_location": "Table 3, Page 8",
+        "intervention_sd_or_iqr": "3-4"
+      },
+      "tbc": {
+        "reported": true,
+        "definition": "Total biliary complications (Anastomotic + Non-anastomotic strictures)",
+        "intervention_events": 6,
+        "intervention_total": 22,
+        "control_events": 4,
+        "source_location": "Table 3, Page 8",
+        "control_total": 44
+      },
+      "nas": {
+        "source_location": "Table 3, Page 8",
+        "ci_lower": 0.89,
+        "intervention_total": 22,
+        "reported": true,
+        "p_value": 0.063,
+        "intervention_events": 4,
+        "ci_upper": 71.58,
+        "control_events": 1,
+        "control_total": 44,
+        "definition": "Non-anastomotic biliary strictures (extra-anastomotic biliary structuring in the absence of hepatic artery thrombosis) assessed by MRCP at 6 months",
+        "rr": 8
+      },
+      "hospital_stay_days": {
+        "intervention_value": 10,
+        "measure": "median",
+        "intervention_sd_or_iqr": "8-17",
+        "source_location": "Table 3, Page 8",
+        "control_value": 9,
+        "control_sd_or_iqr": "8-11",
+        "reported": true
+      },
+      "pnf": {
+        "p_value": 1,
+        "rr": 1,
+        "definition": "Irreversible graft dysfunction requiring emergency liver replacement during the first 10 days after liver transplantation, in the absence of technical or immunological causes.",
+        "control_events": 1,
+        "intervention_total": 22,
+        "intervention_events": 0,
+        "source_location": "Table 3, Page 8",
+        "reported": true,
+        "control_total": 44
+      },
+      "major_complications": {
+        "intervention_events": 7,
+        "control_events": 17,
+        "definition": "Clavien-Dindo grade ≥3",
+        "source_location": "Table 3, Page 8",
+        "p_value": 0.089,
+        "control_total": 44,
+        "reported": true,
+        "intervention_total": 22
+      }
+    },
+    "rob_nrs": {
+      "overall_rationale": "The study is limited by the inherent difference in organ quality between the intervention (discarded) and control (transplantable) groups, and by the differential assessment of biliary outcomes (systematic MRCP in intervention only).",
+      "overall_judgment": "Moderate",
+      "d2_selection": {
+        "judgment": "Low",
+        "rationale": "Prospective enrollment of all eligible discarded livers meeting high-risk criteria."
+      },
+      "d7_selection": {
+        "rationale": "Outcomes were reported according to the pre-specified protocol.",
+        "judgment": "Low"
+      },
+      "d4_deviations": {
+        "rationale": "No significant deviations from the intended intervention were reported.",
+        "judgment": "Low"
+      },
+      "d3_classification": {
+        "rationale": "Intervention (NMP) was clearly defined and determined prospectively.",
+        "judgment": "Low"
+      },
+      "d5_missing_data": {
+        "rationale": "Complete follow-up for the primary and secondary outcomes.",
+        "judgment": "Low"
+      },
+      "d1_confounding": {
+        "rationale": "The study matched for donor type, UKELD, donor age, and sex. However, the intervention group consisted of discarded livers (high DRI), while the control group consisted of transplantable livers. This inherent difference in organ quality is a major confounder that cannot be fully adjusted for.",
+        "judgment": "Moderate"
+      },
+      "d6_measurement": {
+        "judgment": "Moderate",
+        "rationale": "Biliary complications (NAS) were assessed by systematic MRCP in the intervention group but not in the control group, leading to potential detection bias."
+      }
+    }
+  },
+  "study_type": "NRS",
+  "pdf_paths": [
+    "/Users/boxx/Desktop/Dev/RMSC/Papers/기존 논문들/10.1038 s41467-020-16251-3/main_s41467-020-16251-3.pdf",
+    "/Users/boxx/Desktop/Dev/RMSC/Papers/기존 논문들/10.1038 s41467-020-16251-3/41467_2020_16251_MOESM1_ESM.pdf"
+  ],
+  "extraction_mode": "tool_calling",
+  "token_usage": {
+    "prompt_tokens": 66885,
+    "output_tokens": 2175,
+    "thoughts_tokens": 2861,
+    "total_tokens": 71921
+  }
+}

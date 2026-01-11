@@ -1,0 +1,522 @@
+{
+  "study_id": "Ghinolfi_2019",
+  "model_name": "gemini-3-flash-preview",
+  "timestamp": "2026-01-11T18:07:53.672340",
+  "conversation_history": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "You are a systematic review data extractor for liver transplantation machine perfusion studies.\n\n## YOUR TASK\nExtract ALL available data from this paper for meta-analysis and assess Risk of Bias.\n\n## WORKFLOW\n1. Read the paper carefully and determine the study design (RCT or NRS)\n2. Call get_rob_skill(study_type, study_id) to get detailed RoB assessment instructions\n3. Extract all data following the returned instructions\n4. Call submit_extraction() with complete results\n\n## STUDY CONTEXT\nThis systematic review compares:\n- HOPE (Hypothermic Oxygenated Perfusion) vs SCS (Static Cold Storage)\n- NMP (Normothermic Machine Perfusion) vs SCS\n- In extended criteria donor (ECD) liver transplantation\n\n## OUTCOME DEFINITIONS AND HETEROGENEITY\nDifferent papers may use different definitions for the same outcome. Handle this as follows:\n1. ALWAYS record the paper's EXACT definition in the 'definition' field\n2. If the paper's definition differs from standard criteria, still extract the data\n3. For composite outcomes (like TBC/Total Biliary Complications), sum ALL component types mentioned\n4. When multiple time points are available, prefer 6 months for NAS, 1 year for survival\n5. If definition is unclear or non-standard, note this in 'extraction_notes.unclear_items_for_review'\n\nCommon definition variations to watch for:\n- EAD: Olthoff criteria vs other criteria (always specify which)\n- NAS: different follow-up periods (6mo, 12mo, etc.)\n- PRS: 20% vs 30% MAP threshold\n- AKI: KDIGO vs RIFLE vs AKIN criteria\n- Major complications: Clavien-Dindo grade threshold\n\n## NRS: MATCHED DATA ONLY\nFor non-randomized studies (NRS):\n1. Extract data from MATCHED cohorts ONLY, not unmatched/entire cohort\n2. If the paper reports both matched and unmatched results, use ONLY the matched results\n3. Record matching details in study_characteristics:\n   - matching_method: PSM, IPTW, case-control, caliper matching, etc.\n   - matching_ratio: 1:1, 1:2, 1:3, etc.\n   - matching_variables: list of variables used (age, MELD, DRI, donor type, etc.)\n4. n_intervention and n_control should reflect the MATCHED sample sizes\n5. If no matching was performed, note this in extraction_notes\n\n## ECD/DCD SUBGROUP PRIORITY\nThis systematic review focuses on EXTENDED CRITERIA DONORS (ECD). \n\n### ECD Definition:\nExtended Criteria Donors include:\n- Age ≥60 years, OR\n- Age 50-60 with 2+ of: hypertension, terminal creatinine >1.5, CVA as cause of death\n- DCD (Donation after Circulatory Death) donors\n- High DRI (Donor Risk Index) donors (typically DRI >1.5 or >1.7)\n\n### Extraction Rules:\n1. If the paper includes both standard and ECD/DCD donors:\n   - PRIORITIZE the DCD or ECD SUBGROUP data over the full cohort\n   - If DCD-specific outcomes are reported separately, use those numbers\n2. If the paper reports results for DCD donors separately (e.g., \"DCD subgroup analysis\"):\n   - Extract from the DCD subgroup, NOT the entire cohort\n3. Record in study_characteristics.donor_type: \"DCD\", \"DBD\", \"ECD-DBD\", or \"Mixed\"\n4. If only pooled data is available (no ECD/DCD breakdown), extract the pooled data \n   and note \"No DCD/ECD subgroup available - using pooled data\" in extraction_notes.general_notes\n\n## UNCERTAINTY FLAGGING\nWhen you encounter ambiguity, FLAG it explicitly:\n1. If MULTIPLE COHORTS exist (e.g., matched vs unmatched, different time periods):\n   - Add to unclear_items_for_review: \"Multiple cohorts: [describe options and which you chose]\"\n2. If N values seem inconsistent across outcomes:\n   - Add to data_quality_concerns: \"N inconsistency: [describe]\"\n3. If outcome definition is unclear:\n   - Add to unclear_items_for_review: \"[Outcome] definition unclear: [describe]\"\n\n## N VALUE CONSISTENCY\n- n_intervention and n_control should be CONSISTENT across all outcomes\n- If you extract EAD with N=50/25, all other outcomes should use the same N\n- If N differs for survival outcomes (due to follow-up), note this in general_notes\n\n## COHORT IDENTIFICATION (CRITICAL FOR OVERLAP DETECTION)\nFor the study_characteristics, you MUST extract these fields for cohort tracking:\n\n1. **enrollment_period_start** and **enrollment_period_end**: \n   - Look for \"patients enrolled between...\", \"study period\", \"from X to Y\"\n   - Format as \"YYYY-MM\" or \"YYYY\" if only year available\n   - Example: \"2018-01\" to \"2020-12\"\n\n2. **centers**: List of transplant centers/hospitals by name\n   - Look in Methods section, typically \"patients were enrolled at...\"\n   - Include city/country if center name alone is ambiguous\n   - Example: [\"University Hospital Zurich\", \"King's College London\"]\n\n3. **registry_id**: Clinical trial registration (NCT number, ISRCTN, etc.)\n   - Look at end of abstract, methods, or supplementary\n   - Include the full ID, e.g., \"NCT02584283\"\n\n4. **countries**: All countries where patients were enrolled\n\nThese are essential for detecting overlapping patient cohorts between studies!\n\n## IMPORTANT\n- Use null for missing values\n- Include source_location for all extracted data points\n- For RCT studies, complete rob_rct in submit_extraction\n- For NRS studies, complete rob_nrs in submit_extraction\n\nStart by identifying the study design and calling get_rob_skill()."
+        }
+      ],
+      "timestamp": "2026-01-11T18:07:53.673778"
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "function_response": {
+            "name": "get_rob_skill",
+            "response": {
+              "instructions": "[SKILL INJECTED]"
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-01-11T18:08:05.255350"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "get_rob_skill",
+            "args": {
+              "study_type": "RCT",
+              "study_id": "Ghinolfi_2019"
+            }
+          },
+          "thought_signature": "Er4GCrsGAXLI2nwBLEW9Kmdir6YaZZ/tbAsV02v6b/kPBX4PvVdUeXfavucTgi/SCuqS+9pBOu67+WLEmeeZu+QaQkm/frR6NjqehtMUMq8gI5PRD5PuSTGOXuVlC5Ljx3vqyuKiUxVR6WReKGT/JQ3X8Z9zy+VJopStYVH3tPe9vXoOLBK3FLmH/VFssvi3khbCvWI1CSA8k3b4+9fTUHiGCSRRmHR3P5JT/yqBGklwrhHCcl26aJur7RVOU+1XGb5y/O+NzKpMjw9JfPt0KFL2aAvy68ozi40/WDvu1WbYoW+XnHis6RSs+e1boj7yusuQHLVwfxxrtDZZa295CKnl+pwOtQvoHnIBquyiKm3LH4UrChXFPsfjdCbKiixPxMhKh0OVFHP8lQVVfkatDE3ISLGvqy1VSSJBPEH5qaqrxcwe7uz0KYzqRZ/N6f+8WmQSvDtOb9fxcL6RIseAExn4A2NcQVGdmFeTNvnrGk620U2fpmjZasJx2AenUfeygZK1KVzdE78Fm7meefPpHWBIFyRNq0BrYH/b0yAVtP6zMPHQPhkZ9AcXn2OY+m2mITHncdQRyTkULW2XXQUrhllaf36lWI7CPPq6O1lyN0ZdPoi/jvwEfpfmWujHIV0qcnAPg9MJauaDN3aYQyVZGLdrqpUcoKMpYdh80YlY3Zj0RjLWkgYS1wQsKMvfIyJYewK7kZeC1rNBm3OcSbN+bA+uLesMMeWdKiqoyqeY3B8kjBiaIY08amXbbVNc9dbbOvk5l6MT4l09uTiXmD6+viMz1vwjj5rKEXBs0FSR7x05sYvqLmq9x8lF/ULtnB950qFa9THGkNN0RanBSTz3L2sty6Sg5PdBMx7pdTKYSzp14Izey9PDUAygPJV6oxiqkNaC+Sva+Xgv3IDsOUI6bQDrzr6aMuTd6bigHEXT1ykDrlXZAW52RfbsQ5aYmIdOGguZb5M6vw77hqKquC0Yt0hbJrUcYu9nJzpLQGlYpASnUKXLbYIrTvm0ipugGoSr/Tq0Io/5Mg+541dLWROHg7IntrQDVb7JyUOVPrruTNZcOuPCeAqvJrDpQHlYovwsBEqrQh8vbOmc+aoAi07Uj6A="
+        }
+      ],
+      "timestamp": "2026-01-11T18:08:05.255537"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "submit_extraction",
+            "args": {
+              "time_metrics": {
+                "hospital_stay_control": {
+                  "source": "Table 4",
+                  "median": 12,
+                  "iqr_lower": 11,
+                  "n": 10,
+                  "iqr_upper": 15
+                },
+                "wit_control": {
+                  "n": 10,
+                  "source": "Table 1",
+                  "median": 69
+                },
+                "hospital_stay_intervention": {
+                  "iqr_upper": 22,
+                  "n": 10,
+                  "median": 17,
+                  "source": "Table 4",
+                  "iqr_lower": 14
+                },
+                "perfusion_duration_intervention": {
+                  "n": 10,
+                  "source": "Table 1 (250 min)",
+                  "iqr_upper": 4.7,
+                  "iqr_lower": 3.25,
+                  "median": 4.167
+                },
+                "cit_control": {
+                  "median": 6.567,
+                  "n": 10,
+                  "source": "Table 1 (394 min)"
+                },
+                "perfusion_initiation": "Back-to-base",
+                "wit_intervention": {
+                  "median": 74,
+                  "n": 10,
+                  "source": "Table 1"
+                },
+                "total_ischemia_control": {
+                  "n": 10,
+                  "source": "Table 1 (394 min)",
+                  "median": 6.567
+                },
+                "total_ischemia_intervention": {
+                  "median": 4.667,
+                  "n": 10,
+                  "source": "Table 1 (280 min)"
+                },
+                "cit_intervention": {
+                  "source": "Table 1 (246.5 min)",
+                  "n": 10,
+                  "median": 4.108
+                }
+              },
+              "perfusion_settings": {
+                "device_name": "LiverAssist (OrganAssist)",
+                "perfusate_type": "Blood-based (RBCs, Gelofusine, Albumin)",
+                "cannulation": "Dual (PV+HA)",
+                "temperature_celsius": 37,
+                "temperature_setting": "Normothermic"
+              },
+              "rob_rct": {
+                "overall_rationale": "The study is a well-conducted pilot RCT with clear randomization and concealment procedures, no missing data, and objective outcome measurement.",
+                "overall_judgment": "Low risk",
+                "d3_missing_data": {
+                  "rationale": "All randomized participants (10 per group) were included in the analysis for all outcomes.",
+                  "support_quotes": [
+                    "There were 20 patients who were enrolled in the study, and 10 were randomized in each group."
+                  ],
+                  "judgment": "Low risk"
+                },
+                "d1_randomization": {
+                  "rationale": "Randomization sequence was generated by a third party and concealment was maintained using sealed envelopes. Baseline characteristics were comparable.",
+                  "judgment": "Low risk",
+                  "support_quotes": [
+                    "Block randomization was with sealed envelopes prepared by a third party and opened once the graft was deemed fit for transplantation."
+                  ]
+                },
+                "d5_selection": {
+                  "judgment": "Low risk",
+                  "rationale": "The results reported align with the pre-specified primary and secondary endpoints in the methods section."
+                },
+                "d2_deviations": {
+                  "support_quotes": [
+                    "This was a pilot, open, single-center, randomized, and prospective trial..."
+                  ],
+                  "judgment": "Low risk",
+                  "rationale": "Although the study was open-label, there were no reported deviations from the intended interventions that would bias the results. Analysis was by intention-to-treat."
+                },
+                "d4_measurement": {
+                  "judgment": "Low risk",
+                  "rationale": "Outcomes like EAD, PNF, and survival are objective. Biliary complications were assessed by imaging/ERCP. Knowledge of the intervention is unlikely to have influenced these measurements."
+                }
+              },
+              "outcome_data": {
+                "rrt": {
+                  "reported": false
+                },
+                "hat": {
+                  "source_location": "Table 4, Page 445",
+                  "control_total": 10,
+                  "intervention_events": 1,
+                  "intervention_total": 10,
+                  "control_events": 0,
+                  "reported": true
+                },
+                "retransplantation": {
+                  "control_events": 0,
+                  "source_location": "Page 442, Table 4",
+                  "reported": true,
+                  "intervention_total": 10,
+                  "control_total": 10,
+                  "intervention_events": 1
+                },
+                "follow_up_months": 12,
+                "prs": {
+                  "source_location": "Table 4, Page 445",
+                  "definition": ">30% decrease in mean arterial pressure within 5-10 minutes after reperfusion, lasting at least 1 minute",
+                  "control_total": 10,
+                  "control_events": 1,
+                  "reported": true,
+                  "intervention_total": 10,
+                  "intervention_events": 3
+                },
+                "patient_survival_1yr": {
+                  "intervention_percent": 100,
+                  "reported": true,
+                  "control_percent": 90,
+                  "source_location": "Page 442, Table 4"
+                },
+                "tbc": {
+                  "control_events": 0,
+                  "intervention_events": 1,
+                  "intervention_total": 10,
+                  "source_location": "Table 4, Page 445",
+                  "control_total": 10,
+                  "reported": true
+                },
+                "graft_survival_1yr": {
+                  "control_percent": 100,
+                  "reported": true,
+                  "p_value": 1,
+                  "source_location": "Page 442, Table 4",
+                  "intervention_percent": 90
+                },
+                "pnf": {
+                  "intervention_total": 10,
+                  "control_events": 0,
+                  "source_location": "Table 4, Page 445",
+                  "control_total": 10,
+                  "reported": true,
+                  "intervention_events": 0
+                },
+                "hospital_stay_days": {
+                  "reported": true,
+                  "control_sd_or_iqr": "11-15",
+                  "intervention_value": 17,
+                  "control_value": 12,
+                  "measure": "median",
+                  "source_location": "Table 4, Page 445",
+                  "intervention_sd_or_iqr": "14.0-22"
+                },
+                "icu_stay_days": {
+                  "reported": false
+                },
+                "aki": {
+                  "reported": false
+                },
+                "major_complications": {
+                  "reported": false
+                },
+                "acr": {
+                  "reported": false
+                },
+                "ead": {
+                  "source_location": "Table 4, Page 445",
+                  "definition": "Olthoff criteria: bilirubin >=10 mg/dL on day 7, INR >=1.6 on day 7, or ALT/AST >2000 U/L within first 7 days",
+                  "intervention_total": 10,
+                  "control_total": 10,
+                  "control_events": 1,
+                  "intervention_events": 2,
+                  "reported": true
+                },
+                "nas": {
+                  "intervention_events": 1,
+                  "reported": true,
+                  "control_events": 0,
+                  "definition": "ITBL: any donor biliary tract with nonanastomotic stenosis requiring an endoscopic or radiological procedure in the absence of vascular complications. One NMP patient had biliary casts.",
+                  "control_total": 10,
+                  "source_location": "Page 442, Table 4",
+                  "intervention_total": 10
+                }
+              },
+              "extraction_notes": {
+                "data_quality_concerns": [],
+                "general_notes": "Pilot RCT comparing NMP to CS in older donors (>=70 years). Small sample size (N=20). One patient in NMP group had HAT and was retransplanted. One patient in CS group died of sepsis. Biliary casts in one NMP patient counted as NAS/ITBL based on paper's definition.",
+                "potential_overlaps": [],
+                "unclear_items_for_review": []
+              },
+              "study_characteristics": {
+                "year": 2019,
+                "first_author": "Davide Ghinolfi",
+                "title": "Pilot, Open, Randomized, Prospective Trial for Normothermic Machine Perfusion Evaluation in Liver Transplantation From Older Donors",
+                "centers": [
+                  "University of Pisa Medical School Hospital"
+                ],
+                "intervention_type": "NMP",
+                "countries": [
+                  "Italy"
+                ],
+                "n_total": 20,
+                "doi": "10.1002/lt.25362",
+                "is_multicenter": false,
+                "enrollment_period_end": "2017-04",
+                "comparator": "Cold Storage (CS)",
+                "donor_type": "ECD-DBD",
+                "n_intervention": 10,
+                "study_id": "Ghinolfi_2019",
+                "journal": "Liver Transplantation",
+                "registry_id": "NCT02940600",
+                "study_design": "RCT",
+                "enrollment_period_start": "2016-09",
+                "n_control": 10
+              }
+            }
+          },
+          "thought_signature": "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"
+        }
+      ],
+      "timestamp": "2026-01-11T18:08:59.126770"
+    }
+  ],
+  "final_result": {
+    "time_metrics": {
+      "hospital_stay_control": {
+        "source": "Table 4",
+        "median": 12,
+        "iqr_lower": 11,
+        "n": 10,
+        "iqr_upper": 15
+      },
+      "wit_control": {
+        "n": 10,
+        "source": "Table 1",
+        "median": 69
+      },
+      "hospital_stay_intervention": {
+        "iqr_upper": 22,
+        "n": 10,
+        "median": 17,
+        "source": "Table 4",
+        "iqr_lower": 14
+      },
+      "perfusion_duration_intervention": {
+        "n": 10,
+        "source": "Table 1 (250 min)",
+        "iqr_upper": 4.7,
+        "iqr_lower": 3.25,
+        "median": 4.167
+      },
+      "cit_control": {
+        "median": 6.567,
+        "n": 10,
+        "source": "Table 1 (394 min)"
+      },
+      "perfusion_initiation": "Back-to-base",
+      "wit_intervention": {
+        "median": 74,
+        "n": 10,
+        "source": "Table 1"
+      },
+      "total_ischemia_control": {
+        "n": 10,
+        "source": "Table 1 (394 min)",
+        "median": 6.567
+      },
+      "total_ischemia_intervention": {
+        "median": 4.667,
+        "n": 10,
+        "source": "Table 1 (280 min)"
+      },
+      "cit_intervention": {
+        "source": "Table 1 (246.5 min)",
+        "n": 10,
+        "median": 4.108
+      }
+    },
+    "perfusion_settings": {
+      "device_name": "LiverAssist (OrganAssist)",
+      "perfusate_type": "Blood-based (RBCs, Gelofusine, Albumin)",
+      "cannulation": "Dual (PV+HA)",
+      "temperature_celsius": 37,
+      "temperature_setting": "Normothermic"
+    },
+    "rob_rct": {
+      "overall_rationale": "The study is a well-conducted pilot RCT with clear randomization and concealment procedures, no missing data, and objective outcome measurement.",
+      "overall_judgment": "Low risk",
+      "d3_missing_data": {
+        "rationale": "All randomized participants (10 per group) were included in the analysis for all outcomes.",
+        "support_quotes": [
+          "There were 20 patients who were enrolled in the study, and 10 were randomized in each group."
+        ],
+        "judgment": "Low risk"
+      },
+      "d1_randomization": {
+        "rationale": "Randomization sequence was generated by a third party and concealment was maintained using sealed envelopes. Baseline characteristics were comparable.",
+        "judgment": "Low risk",
+        "support_quotes": [
+          "Block randomization was with sealed envelopes prepared by a third party and opened once the graft was deemed fit for transplantation."
+        ]
+      },
+      "d5_selection": {
+        "judgment": "Low risk",
+        "rationale": "The results reported align with the pre-specified primary and secondary endpoints in the methods section."
+      },
+      "d2_deviations": {
+        "support_quotes": [
+          "This was a pilot, open, single-center, randomized, and prospective trial..."
+        ],
+        "judgment": "Low risk",
+        "rationale": "Although the study was open-label, there were no reported deviations from the intended interventions that would bias the results. Analysis was by intention-to-treat."
+      },
+      "d4_measurement": {
+        "judgment": "Low risk",
+        "rationale": "Outcomes like EAD, PNF, and survival are objective. Biliary complications were assessed by imaging/ERCP. Knowledge of the intervention is unlikely to have influenced these measurements."
+      }
+    },
+    "outcome_data": {
+      "rrt": {
+        "reported": false
+      },
+      "hat": {
+        "source_location": "Table 4, Page 445",
+        "control_total": 10,
+        "intervention_events": 1,
+        "intervention_total": 10,
+        "control_events": 0,
+        "reported": true
+      },
+      "retransplantation": {
+        "control_events": 0,
+        "source_location": "Page 442, Table 4",
+        "reported": true,
+        "intervention_total": 10,
+        "control_total": 10,
+        "intervention_events": 1
+      },
+      "follow_up_months": 12,
+      "prs": {
+        "source_location": "Table 4, Page 445",
+        "definition": ">30% decrease in mean arterial pressure within 5-10 minutes after reperfusion, lasting at least 1 minute",
+        "control_total": 10,
+        "control_events": 1,
+        "reported": true,
+        "intervention_total": 10,
+        "intervention_events": 3
+      },
+      "patient_survival_1yr": {
+        "intervention_percent": 100,
+        "reported": true,
+        "control_percent": 90,
+        "source_location": "Page 442, Table 4"
+      },
+      "tbc": {
+        "control_events": 0,
+        "intervention_events": 1,
+        "intervention_total": 10,
+        "source_location": "Table 4, Page 445",
+        "control_total": 10,
+        "reported": true
+      },
+      "graft_survival_1yr": {
+        "control_percent": 100,
+        "reported": true,
+        "p_value": 1,
+        "source_location": "Page 442, Table 4",
+        "intervention_percent": 90
+      },
+      "pnf": {
+        "intervention_total": 10,
+        "control_events": 0,
+        "source_location": "Table 4, Page 445",
+        "control_total": 10,
+        "reported": true,
+        "intervention_events": 0
+      },
+      "hospital_stay_days": {
+        "reported": true,
+        "control_sd_or_iqr": "11-15",
+        "intervention_value": 17,
+        "control_value": 12,
+        "measure": "median",
+        "source_location": "Table 4, Page 445",
+        "intervention_sd_or_iqr": "14.0-22"
+      },
+      "icu_stay_days": {
+        "reported": false
+      },
+      "aki": {
+        "reported": false
+      },
+      "major_complications": {
+        "reported": false
+      },
+      "acr": {
+        "reported": false
+      },
+      "ead": {
+        "source_location": "Table 4, Page 445",
+        "definition": "Olthoff criteria: bilirubin >=10 mg/dL on day 7, INR >=1.6 on day 7, or ALT/AST >2000 U/L within first 7 days",
+        "intervention_total": 10,
+        "control_total": 10,
+        "control_events": 1,
+        "intervention_events": 2,
+        "reported": true
+      },
+      "nas": {
+        "intervention_events": 1,
+        "reported": true,
+        "control_events": 0,
+        "definition": "ITBL: any donor biliary tract with nonanastomotic stenosis requiring an endoscopic or radiological procedure in the absence of vascular complications. One NMP patient had biliary casts.",
+        "control_total": 10,
+        "source_location": "Page 442, Table 4",
+        "intervention_total": 10
+      }
+    },
+    "extraction_notes": {
+      "data_quality_concerns": [],
+      "general_notes": "Pilot RCT comparing NMP to CS in older donors (>=70 years). Small sample size (N=20). One patient in NMP group had HAT and was retransplanted. One patient in CS group died of sepsis. Biliary casts in one NMP patient counted as NAS/ITBL based on paper's definition.",
+      "potential_overlaps": [],
+      "unclear_items_for_review": []
+    },
+    "study_characteristics": {
+      "year": 2019,
+      "first_author": "Davide Ghinolfi",
+      "title": "Pilot, Open, Randomized, Prospective Trial for Normothermic Machine Perfusion Evaluation in Liver Transplantation From Older Donors",
+      "centers": [
+        "University of Pisa Medical School Hospital"
+      ],
+      "intervention_type": "NMP",
+      "countries": [
+        "Italy"
+      ],
+      "n_total": 20,
+      "doi": "10.1002/lt.25362",
+      "is_multicenter": false,
+      "enrollment_period_end": "2017-04",
+      "comparator": "Cold Storage (CS)",
+      "donor_type": "ECD-DBD",
+      "n_intervention": 10,
+      "study_id": "Ghinolfi_2019",
+      "journal": "Liver Transplantation",
+      "registry_id": "NCT02940600",
+      "study_design": "RCT",
+      "enrollment_period_start": "2016-09",
+      "n_control": 10
+    }
+  },
+  "study_type": "RCT",
+  "pdf_paths": [
+    "/Users/boxx/Desktop/Dev/RMSC/Papers/기존 논문들/10.1002 lt.25362/main_pilot,_open,_randomized,_prospective_trial_for.14.pdf",
+    "/Users/boxx/Desktop/Dev/RMSC/Papers/기존 논문들/10.1002 lt.25362/application-vnd.openxmlformats-officedocument.wordprocessingml.pdf"
+  ],
+  "extraction_mode": "tool_calling",
+  "token_usage": {
+    "prompt_tokens": 22499,
+    "output_tokens": 1775,
+    "thoughts_tokens": 8190,
+    "total_tokens": 32464
+  }
+}

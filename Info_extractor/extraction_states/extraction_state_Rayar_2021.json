@@ -1,0 +1,613 @@
+{
+  "study_id": "Rayar_2021",
+  "model_name": "gemini-3-flash-preview",
+  "timestamp": "2026-01-11T18:09:01.202311",
+  "conversation_history": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "You are a systematic review data extractor for liver transplantation machine perfusion studies.\n\n## YOUR TASK\nExtract ALL available data from this paper for meta-analysis and assess Risk of Bias.\n\n## WORKFLOW\n1. Read the paper carefully and determine the study design (RCT or NRS)\n2. Call get_rob_skill(study_type, study_id) to get detailed RoB assessment instructions\n3. Extract all data following the returned instructions\n4. Call submit_extraction() with complete results\n\n## STUDY CONTEXT\nThis systematic review compares:\n- HOPE (Hypothermic Oxygenated Perfusion) vs SCS (Static Cold Storage)\n- NMP (Normothermic Machine Perfusion) vs SCS\n- In extended criteria donor (ECD) liver transplantation\n\n## OUTCOME DEFINITIONS AND HETEROGENEITY\nDifferent papers may use different definitions for the same outcome. Handle this as follows:\n1. ALWAYS record the paper's EXACT definition in the 'definition' field\n2. If the paper's definition differs from standard criteria, still extract the data\n3. For composite outcomes (like TBC/Total Biliary Complications), sum ALL component types mentioned\n4. When multiple time points are available, prefer 6 months for NAS, 1 year for survival\n5. If definition is unclear or non-standard, note this in 'extraction_notes.unclear_items_for_review'\n\nCommon definition variations to watch for:\n- EAD: Olthoff criteria vs other criteria (always specify which)\n- NAS: different follow-up periods (6mo, 12mo, etc.)\n- PRS: 20% vs 30% MAP threshold\n- AKI: KDIGO vs RIFLE vs AKIN criteria\n- Major complications: Clavien-Dindo grade threshold\n\n## NRS: MATCHED DATA ONLY\nFor non-randomized studies (NRS):\n1. Extract data from MATCHED cohorts ONLY, not unmatched/entire cohort\n2. If the paper reports both matched and unmatched results, use ONLY the matched results\n3. Record matching details in study_characteristics:\n   - matching_method: PSM, IPTW, case-control, caliper matching, etc.\n   - matching_ratio: 1:1, 1:2, 1:3, etc.\n   - matching_variables: list of variables used (age, MELD, DRI, donor type, etc.)\n4. n_intervention and n_control should reflect the MATCHED sample sizes\n5. If no matching was performed, note this in extraction_notes\n\n## ECD/DCD SUBGROUP PRIORITY\nThis systematic review focuses on EXTENDED CRITERIA DONORS (ECD). \n\n### ECD Definition:\nExtended Criteria Donors include:\n- Age ≥60 years, OR\n- Age 50-60 with 2+ of: hypertension, terminal creatinine >1.5, CVA as cause of death\n- DCD (Donation after Circulatory Death) donors\n- High DRI (Donor Risk Index) donors (typically DRI >1.5 or >1.7)\n\n### Extraction Rules:\n1. If the paper includes both standard and ECD/DCD donors:\n   - PRIORITIZE the DCD or ECD SUBGROUP data over the full cohort\n   - If DCD-specific outcomes are reported separately, use those numbers\n2. If the paper reports results for DCD donors separately (e.g., \"DCD subgroup analysis\"):\n   - Extract from the DCD subgroup, NOT the entire cohort\n3. Record in study_characteristics.donor_type: \"DCD\", \"DBD\", \"ECD-DBD\", or \"Mixed\"\n4. If only pooled data is available (no ECD/DCD breakdown), extract the pooled data \n   and note \"No DCD/ECD subgroup available - using pooled data\" in extraction_notes.general_notes\n\n## UNCERTAINTY FLAGGING\nWhen you encounter ambiguity, FLAG it explicitly:\n1. If MULTIPLE COHORTS exist (e.g., matched vs unmatched, different time periods):\n   - Add to unclear_items_for_review: \"Multiple cohorts: [describe options and which you chose]\"\n2. If N values seem inconsistent across outcomes:\n   - Add to data_quality_concerns: \"N inconsistency: [describe]\"\n3. If outcome definition is unclear:\n   - Add to unclear_items_for_review: \"[Outcome] definition unclear: [describe]\"\n\n## N VALUE CONSISTENCY\n- n_intervention and n_control should be CONSISTENT across all outcomes\n- If you extract EAD with N=50/25, all other outcomes should use the same N\n- If N differs for survival outcomes (due to follow-up), note this in general_notes\n\n## COHORT IDENTIFICATION (CRITICAL FOR OVERLAP DETECTION)\nFor the study_characteristics, you MUST extract these fields for cohort tracking:\n\n1. **enrollment_period_start** and **enrollment_period_end**: \n   - Look for \"patients enrolled between...\", \"study period\", \"from X to Y\"\n   - Format as \"YYYY-MM\" or \"YYYY\" if only year available\n   - Example: \"2018-01\" to \"2020-12\"\n\n2. **centers**: List of transplant centers/hospitals by name\n   - Look in Methods section, typically \"patients were enrolled at...\"\n   - Include city/country if center name alone is ambiguous\n   - Example: [\"University Hospital Zurich\", \"King's College London\"]\n\n3. **registry_id**: Clinical trial registration (NCT number, ISRCTN, etc.)\n   - Look at end of abstract, methods, or supplementary\n   - Include the full ID, e.g., \"NCT02584283\"\n\n4. **countries**: All countries where patients were enrolled\n\nThese are essential for detecting overlapping patient cohorts between studies!\n\n## IMPORTANT\n- Use null for missing values\n- Include source_location for all extracted data points\n- For RCT studies, complete rob_rct in submit_extraction\n- For NRS studies, complete rob_nrs in submit_extraction\n\nStart by identifying the study design and calling get_rob_skill()."
+        }
+      ],
+      "timestamp": "2026-01-11T18:09:01.202343"
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "function_response": {
+            "name": "get_rob_skill",
+            "response": {
+              "instructions": "[SKILL INJECTED]"
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-01-11T18:09:08.052081"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "get_rob_skill",
+            "args": {
+              "study_type": "NRS",
+              "study_id": "Rayar_2021"
+            }
+          },
+          "thought_signature": "Ep0LCpoLAXLI2ny+aWjf2jGnvJcsMCFwfJqPxeCru7KwzDkGfeeKWIUbpUiHf3uvj4CFxQ4mzhlxkUBhdCxpmKkgAM5NtJn9gzPwhhJ4RgIRiRJqrW60yErI4IwrHkU4X2n6Y4sm4mC3TMsMFWcT2ZuS4kXEa+NOINGXxnsFWz6Hy0ybZzhJzmPpr48qVxFbTDFRcD+L9wfDAM+hGfwUpLFQRKOGIo2XNFqRKxOyfkKW+J+PUr69qeoM7sJepsMlidlRRcsjl2RfOyB5jPbOsIPK7p8C9l/fb4y3UJw5HF/NjDhApKCyjZ8kTrFNXA41arAu/DWfnpSbTD2tbmTIK4zgLcIZCAv9lKJTeZieyVy3gfWD/hpaWPTKbmejS8nRayj+ASkUadJRHvKiDI/m9dpVZpVO7UrHfKWTjse5llw3Pz8yLo3GdWz6PjR3RsW8OZYsv9r0yQqRud+NngCMq14G5raj4MvKJ5rcmmLOSCuO1NZ0oF8/BFuSiXxmNokyBe/tVim1X4Enl55pv1eb4RoMQM3piQ5OgV+O1eBQyL8glPlM2MmRa30UoRVf8nQXOG0jgvaqoo2QnEm2ADZHMsbHSbKjKluAfZ79R+xEFe3ZYKd6E+rmllMeZetZWVXQohobavM2UJ/Kci7+xi2GLjRX7U44tRt0itMOjqAA2o1F3zIrxCHwgliamtEVW9anfcXZNmK0jZyWFlyweJYNYiKhVpopf4LKXFEkPClDzYHOXhVQcMlH/N2/XrxvBzOqGw7nmFFhBShyAfF2Lghs/igkK6BRKrgxkBUW/agHiNs80W3oz4ajdsvgsiLkfQ6dsn50o9Vu7PFZnUUTYGVbt/gEFsTk2KFyzQZJPViSExL8L0G1z2+Myi8HoYTCkpnmyBbfuXTeaeB5FjmywNSLAbAEQGEdezRg3ZO9xf9/O9/UTdBSWWg1uJDuTQHn1kSRFzh4Bklp0tl9QgneKl5SdSPRA8d40QXMO7f5xrZsdipXEcilapEpAOWu8MWeFPXNwvwxfZBxTcTjEVkzlL0/KyoMY3QYw3TCZCqaQ3Mb5EBRyM7sKfokjIdb0+IMMLQguUia06IRKLR8tLLMzOuf6pObGwA27pLecVI4eJyxbEEUw3sLWawwFnDYESh2FUz8CBritOPRZJ8tgBODh9XClBYs4xmM8fXDyd35O30K6+A9RdpXAwyB9fP8Ueq/wTu46PPJIGTzZaAj54X0/Qr29Ka95b9+fiizrj5mP4bn/ZkW4GH4fjxyvG2quvEe+7/fTPRU4Plooa01uB0MolH0hWQmM46iTiDQfb5hTNDQjiG3xN/veFJ8+k0aUoreo7G/sF4rXtIfdEOMJiPlG2NgrlBGHl4k+QBJm8FFQBfZqcCpRpvIp7Bvpkp2T9lSH+G2zJAYZENbHCLrmK1yCsWbFMo10NlSmeEgmWjL7BfBRh6KA/Z3Q2f+D4DLUSR0O8RnJUb+95zxrGrU3M85WqOtp8G57qVtgRPguNzZUqSYQxf1L3hzYcJqx9Wip7+LsKp04rDWh7KZO8xFNNvnCAefQRgrCyegHJ0PyJTkc1FOopQRfDpfwbYgjDMt007uc6Sm25FM5Hht1PGQ2xvACftDS9HVLQ5CnyyIlTaqNZcm0l7jcD2SmeIHyWODbTKUVeG4XsM+j+XMLmXqMsyX9GdMA27mo3gZfQ4L65gkkdremVwKfsyf2KTt4GOZHtkmAJoOGrSpxrLraH7tw974E7OdjuAHKEJWrBCZxRJAtlzkFhcbizxDrT3CN2lCgd0r4arn9ZPxfGWwEUuRONy/WlZeC2L9SHV1xllRNlj5CHrnW2fpxU1PM+nVY7aHMV54XdyA5BOvgh9FYac/rFQrzLQfJK5AsvxSdF/nwSncV3duBh496rUWm6x4xvLz4qiVFGWO"
+        }
+      ],
+      "timestamp": "2026-01-11T18:09:08.052142"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "submit_extraction",
+            "args": {
+              "rob_nrs": {
+                "d7_selection": {
+                  "judgment": "Low",
+                  "rationale": "The study followed the registered protocol (NCT03376074) and reported all planned outcomes."
+                },
+                "overall_rationale": "The study is a well-conducted non-randomized study using propensity score matching to mitigate confounding. The use of a historical control group and the lack of blinding for some subjective outcomes are the primary reasons for a moderate risk of bias judgment.",
+                "overall_judgment": "Moderate",
+                "d3_classification": {
+                  "judgment": "Low",
+                  "rationale": "Intervention status was clearly defined and determined prospectively for the HOPE group. Classification was not affected by outcome knowledge."
+                },
+                "d6_measurement": {
+                  "rationale": "Primary outcomes (EAD, survival) are objective. However, some secondary outcomes like hospital stay and Clavien-Dindo complications could be influenced by the lack of blinding in this non-randomized design.",
+                  "judgment": "Moderate"
+                },
+                "d1_confounding": {
+                  "rationale": "Propensity score matching was used with a comprehensive set of recipient and donor variables, including CIT. However, the control group was historical (2010-2017), which introduces potential temporal bias.",
+                  "judgment": "Moderate",
+                  "support_quotes": [
+                    "For comparison, a control group was selected after propensity score matching among patients transplanted with ECD grafts in our institution between 2010 and 2017.",
+                    "The variables used in the calculation of propensity score were: Recipients: age, gender, BMI, MELD score, CHILD PUGH grade, indication for LT, location at time of LT (i.e. home or hospital or ICU), intubation; Donors: age, gender, BMI, ICU stay prior to procurement >7 days, natremia >155 mmol/L, AST blood level >150 IU/mL, ALT blood level >170 IU/mL, occurrence of cardiac arrest before procurement; duration of cold ischemia."
+                  ]
+                },
+                "d5_missing_data": {
+                  "judgment": "Low",
+                  "rationale": "Outcome data were available for all matched participants. Follow-up for survival and biliary complications was 12 months."
+                },
+                "d4_deviations": {
+                  "rationale": "Standardized protocols for transplantation and postoperative care were followed. No evidence of significant deviations or differential co-interventions.",
+                  "judgment": "Low"
+                },
+                "d2_selection": {
+                  "rationale": "Prospective inclusion for the HOPE group and systematic selection of historical controls for matching. Exclusion criteria were well-defined.",
+                  "judgment": "Low",
+                  "support_quotes": [
+                    "The PERPHO Study... was a prospective, monocentric, single arm, pilot study... For comparison, a control group was selected after propensity score matching among patients transplanted with ECD grafts in our institution between 2010 and 2017."
+                  ]
+                }
+              },
+              "perfusion_settings": {
+                "cannulation": "Single (PV)",
+                "temperature_celsius": 11,
+                "temperature_setting": "Hypothermic",
+                "perfusate_type": "UWMP®",
+                "device_name": "Liver Assist®"
+              },
+              "extraction_notes": {
+                "data_quality_concerns": [
+                  "N inconsistency for control group graft survival percentage: 59/69 is 85.5%, but reported as 89.5% in Table 2 and text. Using reported percentages."
+                ],
+                "general_notes": "Single-center prospective pilot study with matched historical controls. Focuses on ECD-DBD grafts. HOPE was performed end-ischemic (back-to-base).",
+                "unclear_items_for_review": [
+                  "PRS not reported for control group.",
+                  "Retransplantation reported only for the first 7 days systematically."
+                ],
+                "potential_overlaps": [
+                  "Possible overlap with other studies from CHU Rennes (e.g., APCext trial mentioned in ref 14)."
+                ]
+              },
+              "time_metrics": {
+                "total_ischemia_intervention": {
+                  "median": 8.75,
+                  "source": "Table 2 (525 min) - CIT used as proxy"
+                },
+                "perfusion_initiation": "Back-to-base (after arrival at center)",
+                "icu_stay_intervention": {
+                  "median": 3,
+                  "source": "Table 2"
+                },
+                "perfusion_duration_intervention": {
+                  "median": 1.95,
+                  "source": "Page 11 (117 min)"
+                },
+                "total_ischemia_control": {
+                  "median": 9.25,
+                  "source": "Table 2 (555 min) - CIT used as proxy"
+                },
+                "hospital_stay_control": {
+                  "source": "Table 2",
+                  "median": 20
+                },
+                "cit_control": {
+                  "median": 9.25,
+                  "source": "Table 2 (555 min)"
+                },
+                "hospital_stay_intervention": {
+                  "source": "Table 2",
+                  "median": 15
+                },
+                "icu_stay_control": {
+                  "median": 5,
+                  "source": "Table 2"
+                },
+                "cit_intervention": {
+                  "source": "Table 2 (525 min)",
+                  "median": 8.75
+                }
+              },
+              "study_characteristics": {
+                "first_author": "Michel Rayar",
+                "enrollment_period_start": "2010-01",
+                "study_design": "Prospective cohort",
+                "intervention_type": "HOPE",
+                "matching_variables": [
+                  "Recipient age",
+                  "Recipient gender",
+                  "Recipient BMI",
+                  "MELD score",
+                  "CHILD PUGH grade",
+                  "indication for LT",
+                  "location at time of LT",
+                  "intubation",
+                  "Donor age",
+                  "Donor gender",
+                  "Donor BMI",
+                  "Donor ICU stay >7 days",
+                  "Donor natremia >155 mmol/L",
+                  "Donor AST >150 IU/mL",
+                  "Donor ALT >170 IU/mL",
+                  "Donor cardiac arrest before procurement",
+                  "duration of cold ischemia"
+                ],
+                "n_total": 94,
+                "is_multicenter": false,
+                "registry_id": "NCT03376074",
+                "study_id": "Rayar_2021",
+                "year": 2021,
+                "countries": [
+                  "France"
+                ],
+                "comparator": "Static Cold Storage (historical matched control)",
+                "matching_method": "PSM",
+                "matching_ratio": "1:3 (actual 25:69)",
+                "donor_type": "ECD-DBD",
+                "n_control": 69,
+                "journal": "Liver Transplantation",
+                "title": "Hypothermic oxygenated perfusion(HOPE) improves ECD liver graft function and reduces duration of hospitalisation without extra cost: The PERPHO Study",
+                "n_intervention": 25,
+                "enrollment_period_end": "2018-11",
+                "doi": "10.1002/lt.25955",
+                "centers": [
+                  "CHU Rennes"
+                ]
+              },
+              "outcome_data": {
+                "tbc": {
+                  "source_location": "Table 2, Page 25; Page 13",
+                  "intervention_events": 2,
+                  "definition": "Total biliary complications at 12 months: Anastomotic (leak or stenosis) + Non-anastomotic stricture + Ischemic necrosis",
+                  "intervention_total": 25,
+                  "p_value": 1,
+                  "reported": true,
+                  "control_total": 69,
+                  "control_events": 8
+                },
+                "acr": {
+                  "reported": false
+                },
+                "rrt": {
+                  "intervention_events": 1,
+                  "control_total": 69,
+                  "source_location": "Table 2, Page 25",
+                  "intervention_total": 25,
+                  "p_value": 1,
+                  "definition": "Need for renal replacement therapy post-transplant",
+                  "control_events": 2,
+                  "reported": true
+                },
+                "ead": {
+                  "source_location": "Table 2, Page 24",
+                  "control_total": 69,
+                  "p_value": 0.22,
+                  "definition": "Olthoff criteria: bilirubin >=171 umol/L on day 7, INR >=1.6 on day 7, or peak ALT >2000 U/L within first 7 days",
+                  "intervention_events": 7,
+                  "intervention_total": 25,
+                  "reported": true,
+                  "control_events": 29
+                },
+                "follow_up_months": 12,
+                "retransplantation": {
+                  "source_location": "Page 12; Table 2 (as PNF)",
+                  "control_total": 69,
+                  "p_value": 0.29,
+                  "definition": "Retransplantation within 7 days post-transplant",
+                  "intervention_total": 25,
+                  "reported": true,
+                  "intervention_events": 2,
+                  "control_events": 2
+                },
+                "major_complications": {
+                  "control_events": 31,
+                  "definition": "Clavien-Dindo grade >= 3 during initial hospitalization",
+                  "source_location": "Table 2, Page 25",
+                  "intervention_events": 6,
+                  "p_value": 0.07,
+                  "control_total": 69,
+                  "intervention_total": 25,
+                  "reported": true
+                },
+                "hospital_stay_days": {
+                  "control_value": 20,
+                  "control_sd_or_iqr": "9-92",
+                  "measure": "median",
+                  "intervention_value": 15,
+                  "intervention_sd_or_iqr": "8-92",
+                  "source_location": "Table 2, Page 25",
+                  "reported": true
+                },
+                "icu_stay_days": {
+                  "control_value": 5,
+                  "measure": "median",
+                  "intervention_value": 3,
+                  "source_location": "Table 2, Page 25",
+                  "intervention_sd_or_iqr": "1-72",
+                  "reported": true,
+                  "control_sd_or_iqr": "1-43"
+                },
+                "hat": {
+                  "reported": false
+                },
+                "pnf": {
+                  "intervention_events": 2,
+                  "reported": true,
+                  "source_location": "Table 2, Page 24; Page 8",
+                  "intervention_total": 25,
+                  "control_events": 2,
+                  "definition": "liver failure requiring retransplantation or leading to death within 7 days after transplantation",
+                  "control_total": 69,
+                  "p_value": 0.29
+                },
+                "graft_survival_1yr": {
+                  "intervention_percent": 88,
+                  "reported": true,
+                  "p_value": 1,
+                  "source_location": "Table 2, Page 25; Page 13",
+                  "control_percent": 89.5
+                },
+                "prs": {
+                  "definition": "decrease of more than 30% of the mean arterial pressure value for at least 1 minute and occurring within 5 minutes after revascularization",
+                  "source_location": "Table 2, Page 25",
+                  "reported": true,
+                  "intervention_total": 25,
+                  "intervention_events": 13
+                },
+                "patient_survival_1yr": {
+                  "control_percent": 91.3,
+                  "reported": true,
+                  "intervention_percent": 91,
+                  "source_location": "Table 2, Page 25; Page 13"
+                },
+                "nas": {
+                  "source_location": "Table 2, Page 25",
+                  "control_events": 0,
+                  "control_total": 69,
+                  "intervention_events": 0,
+                  "definition": "Non-anastomotic stricture at 12 months",
+                  "reported": true,
+                  "intervention_total": 25
+                },
+                "aki": {
+                  "p_value": 0.17,
+                  "control_events": 20,
+                  "reported": true,
+                  "intervention_total": 25,
+                  "source_location": "Table 2, Page 25",
+                  "intervention_events": 11,
+                  "control_total": 69,
+                  "definition": "KDIGO classification observed at 48 hours after LT"
+                }
+              }
+            }
+          },
+          "thought_signature": "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"
+        }
+      ],
+      "timestamp": "2026-01-11T18:09:47.970848"
+    }
+  ],
+  "final_result": {
+    "rob_nrs": {
+      "d7_selection": {
+        "judgment": "Low",
+        "rationale": "The study followed the registered protocol (NCT03376074) and reported all planned outcomes."
+      },
+      "overall_rationale": "The study is a well-conducted non-randomized study using propensity score matching to mitigate confounding. The use of a historical control group and the lack of blinding for some subjective outcomes are the primary reasons for a moderate risk of bias judgment.",
+      "overall_judgment": "Moderate",
+      "d3_classification": {
+        "judgment": "Low",
+        "rationale": "Intervention status was clearly defined and determined prospectively for the HOPE group. Classification was not affected by outcome knowledge."
+      },
+      "d6_measurement": {
+        "rationale": "Primary outcomes (EAD, survival) are objective. However, some secondary outcomes like hospital stay and Clavien-Dindo complications could be influenced by the lack of blinding in this non-randomized design.",
+        "judgment": "Moderate"
+      },
+      "d1_confounding": {
+        "rationale": "Propensity score matching was used with a comprehensive set of recipient and donor variables, including CIT. However, the control group was historical (2010-2017), which introduces potential temporal bias.",
+        "judgment": "Moderate",
+        "support_quotes": [
+          "For comparison, a control group was selected after propensity score matching among patients transplanted with ECD grafts in our institution between 2010 and 2017.",
+          "The variables used in the calculation of propensity score were: Recipients: age, gender, BMI, MELD score, CHILD PUGH grade, indication for LT, location at time of LT (i.e. home or hospital or ICU), intubation; Donors: age, gender, BMI, ICU stay prior to procurement >7 days, natremia >155 mmol/L, AST blood level >150 IU/mL, ALT blood level >170 IU/mL, occurrence of cardiac arrest before procurement; duration of cold ischemia."
+        ]
+      },
+      "d5_missing_data": {
+        "judgment": "Low",
+        "rationale": "Outcome data were available for all matched participants. Follow-up for survival and biliary complications was 12 months."
+      },
+      "d4_deviations": {
+        "rationale": "Standardized protocols for transplantation and postoperative care were followed. No evidence of significant deviations or differential co-interventions.",
+        "judgment": "Low"
+      },
+      "d2_selection": {
+        "rationale": "Prospective inclusion for the HOPE group and systematic selection of historical controls for matching. Exclusion criteria were well-defined.",
+        "judgment": "Low",
+        "support_quotes": [
+          "The PERPHO Study... was a prospective, monocentric, single arm, pilot study... For comparison, a control group was selected after propensity score matching among patients transplanted with ECD grafts in our institution between 2010 and 2017."
+        ]
+      }
+    },
+    "perfusion_settings": {
+      "cannulation": "Single (PV)",
+      "temperature_celsius": 11,
+      "temperature_setting": "Hypothermic",
+      "perfusate_type": "UWMP®",
+      "device_name": "Liver Assist®"
+    },
+    "extraction_notes": {
+      "data_quality_concerns": [
+        "N inconsistency for control group graft survival percentage: 59/69 is 85.5%, but reported as 89.5% in Table 2 and text. Using reported percentages."
+      ],
+      "general_notes": "Single-center prospective pilot study with matched historical controls. Focuses on ECD-DBD grafts. HOPE was performed end-ischemic (back-to-base).",
+      "unclear_items_for_review": [
+        "PRS not reported for control group.",
+        "Retransplantation reported only for the first 7 days systematically."
+      ],
+      "potential_overlaps": [
+        "Possible overlap with other studies from CHU Rennes (e.g., APCext trial mentioned in ref 14)."
+      ]
+    },
+    "time_metrics": {
+      "total_ischemia_intervention": {
+        "median": 8.75,
+        "source": "Table 2 (525 min) - CIT used as proxy"
+      },
+      "perfusion_initiation": "Back-to-base (after arrival at center)",
+      "icu_stay_intervention": {
+        "median": 3,
+        "source": "Table 2"
+      },
+      "perfusion_duration_intervention": {
+        "median": 1.95,
+        "source": "Page 11 (117 min)"
+      },
+      "total_ischemia_control": {
+        "median": 9.25,
+        "source": "Table 2 (555 min) - CIT used as proxy"
+      },
+      "hospital_stay_control": {
+        "source": "Table 2",
+        "median": 20
+      },
+      "cit_control": {
+        "median": 9.25,
+        "source": "Table 2 (555 min)"
+      },
+      "hospital_stay_intervention": {
+        "source": "Table 2",
+        "median": 15
+      },
+      "icu_stay_control": {
+        "median": 5,
+        "source": "Table 2"
+      },
+      "cit_intervention": {
+        "source": "Table 2 (525 min)",
+        "median": 8.75
+      }
+    },
+    "study_characteristics": {
+      "first_author": "Michel Rayar",
+      "enrollment_period_start": "2010-01",
+      "study_design": "Prospective cohort",
+      "intervention_type": "HOPE",
+      "matching_variables": [
+        "Recipient age",
+        "Recipient gender",
+        "Recipient BMI",
+        "MELD score",
+        "CHILD PUGH grade",
+        "indication for LT",
+        "location at time of LT",
+        "intubation",
+        "Donor age",
+        "Donor gender",
+        "Donor BMI",
+        "Donor ICU stay >7 days",
+        "Donor natremia >155 mmol/L",
+        "Donor AST >150 IU/mL",
+        "Donor ALT >170 IU/mL",
+        "Donor cardiac arrest before procurement",
+        "duration of cold ischemia"
+      ],
+      "n_total": 94,
+      "is_multicenter": false,
+      "registry_id": "NCT03376074",
+      "study_id": "Rayar_2021",
+      "year": 2021,
+      "countries": [
+        "France"
+      ],
+      "comparator": "Static Cold Storage (historical matched control)",
+      "matching_method": "PSM",
+      "matching_ratio": "1:3 (actual 25:69)",
+      "donor_type": "ECD-DBD",
+      "n_control": 69,
+      "journal": "Liver Transplantation",
+      "title": "Hypothermic oxygenated perfusion(HOPE) improves ECD liver graft function and reduces duration of hospitalisation without extra cost: The PERPHO Study",
+      "n_intervention": 25,
+      "enrollment_period_end": "2018-11",
+      "doi": "10.1002/lt.25955",
+      "centers": [
+        "CHU Rennes"
+      ]
+    },
+    "outcome_data": {
+      "tbc": {
+        "source_location": "Table 2, Page 25; Page 13",
+        "intervention_events": 2,
+        "definition": "Total biliary complications at 12 months: Anastomotic (leak or stenosis) + Non-anastomotic stricture + Ischemic necrosis",
+        "intervention_total": 25,
+        "p_value": 1,
+        "reported": true,
+        "control_total": 69,
+        "control_events": 8
+      },
+      "acr": {
+        "reported": false
+      },
+      "rrt": {
+        "intervention_events": 1,
+        "control_total": 69,
+        "source_location": "Table 2, Page 25",
+        "intervention_total": 25,
+        "p_value": 1,
+        "definition": "Need for renal replacement therapy post-transplant",
+        "control_events": 2,
+        "reported": true
+      },
+      "ead": {
+        "source_location": "Table 2, Page 24",
+        "control_total": 69,
+        "p_value": 0.22,
+        "definition": "Olthoff criteria: bilirubin >=171 umol/L on day 7, INR >=1.6 on day 7, or peak ALT >2000 U/L within first 7 days",
+        "intervention_events": 7,
+        "intervention_total": 25,
+        "reported": true,
+        "control_events": 29
+      },
+      "follow_up_months": 12,
+      "retransplantation": {
+        "source_location": "Page 12; Table 2 (as PNF)",
+        "control_total": 69,
+        "p_value": 0.29,
+        "definition": "Retransplantation within 7 days post-transplant",
+        "intervention_total": 25,
+        "reported": true,
+        "intervention_events": 2,
+        "control_events": 2
+      },
+      "major_complications": {
+        "control_events": 31,
+        "definition": "Clavien-Dindo grade >= 3 during initial hospitalization",
+        "source_location": "Table 2, Page 25",
+        "intervention_events": 6,
+        "p_value": 0.07,
+        "control_total": 69,
+        "intervention_total": 25,
+        "reported": true
+      },
+      "hospital_stay_days": {
+        "control_value": 20,
+        "control_sd_or_iqr": "9-92",
+        "measure": "median",
+        "intervention_value": 15,
+        "intervention_sd_or_iqr": "8-92",
+        "source_location": "Table 2, Page 25",
+        "reported": true
+      },
+      "icu_stay_days": {
+        "control_value": 5,
+        "measure": "median",
+        "intervention_value": 3,
+        "source_location": "Table 2, Page 25",
+        "intervention_sd_or_iqr": "1-72",
+        "reported": true,
+        "control_sd_or_iqr": "1-43"
+      },
+      "hat": {
+        "reported": false
+      },
+      "pnf": {
+        "intervention_events": 2,
+        "reported": true,
+        "source_location": "Table 2, Page 24; Page 8",
+        "intervention_total": 25,
+        "control_events": 2,
+        "definition": "liver failure requiring retransplantation or leading to death within 7 days after transplantation",
+        "control_total": 69,
+        "p_value": 0.29
+      },
+      "graft_survival_1yr": {
+        "intervention_percent": 88,
+        "reported": true,
+        "p_value": 1,
+        "source_location": "Table 2, Page 25; Page 13",
+        "control_percent": 89.5
+      },
+      "prs": {
+        "definition": "decrease of more than 30% of the mean arterial pressure value for at least 1 minute and occurring within 5 minutes after revascularization",
+        "source_location": "Table 2, Page 25",
+        "reported": true,
+        "intervention_total": 25,
+        "intervention_events": 13
+      },
+      "patient_survival_1yr": {
+        "control_percent": 91.3,
+        "reported": true,
+        "intervention_percent": 91,
+        "source_location": "Table 2, Page 25; Page 13"
+      },
+      "nas": {
+        "source_location": "Table 2, Page 25",
+        "control_events": 0,
+        "control_total": 69,
+        "intervention_events": 0,
+        "definition": "Non-anastomotic stricture at 12 months",
+        "reported": true,
+        "intervention_total": 25
+      },
+      "aki": {
+        "p_value": 0.17,
+        "control_events": 20,
+        "reported": true,
+        "intervention_total": 25,
+        "source_location": "Table 2, Page 25",
+        "intervention_events": 11,
+        "control_total": 69,
+        "definition": "KDIGO classification observed at 48 hours after LT"
+      }
+    }
+  },
+  "study_type": "NRS",
+  "pdf_paths": [
+    "/Users/boxx/Desktop/Dev/RMSC/Papers/기존 논문들/10.1002 lt.25955/main_Rayar et al-2020-Hypothermic oxygenated perfusion(HOPE) improves ECD liver graft function and.pdf"
+  ],
+  "extraction_mode": "tool_calling",
+  "token_usage": {
+    "prompt_tokens": 28549,
+    "output_tokens": 2460,
+    "thoughts_tokens": 4159,
+    "total_tokens": 35168
+  }
+}

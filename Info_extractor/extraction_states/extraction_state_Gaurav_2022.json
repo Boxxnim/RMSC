@@ -1,0 +1,642 @@
+{
+  "study_id": "Gaurav_2022",
+  "model_name": "gemini-3-flash-preview",
+  "timestamp": "2026-01-11T18:30:50.116159",
+  "conversation_history": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "You are a systematic review data extractor for liver transplantation machine perfusion studies.\n\n## YOUR TASK\nExtract ALL available data from this paper for meta-analysis and assess Risk of Bias.\n\n## WORKFLOW\n1. Read the paper carefully and determine the study design (RCT or NRS)\n2. Call get_rob_skill(study_type, study_id) to get detailed RoB assessment instructions\n3. Extract all data following the returned instructions\n4. Call submit_extraction() with complete results\n\n## STUDY CONTEXT\nThis systematic review compares:\n- HOPE (Hypothermic Oxygenated Perfusion) vs SCS (Static Cold Storage)\n- NMP (Normothermic Machine Perfusion) vs SCS\n- In extended criteria donor (ECD) liver transplantation\n\n## OUTCOME DEFINITIONS AND HETEROGENEITY\nDifferent papers may use different definitions for the same outcome. Handle this as follows:\n1. ALWAYS record the paper's EXACT definition in the 'definition' field\n2. If the paper's definition differs from standard criteria, still extract the data\n3. For composite outcomes (like TBC/Total Biliary Complications), sum ALL component types mentioned\n4. When multiple time points are available, prefer 6 months for NAS, 1 year for survival\n5. If definition is unclear or non-standard, note this in 'extraction_notes.unclear_items_for_review'\n\nCommon definition variations to watch for:\n- EAD: Olthoff criteria vs other criteria (always specify which)\n- NAS: different follow-up periods (6mo, 12mo, etc.)\n- PRS: 20% vs 30% MAP threshold\n- AKI: KDIGO vs RIFLE vs AKIN criteria\n- Major complications: Clavien-Dindo grade threshold\n\n## NRS: MATCHED DATA ONLY\nFor non-randomized studies (NRS):\n1. Extract data from MATCHED cohorts ONLY, not unmatched/entire cohort\n2. If the paper reports both matched and unmatched results, use ONLY the matched results\n3. Record matching details in study_characteristics:\n   - matching_method: PSM, IPTW, case-control, caliper matching, etc.\n   - matching_ratio: 1:1, 1:2, 1:3, etc.\n   - matching_variables: list of variables used (age, MELD, DRI, donor type, etc.)\n4. n_intervention and n_control should reflect the MATCHED sample sizes\n5. If no matching was performed, note this in extraction_notes\n\n## ECD/DCD SUBGROUP PRIORITY\nThis systematic review focuses on EXTENDED CRITERIA DONORS (ECD). \n\n### ECD Definition:\nExtended Criteria Donors include:\n- Age ≥60 years, OR\n- Age 50-60 with 2+ of: hypertension, terminal creatinine >1.5, CVA as cause of death\n- DCD (Donation after Circulatory Death) donors\n- High DRI (Donor Risk Index) donors (typically DRI >1.5 or >1.7)\n\n### Extraction Rules:\n1. If the paper includes both standard and ECD/DCD donors:\n   - PRIORITIZE the DCD or ECD SUBGROUP data over the full cohort\n   - If DCD-specific outcomes are reported separately, use those numbers\n2. If the paper reports results for DCD donors separately (e.g., \"DCD subgroup analysis\"):\n   - Extract from the DCD subgroup, NOT the entire cohort\n3. Record in study_characteristics.donor_type: \"DCD\", \"DBD\", \"ECD-DBD\", or \"Mixed\"\n4. If only pooled data is available (no ECD/DCD breakdown), extract the pooled data \n   and note \"No DCD/ECD subgroup available - using pooled data\" in extraction_notes.general_notes\n\n## UNCERTAINTY FLAGGING\nWhen you encounter ambiguity, FLAG it explicitly:\n1. If MULTIPLE COHORTS exist (e.g., matched vs unmatched, different time periods):\n   - Add to unclear_items_for_review: \"Multiple cohorts: [describe options and which you chose]\"\n2. If N values seem inconsistent across outcomes:\n   - Add to data_quality_concerns: \"N inconsistency: [describe]\"\n3. If outcome definition is unclear:\n   - Add to unclear_items_for_review: \"[Outcome] definition unclear: [describe]\"\n\n## N VALUE CONSISTENCY\n- n_intervention and n_control should be CONSISTENT across all outcomes\n- If you extract EAD with N=50/25, all other outcomes should use the same N\n- If N differs for survival outcomes (due to follow-up), note this in general_notes\n\n## COHORT IDENTIFICATION (CRITICAL FOR OVERLAP DETECTION)\nFor the study_characteristics, you MUST extract these fields for cohort tracking:\n\n1. **enrollment_period_start** and **enrollment_period_end**: \n   - Look for \"patients enrolled between...\", \"study period\", \"from X to Y\"\n   - Format as \"YYYY-MM\" or \"YYYY\" if only year available\n   - Example: \"2018-01\" to \"2020-12\"\n\n2. **centers**: List of transplant centers/hospitals by name\n   - Look in Methods section, typically \"patients were enrolled at...\"\n   - Include city/country if center name alone is ambiguous\n   - Example: [\"University Hospital Zurich\", \"King's College London\"]\n\n3. **registry_id**: Clinical trial registration (NCT number, ISRCTN, etc.)\n   - Look at end of abstract, methods, or supplementary\n   - Include the full ID, e.g., \"NCT02584283\"\n\n4. **countries**: All countries where patients were enrolled\n\nThese are essential for detecting overlapping patient cohorts between studies!\n\n## IMPORTANT\n- Use null for missing values\n- Include source_location for all extracted data points\n- For RCT studies, complete rob_rct in submit_extraction\n- For NRS studies, complete rob_nrs in submit_extraction\n\nStart by identifying the study design and calling get_rob_skill()."
+        }
+      ],
+      "timestamp": "2026-01-11T18:30:50.116197"
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "function_response": {
+            "name": "get_rob_skill",
+            "response": {
+              "instructions": "[SKILL INJECTED]"
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-01-11T18:31:08.682615"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "get_rob_skill",
+            "args": {
+              "study_type": "NRS",
+              "study_id": "Gaurav_2022"
+            }
+          },
+          "thought_signature": "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"
+        }
+      ],
+      "timestamp": "2026-01-11T18:31:08.682675"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "submit_extraction",
+            "args": {
+              "outcome_data": {
+                "ead": {
+                  "reported": true,
+                  "control_events": 19,
+                  "intervention_total": 63,
+                  "definition": "Olthoff criteria: bilirubin >=10 mg/dL on day 7, INR >=1.6 on day 7, or ALT/AST >2000 U/L within first 7 days.",
+                  "source_location": "Table 3, Page 1161",
+                  "control_total": 90,
+                  "intervention_events": 7
+                },
+                "retransplantation": {
+                  "definition": "Need for liver retransplantation during the study period.",
+                  "control_total": 97,
+                  "control_events": 17,
+                  "intervention_events": 8,
+                  "intervention_total": 67,
+                  "reported": true,
+                  "source_location": "Table 3, Page 1161"
+                },
+                "pnf": {
+                  "definition": "Graft loss or death within 7 days posttransplant excluding HAT, technical issues, or acute rejection.",
+                  "reported": true,
+                  "control_total": 97,
+                  "intervention_events": 1,
+                  "source_location": "Table 2, Page 1160",
+                  "control_events": 5,
+                  "intervention_total": 67
+                },
+                "acr": {
+                  "source_location": "Table 3, Page 1161",
+                  "intervention_total": 63,
+                  "reported": true,
+                  "control_events": 28,
+                  "definition": "Histological evidence of rejection recorded within the first 6-month after transplantation on clinical suspicion.",
+                  "control_total": 90,
+                  "intervention_events": 20
+                },
+                "aki": {
+                  "control_events": 53,
+                  "control_total": 97,
+                  "intervention_total": 67,
+                  "definition": "RIFLE criteria: peak serum creatinine within first 7 days >= 2x baseline or need for RRT.",
+                  "reported": true,
+                  "source_location": "Table 3, Page 1161",
+                  "intervention_events": 26
+                },
+                "prs": {
+                  "reported": false
+                },
+                "patient_survival_1yr": {
+                  "intervention_percent": 94,
+                  "reported": true,
+                  "source_location": "Page 1160, Graft and Patient Survival section",
+                  "control_percent": 94
+                },
+                "icu_stay_days": {
+                  "measure": "median",
+                  "reported": true,
+                  "source_location": "Table 3, Page 1161",
+                  "intervention_value": 2,
+                  "control_sd_or_iqr": "1-4",
+                  "intervention_sd_or_iqr": "2-4",
+                  "control_value": 2
+                },
+                "hat": {
+                  "source_location": "Table 3, Page 1161",
+                  "definition": "Thrombosis of the hepatic artery diagnosed on imaging. Denominator excludes PNF.",
+                  "intervention_events": 5,
+                  "control_total": 92,
+                  "reported": true,
+                  "control_events": 7,
+                  "intervention_total": 64
+                },
+                "nas": {
+                  "definition": "Presence of any biliary stricture, dilatation, or irregularity of the intra- or extrahepatic bile ducts and/or cast on MRCP away from the biliary anastomosis in the presence of patent arterial vasculature. Overall NAS.",
+                  "intervention_total": 63,
+                  "intervention_events": 12,
+                  "source_location": "Table 3, Page 1161",
+                  "control_total": 88,
+                  "control_events": 22,
+                  "reported": true
+                },
+                "hospital_stay_days": {
+                  "intervention_value": 19,
+                  "measure": "median",
+                  "reported": true,
+                  "intervention_sd_or_iqr": "13-29",
+                  "control_sd_or_iqr": "15-30",
+                  "source_location": "Table 3, Page 1161",
+                  "control_value": 18
+                },
+                "graft_survival_1yr": {
+                  "source_location": "Page 1160, Graft and Patient Survival section",
+                  "reported": true,
+                  "control_percent": 84,
+                  "intervention_percent": 88
+                },
+                "follow_up_months": 38,
+                "tbc": {
+                  "intervention_events": 23,
+                  "control_events": 38,
+                  "intervention_total": 63,
+                  "control_total": 90,
+                  "reported": true,
+                  "source_location": "Table 3, Page 1161",
+                  "definition": "Overall biliary complications including anastomotic bile leaks, anastomotic strictures, and NAS."
+                },
+                "rrt": {
+                  "control_events": 18,
+                  "control_total": 90,
+                  "definition": "Renal replacement therapy in 7 days posttransplant.",
+                  "reported": true,
+                  "intervention_total": 63,
+                  "intervention_events": 9,
+                  "source_location": "Table 3, Page 1161"
+                },
+                "major_complications": {
+                  "control_events": 66,
+                  "control_total": 97,
+                  "intervention_events": 39,
+                  "source_location": "Table 3, Page 1161",
+                  "intervention_total": 67,
+                  "reported": true,
+                  "definition": "Clavien-Dindo grade >= IIIa within first 30 days."
+                }
+              },
+              "rob_nrs": {
+                "d6_measurement": {
+                  "judgment": "Moderate",
+                  "rationale": "Outcome assessors were not blinded to the preservation method. Biliary complications were assessed based on clinical indications (MRCP/ERCP), which could be influenced by the clinician's knowledge of the graft's risk profile.",
+                  "support_quotes": [
+                    "Those recipients who had persistently raised alkaline phosphatase or as clinically indicated by persistent pruritus, jaundice, or cholangitis underwent magnetic and/or endoscopic resonance cholangiopancreatography (MRCP or ERCP)."
+                  ]
+                },
+                "overall_rationale": "The study is a retrospective, non-matched analysis with significant potential for confounding due to selection bias (NMP used for more marginal/remote organs) and the use of a historical control group for SCS. Outcome assessment was not blinded.",
+                "d5_missing_data": {
+                  "judgment": "Low",
+                  "rationale": "Follow-up was complete for the primary endpoints (PNF, EAD, survival). Denominators for biliary outcomes were adjusted for early graft loss, which is standard."
+                },
+                "d4_deviations": {
+                  "rationale": "Standard surgical and post-transplant protocols were followed. No evidence of significant deviations that would bias the results.",
+                  "judgment": "Low"
+                },
+                "d2_selection": {
+                  "rationale": "Consecutive adult patients undergoing DCD liver transplant were included. Exclusion of sequential NRP+NMP cases was appropriate for group comparison.",
+                  "support_quotes": [
+                    "This single-center study included retrospective analyses of all consecutive adult patients (aged > 16 years) who underwent orthotopic liver transplantation from controlled (Maastricht category III and IV) DCD donors."
+                  ],
+                  "judgment": "Low"
+                },
+                "d7_selection": {
+                  "judgment": "Low",
+                  "rationale": "The study reports all standard outcomes for liver transplantation and preservation. Results are consistent with the methods described."
+                },
+                "d1_confounding": {
+                  "judgment": "Serious",
+                  "rationale": "Retrospective cohort study without matching. Significant baseline differences in donor location (remote vs local) and donor risk scores. NMP livers were more likely to be 'declined by at least one other center' (selection bias). Historical control used for SCS (2013-2019) vs NMP (up to 2020).",
+                  "support_quotes": [
+                    "NMP livers were often from remote hospitals outside our region (78%), after decline by at least one other center.",
+                    "SCS-DCD liver transplants performed from DCD donors from January 2013 to January 2019, after which no SCS-DCD liver transplants were performed at our institution."
+                  ]
+                },
+                "d3_classification": {
+                  "judgment": "Low",
+                  "rationale": "Intervention (NMP) and control (SCS) were clearly defined and determined by the preservation method used."
+                },
+                "overall_judgment": "Serious"
+              },
+              "perfusion_settings": {
+                "device_name": "Liver Assist (XVivo) or OrganOx metra",
+                "temperature_celsius": 37,
+                "temperature_setting": "Normothermic",
+                "cannulation": "Dual (PV+HA)",
+                "perfusate_type": "Blood-based (RBCs in Gelofusine or Albumin)"
+              },
+              "extraction_notes": {
+                "unclear_items_for_review": [
+                  "Patient survival at 1 year is reported as 'similar (94%)' for all groups in the text, but specific percentages for SCS and NMP are not explicitly separated in a table for 1-year patient survival. 3-year patient survival is given as SCS 88% and NMP 90%."
+                ],
+                "potential_overlaps": [
+                  "Possible overlap with other Cambridge (Addenbrooke's) DCD series."
+                ],
+                "general_notes": "This study compares SCS, NRP, and NMP in DCD liver transplantation. For the purpose of this extraction, NMP is the intervention and SCS is the control. The study is 100% DCD. No matching was performed; risk adjustment was done via multivariate regression.",
+                "data_quality_concerns": [
+                  "N values vary across outcomes due to graft survival at different time points (7 days, 30 days, etc.), as specified in Table 3 footnotes."
+                ]
+              },
+              "time_metrics": {
+                "cit_control": {
+                  "median": 430,
+                  "iqr_upper": 474,
+                  "iqr_lower": 397,
+                  "source": "Table 1 (minutes)"
+                },
+                "perfusion_duration_intervention": {
+                  "median": 460,
+                  "iqr_upper": 569,
+                  "source": "Table 1 (minutes)",
+                  "iqr_lower": 330
+                },
+                "icu_stay_control": {
+                  "source": "Table 3",
+                  "iqr_upper": 4,
+                  "median": 2,
+                  "iqr_lower": 1
+                },
+                "wit_intervention": {
+                  "median": 15,
+                  "iqr_upper": 18,
+                  "iqr_lower": 12,
+                  "source": "Table 1 (fWIT)"
+                },
+                "cit_intervention": {
+                  "iqr_upper": 441,
+                  "iqr_lower": 346,
+                  "source": "Table 1 (minutes)",
+                  "median": 396
+                },
+                "total_ischemia_intervention": {
+                  "source": "Table 1 (Total preservation time)",
+                  "iqr_lower": 815,
+                  "iqr_upper": 1050,
+                  "median": 940
+                },
+                "icu_stay_intervention": {
+                  "median": 2,
+                  "iqr_lower": 2,
+                  "source": "Table 3",
+                  "iqr_upper": 4
+                },
+                "wit_control": {
+                  "source": "Table 1 (fWIT)",
+                  "iqr_upper": 18,
+                  "median": 15,
+                  "iqr_lower": 11
+                },
+                "total_ischemia_control": {
+                  "iqr_lower": 397,
+                  "source": "Table 1 (Total preservation time)",
+                  "median": 430,
+                  "iqr_upper": 474
+                },
+                "perfusion_initiation": "Back-to-base (62/67) or donor-hospital (5/67)",
+                "hospital_stay_control": {
+                  "median": 18,
+                  "source": "Table 3",
+                  "iqr_lower": 15,
+                  "iqr_upper": 30
+                },
+                "hospital_stay_intervention": {
+                  "source": "Table 3",
+                  "iqr_lower": 13,
+                  "median": 19,
+                  "iqr_upper": 29
+                }
+              },
+              "study_characteristics": {
+                "study_design": "Retrospective cohort",
+                "first_author": "Rohit Gaurav",
+                "journal": "Annals of Surgery",
+                "n_intervention": 67,
+                "year": 2022,
+                "n_total": 233,
+                "countries": [
+                  "UK"
+                ],
+                "centers": [
+                  "Addenbrooke’s Hospital, Cambridge"
+                ],
+                "intervention_type": "NMP",
+                "comparator": "Static Cold Storage (SCS)",
+                "donor_type": "DCD",
+                "matching_ratio": null,
+                "matching_variables": null,
+                "enrollment_period_end": "2020-10",
+                "study_id": "Gaurav_2022",
+                "is_multicenter": false,
+                "enrollment_period_start": "2013-01",
+                "registry_id": null,
+                "doi": "10.1097/SLA.0000000000005428",
+                "title": "Liver Transplantation Outcomes From Controlled Circulatory Death Donors: SCS vs in situ NRP vs ex situ NMP",
+                "n_control": 97,
+                "matching_method": null
+              }
+            }
+          },
+          "thought_signature": "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"
+        }
+      ],
+      "timestamp": "2026-01-11T18:31:39.279503"
+    }
+  ],
+  "final_result": {
+    "outcome_data": {
+      "ead": {
+        "reported": true,
+        "control_events": 19,
+        "intervention_total": 63,
+        "definition": "Olthoff criteria: bilirubin >=10 mg/dL on day 7, INR >=1.6 on day 7, or ALT/AST >2000 U/L within first 7 days.",
+        "source_location": "Table 3, Page 1161",
+        "control_total": 90,
+        "intervention_events": 7
+      },
+      "retransplantation": {
+        "definition": "Need for liver retransplantation during the study period.",
+        "control_total": 97,
+        "control_events": 17,
+        "intervention_events": 8,
+        "intervention_total": 67,
+        "reported": true,
+        "source_location": "Table 3, Page 1161"
+      },
+      "pnf": {
+        "definition": "Graft loss or death within 7 days posttransplant excluding HAT, technical issues, or acute rejection.",
+        "reported": true,
+        "control_total": 97,
+        "intervention_events": 1,
+        "source_location": "Table 2, Page 1160",
+        "control_events": 5,
+        "intervention_total": 67
+      },
+      "acr": {
+        "source_location": "Table 3, Page 1161",
+        "intervention_total": 63,
+        "reported": true,
+        "control_events": 28,
+        "definition": "Histological evidence of rejection recorded within the first 6-month after transplantation on clinical suspicion.",
+        "control_total": 90,
+        "intervention_events": 20
+      },
+      "aki": {
+        "control_events": 53,
+        "control_total": 97,
+        "intervention_total": 67,
+        "definition": "RIFLE criteria: peak serum creatinine within first 7 days >= 2x baseline or need for RRT.",
+        "reported": true,
+        "source_location": "Table 3, Page 1161",
+        "intervention_events": 26
+      },
+      "prs": {
+        "reported": false
+      },
+      "patient_survival_1yr": {
+        "intervention_percent": 94,
+        "reported": true,
+        "source_location": "Page 1160, Graft and Patient Survival section",
+        "control_percent": 94
+      },
+      "icu_stay_days": {
+        "measure": "median",
+        "reported": true,
+        "source_location": "Table 3, Page 1161",
+        "intervention_value": 2,
+        "control_sd_or_iqr": "1-4",
+        "intervention_sd_or_iqr": "2-4",
+        "control_value": 2
+      },
+      "hat": {
+        "source_location": "Table 3, Page 1161",
+        "definition": "Thrombosis of the hepatic artery diagnosed on imaging. Denominator excludes PNF.",
+        "intervention_events": 5,
+        "control_total": 92,
+        "reported": true,
+        "control_events": 7,
+        "intervention_total": 64
+      },
+      "nas": {
+        "definition": "Presence of any biliary stricture, dilatation, or irregularity of the intra- or extrahepatic bile ducts and/or cast on MRCP away from the biliary anastomosis in the presence of patent arterial vasculature. Overall NAS.",
+        "intervention_total": 63,
+        "intervention_events": 12,
+        "source_location": "Table 3, Page 1161",
+        "control_total": 88,
+        "control_events": 22,
+        "reported": true
+      },
+      "hospital_stay_days": {
+        "intervention_value": 19,
+        "measure": "median",
+        "reported": true,
+        "intervention_sd_or_iqr": "13-29",
+        "control_sd_or_iqr": "15-30",
+        "source_location": "Table 3, Page 1161",
+        "control_value": 18
+      },
+      "graft_survival_1yr": {
+        "source_location": "Page 1160, Graft and Patient Survival section",
+        "reported": true,
+        "control_percent": 84,
+        "intervention_percent": 88
+      },
+      "follow_up_months": 38,
+      "tbc": {
+        "intervention_events": 23,
+        "control_events": 38,
+        "intervention_total": 63,
+        "control_total": 90,
+        "reported": true,
+        "source_location": "Table 3, Page 1161",
+        "definition": "Overall biliary complications including anastomotic bile leaks, anastomotic strictures, and NAS."
+      },
+      "rrt": {
+        "control_events": 18,
+        "control_total": 90,
+        "definition": "Renal replacement therapy in 7 days posttransplant.",
+        "reported": true,
+        "intervention_total": 63,
+        "intervention_events": 9,
+        "source_location": "Table 3, Page 1161"
+      },
+      "major_complications": {
+        "control_events": 66,
+        "control_total": 97,
+        "intervention_events": 39,
+        "source_location": "Table 3, Page 1161",
+        "intervention_total": 67,
+        "reported": true,
+        "definition": "Clavien-Dindo grade >= IIIa within first 30 days."
+      }
+    },
+    "rob_nrs": {
+      "d6_measurement": {
+        "judgment": "Moderate",
+        "rationale": "Outcome assessors were not blinded to the preservation method. Biliary complications were assessed based on clinical indications (MRCP/ERCP), which could be influenced by the clinician's knowledge of the graft's risk profile.",
+        "support_quotes": [
+          "Those recipients who had persistently raised alkaline phosphatase or as clinically indicated by persistent pruritus, jaundice, or cholangitis underwent magnetic and/or endoscopic resonance cholangiopancreatography (MRCP or ERCP)."
+        ]
+      },
+      "overall_rationale": "The study is a retrospective, non-matched analysis with significant potential for confounding due to selection bias (NMP used for more marginal/remote organs) and the use of a historical control group for SCS. Outcome assessment was not blinded.",
+      "d5_missing_data": {
+        "judgment": "Low",
+        "rationale": "Follow-up was complete for the primary endpoints (PNF, EAD, survival). Denominators for biliary outcomes were adjusted for early graft loss, which is standard."
+      },
+      "d4_deviations": {
+        "rationale": "Standard surgical and post-transplant protocols were followed. No evidence of significant deviations that would bias the results.",
+        "judgment": "Low"
+      },
+      "d2_selection": {
+        "rationale": "Consecutive adult patients undergoing DCD liver transplant were included. Exclusion of sequential NRP+NMP cases was appropriate for group comparison.",
+        "support_quotes": [
+          "This single-center study included retrospective analyses of all consecutive adult patients (aged > 16 years) who underwent orthotopic liver transplantation from controlled (Maastricht category III and IV) DCD donors."
+        ],
+        "judgment": "Low"
+      },
+      "d7_selection": {
+        "judgment": "Low",
+        "rationale": "The study reports all standard outcomes for liver transplantation and preservation. Results are consistent with the methods described."
+      },
+      "d1_confounding": {
+        "judgment": "Serious",
+        "rationale": "Retrospective cohort study without matching. Significant baseline differences in donor location (remote vs local) and donor risk scores. NMP livers were more likely to be 'declined by at least one other center' (selection bias). Historical control used for SCS (2013-2019) vs NMP (up to 2020).",
+        "support_quotes": [
+          "NMP livers were often from remote hospitals outside our region (78%), after decline by at least one other center.",
+          "SCS-DCD liver transplants performed from DCD donors from January 2013 to January 2019, after which no SCS-DCD liver transplants were performed at our institution."
+        ]
+      },
+      "d3_classification": {
+        "judgment": "Low",
+        "rationale": "Intervention (NMP) and control (SCS) were clearly defined and determined by the preservation method used."
+      },
+      "overall_judgment": "Serious"
+    },
+    "perfusion_settings": {
+      "device_name": "Liver Assist (XVivo) or OrganOx metra",
+      "temperature_celsius": 37,
+      "temperature_setting": "Normothermic",
+      "cannulation": "Dual (PV+HA)",
+      "perfusate_type": "Blood-based (RBCs in Gelofusine or Albumin)"
+    },
+    "extraction_notes": {
+      "unclear_items_for_review": [
+        "Patient survival at 1 year is reported as 'similar (94%)' for all groups in the text, but specific percentages for SCS and NMP are not explicitly separated in a table for 1-year patient survival. 3-year patient survival is given as SCS 88% and NMP 90%."
+      ],
+      "potential_overlaps": [
+        "Possible overlap with other Cambridge (Addenbrooke's) DCD series."
+      ],
+      "general_notes": "This study compares SCS, NRP, and NMP in DCD liver transplantation. For the purpose of this extraction, NMP is the intervention and SCS is the control. The study is 100% DCD. No matching was performed; risk adjustment was done via multivariate regression.",
+      "data_quality_concerns": [
+        "N values vary across outcomes due to graft survival at different time points (7 days, 30 days, etc.), as specified in Table 3 footnotes."
+      ]
+    },
+    "time_metrics": {
+      "cit_control": {
+        "median": 430,
+        "iqr_upper": 474,
+        "iqr_lower": 397,
+        "source": "Table 1 (minutes)"
+      },
+      "perfusion_duration_intervention": {
+        "median": 460,
+        "iqr_upper": 569,
+        "source": "Table 1 (minutes)",
+        "iqr_lower": 330
+      },
+      "icu_stay_control": {
+        "source": "Table 3",
+        "iqr_upper": 4,
+        "median": 2,
+        "iqr_lower": 1
+      },
+      "wit_intervention": {
+        "median": 15,
+        "iqr_upper": 18,
+        "iqr_lower": 12,
+        "source": "Table 1 (fWIT)"
+      },
+      "cit_intervention": {
+        "iqr_upper": 441,
+        "iqr_lower": 346,
+        "source": "Table 1 (minutes)",
+        "median": 396
+      },
+      "total_ischemia_intervention": {
+        "source": "Table 1 (Total preservation time)",
+        "iqr_lower": 815,
+        "iqr_upper": 1050,
+        "median": 940
+      },
+      "icu_stay_intervention": {
+        "median": 2,
+        "iqr_lower": 2,
+        "source": "Table 3",
+        "iqr_upper": 4
+      },
+      "wit_control": {
+        "source": "Table 1 (fWIT)",
+        "iqr_upper": 18,
+        "median": 15,
+        "iqr_lower": 11
+      },
+      "total_ischemia_control": {
+        "iqr_lower": 397,
+        "source": "Table 1 (Total preservation time)",
+        "median": 430,
+        "iqr_upper": 474
+      },
+      "perfusion_initiation": "Back-to-base (62/67) or donor-hospital (5/67)",
+      "hospital_stay_control": {
+        "median": 18,
+        "source": "Table 3",
+        "iqr_lower": 15,
+        "iqr_upper": 30
+      },
+      "hospital_stay_intervention": {
+        "source": "Table 3",
+        "iqr_lower": 13,
+        "median": 19,
+        "iqr_upper": 29
+      }
+    },
+    "study_characteristics": {
+      "study_design": "Retrospective cohort",
+      "first_author": "Rohit Gaurav",
+      "journal": "Annals of Surgery",
+      "n_intervention": 67,
+      "year": 2022,
+      "n_total": 233,
+      "countries": [
+        "UK"
+      ],
+      "centers": [
+        "Addenbrooke’s Hospital, Cambridge"
+      ],
+      "intervention_type": "NMP",
+      "comparator": "Static Cold Storage (SCS)",
+      "donor_type": "DCD",
+      "matching_ratio": null,
+      "matching_variables": null,
+      "enrollment_period_end": "2020-10",
+      "study_id": "Gaurav_2022",
+      "is_multicenter": false,
+      "enrollment_period_start": "2013-01",
+      "registry_id": null,
+      "doi": "10.1097/SLA.0000000000005428",
+      "title": "Liver Transplantation Outcomes From Controlled Circulatory Death Donors: SCS vs in situ NRP vs ex situ NMP",
+      "n_control": 97,
+      "matching_method": null
+    }
+  },
+  "study_type": "NRS",
+  "pdf_paths": [
+    "/Users/boxx/Desktop/Dev/RMSC/Papers/기존 논문들/10.1097 SLA.0000000000005428/main_liver_transplantation_outcomes_from_controlled.20.pdf",
+    "/Users/boxx/Desktop/Dev/RMSC/Papers/기존 논문들/10.1097 SLA.0000000000005428/sla_2022_02_27_gaurav_annsurg-d-21-02597_sdc1.pdf"
+  ],
+  "extraction_mode": "tool_calling",
+  "token_usage": {
+    "prompt_tokens": 16791,
+    "output_tokens": 2661,
+    "thoughts_tokens": 2589,
+    "total_tokens": 22041
+  }
+}

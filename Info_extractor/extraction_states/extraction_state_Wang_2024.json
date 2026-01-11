@@ -1,0 +1,437 @@
+{
+  "study_id": "Wang_2024",
+  "model_name": "gemini-3-flash-preview",
+  "timestamp": "2026-01-11T18:45:33.860515",
+  "conversation_history": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "You are a systematic review data extractor for liver transplantation machine perfusion studies.\n\n## YOUR TASK\nExtract ALL available data from this paper for meta-analysis and assess Risk of Bias.\n\n## WORKFLOW\n1. Read the paper carefully and determine the study design (RCT or NRS)\n2. Call get_rob_skill(study_type, study_id) to get detailed RoB assessment instructions\n3. Extract all data following the returned instructions\n4. Call submit_extraction() with complete results\n\n## STUDY CONTEXT\nThis systematic review compares:\n- HOPE (Hypothermic Oxygenated Perfusion) vs SCS (Static Cold Storage)\n- NMP (Normothermic Machine Perfusion) vs SCS\n- In extended criteria donor (ECD) liver transplantation\n\n## OUTCOME DEFINITIONS AND HETEROGENEITY\nDifferent papers may use different definitions for the same outcome. Handle this as follows:\n1. ALWAYS record the paper's EXACT definition in the 'definition' field\n2. If the paper's definition differs from standard criteria, still extract the data\n3. For composite outcomes (like TBC/Total Biliary Complications), sum ALL component types mentioned\n4. When multiple time points are available, prefer 6 months for NAS, 1 year for survival\n5. If definition is unclear or non-standard, note this in 'extraction_notes.unclear_items_for_review'\n\nCommon definition variations to watch for:\n- EAD: Olthoff criteria vs other criteria (always specify which)\n- NAS: different follow-up periods (6mo, 12mo, etc.)\n- PRS: 20% vs 30% MAP threshold\n- AKI: KDIGO vs RIFLE vs AKIN criteria\n- Major complications: Clavien-Dindo grade threshold\n\n## NRS: MATCHED DATA ONLY\nFor non-randomized studies (NRS):\n1. Extract data from MATCHED cohorts ONLY, not unmatched/entire cohort\n2. If the paper reports both matched and unmatched results, use ONLY the matched results\n3. Record matching details in study_characteristics:\n   - matching_method: PSM, IPTW, case-control, caliper matching, etc.\n   - matching_ratio: 1:1, 1:2, 1:3, etc.\n   - matching_variables: list of variables used (age, MELD, DRI, donor type, etc.)\n4. n_intervention and n_control should reflect the MATCHED sample sizes\n5. If no matching was performed, note this in extraction_notes\n\n## ECD/DCD SUBGROUP PRIORITY\nThis systematic review focuses on EXTENDED CRITERIA DONORS (ECD). \n\n### ECD Definition:\nExtended Criteria Donors include:\n- Age ≥60 years, OR\n- Age 50-60 with 2+ of: hypertension, terminal creatinine >1.5, CVA as cause of death\n- DCD (Donation after Circulatory Death) donors\n- High DRI (Donor Risk Index) donors (typically DRI >1.5 or >1.7)\n\n### Extraction Rules:\n1. If the paper includes both standard and ECD/DCD donors:\n   - PRIORITIZE the DCD or ECD SUBGROUP data over the full cohort\n   - If DCD-specific outcomes are reported separately, use those numbers\n2. If the paper reports results for DCD donors separately (e.g., \"DCD subgroup analysis\"):\n   - Extract from the DCD subgroup, NOT the entire cohort\n3. Record in study_characteristics.donor_type: \"DCD\", \"DBD\", \"ECD-DBD\", or \"Mixed\"\n4. If only pooled data is available (no ECD/DCD breakdown), extract the pooled data \n   and note \"No DCD/ECD subgroup available - using pooled data\" in extraction_notes.general_notes\n\n## UNCERTAINTY FLAGGING\nWhen you encounter ambiguity, FLAG it explicitly:\n1. If MULTIPLE COHORTS exist (e.g., matched vs unmatched, different time periods):\n   - Add to unclear_items_for_review: \"Multiple cohorts: [describe options and which you chose]\"\n2. If N values seem inconsistent across outcomes:\n   - Add to data_quality_concerns: \"N inconsistency: [describe]\"\n3. If outcome definition is unclear:\n   - Add to unclear_items_for_review: \"[Outcome] definition unclear: [describe]\"\n\n## N VALUE CONSISTENCY\n- n_intervention and n_control should be CONSISTENT across all outcomes\n- If you extract EAD with N=50/25, all other outcomes should use the same N\n- If N differs for survival outcomes (due to follow-up), note this in general_notes\n\n## COHORT IDENTIFICATION (CRITICAL FOR OVERLAP DETECTION)\nFor the study_characteristics, you MUST extract these fields for cohort tracking:\n\n1. **enrollment_period_start** and **enrollment_period_end**: \n   - Look for \"patients enrolled between...\", \"study period\", \"from X to Y\"\n   - Format as \"YYYY-MM\" or \"YYYY\" if only year available\n   - Example: \"2018-01\" to \"2020-12\"\n\n2. **centers**: List of transplant centers/hospitals by name\n   - Look in Methods section, typically \"patients were enrolled at...\"\n   - Include city/country if center name alone is ambiguous\n   - Example: [\"University Hospital Zurich\", \"King's College London\"]\n\n3. **registry_id**: Clinical trial registration (NCT number, ISRCTN, etc.)\n   - Look at end of abstract, methods, or supplementary\n   - Include the full ID, e.g., \"NCT02584283\"\n\n4. **countries**: All countries where patients were enrolled\n\nThese are essential for detecting overlapping patient cohorts between studies!\n\n## IMPORTANT\n- Use null for missing values\n- Include source_location for all extracted data points\n- For RCT studies, complete rob_rct in submit_extraction\n- For NRS studies, complete rob_nrs in submit_extraction\n\nStart by identifying the study design and calling get_rob_skill()."
+        }
+      ],
+      "timestamp": "2026-01-11T18:45:33.860573"
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "function_response": {
+            "name": "get_rob_skill",
+            "response": {
+              "instructions": "[SKILL INJECTED]"
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-01-11T18:45:48.327251"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "get_rob_skill",
+            "args": {
+              "study_id": "Wang_2024",
+              "study_type": "NRS"
+            }
+          },
+          "thought_signature": "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"
+        }
+      ],
+      "timestamp": "2026-01-11T18:45:48.327406"
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "function_call": {
+            "name": "submit_extraction",
+            "args": {
+              "extraction_notes": {
+                "unclear_items_for_review": [
+                  "Matching ratio: Text says 1:1, but Table 2 Ns are 457 vs 462."
+                ],
+                "data_quality_concerns": [
+                  "N inconsistency in Table 2: The text states 1:1 Mahalanobis matching was used, but Table 2 reports N=457 for SCS and N=462 for NMP.",
+                  "The 'events' reported for 1-year graft survival in Table 2 (37 for SCS, 41 for NMP) likely represent graft failures, as the percentages (91.6% and 90.2%) correspond to 1 minus the event rate (approx 8.1% and 8.9%)."
+                ],
+                "potential_overlaps": [
+                  "Other UNOS registry studies covering the same period (2016-2022) may overlap."
+                ],
+                "general_notes": "This is a registry-based study using UNOS STAR data. It focuses on the shift in practice and discard rates but provides matched outcomes for graft survival and hospital stay. No data on biliary complications or EAD is provided. Storage time for NMP includes pump time."
+              },
+              "perfusion_settings": {
+                "temperature_setting": "Normothermic",
+                "perfusate_type": "Blood-based (implied by device types)",
+                "device_name": "OrganOx Metra; TransMedics OCS"
+              },
+              "outcome_data": {
+                "follow_up_months": 12,
+                "tbc": {
+                  "reported": false
+                },
+                "rrt": {
+                  "reported": false
+                },
+                "aki": {
+                  "reported": false
+                },
+                "acr": {
+                  "reported": false
+                },
+                "nas": {
+                  "reported": false
+                },
+                "pnf": {
+                  "reported": false
+                },
+                "icu_stay_days": {
+                  "reported": false
+                },
+                "retransplantation": {
+                  "reported": false
+                },
+                "patient_survival_1yr": {
+                  "reported": false
+                },
+                "prs": {
+                  "reported": false
+                },
+                "hat": {
+                  "reported": false
+                },
+                "hospital_stay_days": {
+                  "control_value": 10,
+                  "intervention_sd_or_iqr": "6.0-14.0",
+                  "reported": true,
+                  "control_sd_or_iqr": "6.0-16.0",
+                  "source_location": "Table 2, Page 848",
+                  "measure": "median",
+                  "intervention_value": 8
+                },
+                "graft_survival_1yr": {
+                  "reported": true,
+                  "p_value": 0.505,
+                  "intervention_percent": 90.2,
+                  "control_percent": 91.6,
+                  "source_location": "Table 2, Page 848"
+                },
+                "ead": {
+                  "reported": false
+                },
+                "major_complications": {
+                  "reported": false
+                }
+              },
+              "time_metrics": {
+                "hospital_stay_intervention": {
+                  "median": 8,
+                  "iqr_upper": 14,
+                  "iqr_lower": 6,
+                  "n": 462,
+                  "source": "Table 2"
+                },
+                "cit_control": {
+                  "source": "Results text, Page 846",
+                  "iqr_lower": 4.6,
+                  "median": 5.7,
+                  "iqr_upper": 7
+                },
+                "perfusion_duration_intervention": {
+                  "source": "Not tracked in UNOS STAR file (Page 851)"
+                },
+                "cit_intervention": {
+                  "median": 9,
+                  "iqr_upper": 12.2,
+                  "iqr_lower": 6.8,
+                  "source": "Results text, Page 846 (Note: includes pump time)"
+                },
+                "hospital_stay_control": {
+                  "median": 10,
+                  "source": "Table 2",
+                  "iqr_lower": 6,
+                  "iqr_upper": 16,
+                  "n": 457
+                }
+              },
+              "study_characteristics": {
+                "matching_ratio": "1:1",
+                "n_total": 919,
+                "registry_id": null,
+                "enrollment_period_start": "2016-01-01",
+                "doi": "10.1097/XCS.0000000000000924",
+                "year": 2024,
+                "is_multicenter": true,
+                "comparator": "Static Cold Storage (SCS)",
+                "study_id": "Wang_2024",
+                "n_control": 457,
+                "n_intervention": 462,
+                "centers": [
+                  "All US transplant centers reporting to UNOS"
+                ],
+                "countries": [
+                  "USA"
+                ],
+                "enrollment_period_end": "2022-12-31",
+                "matching_variables": [
+                  "donor age",
+                  "donor BMI",
+                  "Donor Risk Index (DRI) score",
+                  "DCD donor",
+                  "donor ethnicity",
+                  "recipient age",
+                  "recipient ethnicity",
+                  "recipient final laboratory MELD score",
+                  "recipient status at the time of transplant",
+                  "recipient MELD exception status",
+                  "recipient on life support"
+                ],
+                "journal": "Journal of the American College of Surgeons",
+                "donor_type": "Mixed",
+                "first_author": "Benjamin K Wang",
+                "intervention_type": "NMP",
+                "title": "From Patients to Providers: Assessing Impact of Normothermic Machine Perfusion on Liver Transplant Practices in the US",
+                "study_design": "Retrospective cohort",
+                "matching_method": "Mahalanobis metric-matching"
+              },
+              "rob_nrs": {
+                "overall_judgment": "Moderate",
+                "d3_classification": {
+                  "rationale": "Preservation method (NMP vs SCS) is a clearly defined variable in the UNOS registry.",
+                  "judgment": "Low"
+                },
+                "overall_rationale": "While the study uses robust matching techniques on a large national dataset, the inherent limitations of registry data (lack of granular clinical detail and potential for residual confounding) and the slight inconsistency in matched cohort sizes warrant a moderate risk of bias judgment.",
+                "d7_selection": {
+                  "rationale": "The study reports on the primary and secondary outcomes specified in the methods.",
+                  "judgment": "Low"
+                },
+                "d5_missing_data": {
+                  "rationale": "Only 0.4% of organs were excluded due to insufficient or mislabeled data. Registry data for primary outcomes like graft survival is generally complete.",
+                  "judgment": "Low"
+                },
+                "d1_confounding": {
+                  "support_quotes": [
+                    "nearest-neighbor Mahalanobis-metric matching in a 1:1 manner was used to account for confounding while comparing primary and secondary outcomes among the treatment group (NMP-preserved livers) and control group (SCS-preserved livers)."
+                  ],
+                  "judgment": "Moderate",
+                  "rationale": "The study used Mahalanobis metric-matching to account for several donor and recipient factors (age, BMI, DRI, DCD status, MELD). However, as a registry study, it lacks granular data on intraoperative factors, center-specific protocols, and specific pump parameters (like pump time vs cold time) which could lead to residual confounding."
+                },
+                "d6_measurement": {
+                  "judgment": "Low",
+                  "rationale": "Graft survival and hospital length of stay are objective outcomes recorded in the registry. Outcome assessors (registry recorders) are unlikely to be biased by the intervention status for these specific metrics."
+                },
+                "d4_deviations": {
+                  "rationale": "No evidence of significant deviations from the intended preservation method that would bias the results in this registry analysis.",
+                  "judgment": "Low"
+                },
+                "d2_selection": {
+                  "judgment": "Low",
+                  "rationale": "The study used the UNOS STAR file, which is a comprehensive national registry of all transplants in the US, minimizing selection bias."
+                }
+              }
+            }
+          },
+          "thought_signature": "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"
+        }
+      ],
+      "timestamp": "2026-01-11T18:46:10.119119"
+    }
+  ],
+  "final_result": {
+    "extraction_notes": {
+      "unclear_items_for_review": [
+        "Matching ratio: Text says 1:1, but Table 2 Ns are 457 vs 462."
+      ],
+      "data_quality_concerns": [
+        "N inconsistency in Table 2: The text states 1:1 Mahalanobis matching was used, but Table 2 reports N=457 for SCS and N=462 for NMP.",
+        "The 'events' reported for 1-year graft survival in Table 2 (37 for SCS, 41 for NMP) likely represent graft failures, as the percentages (91.6% and 90.2%) correspond to 1 minus the event rate (approx 8.1% and 8.9%)."
+      ],
+      "potential_overlaps": [
+        "Other UNOS registry studies covering the same period (2016-2022) may overlap."
+      ],
+      "general_notes": "This is a registry-based study using UNOS STAR data. It focuses on the shift in practice and discard rates but provides matched outcomes for graft survival and hospital stay. No data on biliary complications or EAD is provided. Storage time for NMP includes pump time."
+    },
+    "perfusion_settings": {
+      "temperature_setting": "Normothermic",
+      "perfusate_type": "Blood-based (implied by device types)",
+      "device_name": "OrganOx Metra; TransMedics OCS"
+    },
+    "outcome_data": {
+      "follow_up_months": 12,
+      "tbc": {
+        "reported": false
+      },
+      "rrt": {
+        "reported": false
+      },
+      "aki": {
+        "reported": false
+      },
+      "acr": {
+        "reported": false
+      },
+      "nas": {
+        "reported": false
+      },
+      "pnf": {
+        "reported": false
+      },
+      "icu_stay_days": {
+        "reported": false
+      },
+      "retransplantation": {
+        "reported": false
+      },
+      "patient_survival_1yr": {
+        "reported": false
+      },
+      "prs": {
+        "reported": false
+      },
+      "hat": {
+        "reported": false
+      },
+      "hospital_stay_days": {
+        "control_value": 10,
+        "intervention_sd_or_iqr": "6.0-14.0",
+        "reported": true,
+        "control_sd_or_iqr": "6.0-16.0",
+        "source_location": "Table 2, Page 848",
+        "measure": "median",
+        "intervention_value": 8
+      },
+      "graft_survival_1yr": {
+        "reported": true,
+        "p_value": 0.505,
+        "intervention_percent": 90.2,
+        "control_percent": 91.6,
+        "source_location": "Table 2, Page 848"
+      },
+      "ead": {
+        "reported": false
+      },
+      "major_complications": {
+        "reported": false
+      }
+    },
+    "time_metrics": {
+      "hospital_stay_intervention": {
+        "median": 8,
+        "iqr_upper": 14,
+        "iqr_lower": 6,
+        "n": 462,
+        "source": "Table 2"
+      },
+      "cit_control": {
+        "source": "Results text, Page 846",
+        "iqr_lower": 4.6,
+        "median": 5.7,
+        "iqr_upper": 7
+      },
+      "perfusion_duration_intervention": {
+        "source": "Not tracked in UNOS STAR file (Page 851)"
+      },
+      "cit_intervention": {
+        "median": 9,
+        "iqr_upper": 12.2,
+        "iqr_lower": 6.8,
+        "source": "Results text, Page 846 (Note: includes pump time)"
+      },
+      "hospital_stay_control": {
+        "median": 10,
+        "source": "Table 2",
+        "iqr_lower": 6,
+        "iqr_upper": 16,
+        "n": 457
+      }
+    },
+    "study_characteristics": {
+      "matching_ratio": "1:1",
+      "n_total": 919,
+      "registry_id": null,
+      "enrollment_period_start": "2016-01-01",
+      "doi": "10.1097/XCS.0000000000000924",
+      "year": 2024,
+      "is_multicenter": true,
+      "comparator": "Static Cold Storage (SCS)",
+      "study_id": "Wang_2024",
+      "n_control": 457,
+      "n_intervention": 462,
+      "centers": [
+        "All US transplant centers reporting to UNOS"
+      ],
+      "countries": [
+        "USA"
+      ],
+      "enrollment_period_end": "2022-12-31",
+      "matching_variables": [
+        "donor age",
+        "donor BMI",
+        "Donor Risk Index (DRI) score",
+        "DCD donor",
+        "donor ethnicity",
+        "recipient age",
+        "recipient ethnicity",
+        "recipient final laboratory MELD score",
+        "recipient status at the time of transplant",
+        "recipient MELD exception status",
+        "recipient on life support"
+      ],
+      "journal": "Journal of the American College of Surgeons",
+      "donor_type": "Mixed",
+      "first_author": "Benjamin K Wang",
+      "intervention_type": "NMP",
+      "title": "From Patients to Providers: Assessing Impact of Normothermic Machine Perfusion on Liver Transplant Practices in the US",
+      "study_design": "Retrospective cohort",
+      "matching_method": "Mahalanobis metric-matching"
+    },
+    "rob_nrs": {
+      "overall_judgment": "Moderate",
+      "d3_classification": {
+        "rationale": "Preservation method (NMP vs SCS) is a clearly defined variable in the UNOS registry.",
+        "judgment": "Low"
+      },
+      "overall_rationale": "While the study uses robust matching techniques on a large national dataset, the inherent limitations of registry data (lack of granular clinical detail and potential for residual confounding) and the slight inconsistency in matched cohort sizes warrant a moderate risk of bias judgment.",
+      "d7_selection": {
+        "rationale": "The study reports on the primary and secondary outcomes specified in the methods.",
+        "judgment": "Low"
+      },
+      "d5_missing_data": {
+        "rationale": "Only 0.4% of organs were excluded due to insufficient or mislabeled data. Registry data for primary outcomes like graft survival is generally complete.",
+        "judgment": "Low"
+      },
+      "d1_confounding": {
+        "support_quotes": [
+          "nearest-neighbor Mahalanobis-metric matching in a 1:1 manner was used to account for confounding while comparing primary and secondary outcomes among the treatment group (NMP-preserved livers) and control group (SCS-preserved livers)."
+        ],
+        "judgment": "Moderate",
+        "rationale": "The study used Mahalanobis metric-matching to account for several donor and recipient factors (age, BMI, DRI, DCD status, MELD). However, as a registry study, it lacks granular data on intraoperative factors, center-specific protocols, and specific pump parameters (like pump time vs cold time) which could lead to residual confounding."
+      },
+      "d6_measurement": {
+        "judgment": "Low",
+        "rationale": "Graft survival and hospital length of stay are objective outcomes recorded in the registry. Outcome assessors (registry recorders) are unlikely to be biased by the intervention status for these specific metrics."
+      },
+      "d4_deviations": {
+        "rationale": "No evidence of significant deviations from the intended preservation method that would bias the results in this registry analysis.",
+        "judgment": "Low"
+      },
+      "d2_selection": {
+        "judgment": "Low",
+        "rationale": "The study used the UNOS STAR file, which is a comprehensive national registry of all transplants in the US, minimizing selection bias."
+      }
+    }
+  },
+  "study_type": "NRS",
+  "pdf_paths": [
+    "/Users/boxx/Desktop/Dev/RMSC/Papers/새 논문들/10.1097 XCS.0000000000000924/main_from_patients_to_providers__assessing_impact_of.9.pdf"
+  ],
+  "extraction_mode": "tool_calling",
+  "token_usage": {
+    "prompt_tokens": 14554,
+    "output_tokens": 1570,
+    "thoughts_tokens": 1950,
+    "total_tokens": 18074
+  }
+}

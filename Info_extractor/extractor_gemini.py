@@ -30,6 +30,9 @@ from prompts_v2_data_collection import (
 )
 from pdf_utils import extract_text_from_pdf, extract_text_with_ocr_fallback
 from schemas_gemini import FULL_EXTRACTION_SCHEMA, ROB2_EXTRACTION_SCHEMA, ROBINS_I_EXTRACTION_SCHEMA
+from tool_definitions import INITIAL_TOOLS, get_extraction_tools
+from skills import get_skill
+from extraction_state import ExtractionState
 
 
 # =============================================================================
@@ -82,7 +85,7 @@ class GeminiClient:
         config = types.GenerateContentConfig(
             temperature=0,  # Deterministic output
             thinking_config=types.ThinkingConfig(
-                thinking_level="high"  # High-level thinking for complex extraction
+                thinking_level="medium"  # Medium to prevent thinking loops
             ),
             response_mime_type="application/json",
             response_schema=schema if schema else None,
@@ -167,7 +170,7 @@ class GeminiClient:
         config = types.GenerateContentConfig(
             temperature=0,
             thinking_config=types.ThinkingConfig(
-                thinking_level="high"
+                thinking_level="medium"
             ),
             response_mime_type="application/json",
             response_schema=schema if schema else None,
@@ -220,6 +223,343 @@ class GeminiClient:
                             pass
                     return {"raw_response": text, "parse_error": str(e2)}
             raise
+    
+    def extract_with_tools(self, pdf_paths: List[str], rob_files: List[str] = None,
+                           verbose: bool = False, 
+                           save_state: bool = False, state_path: Optional[str] = None) -> Tuple[Dict[str, Any], Optional[ExtractionState]]:
+        """Single API call extraction with tool calling and JIT skill injection.
+        
+        Workflow:
+        1. Model reads PDF and analyzes study design
+        2. Model calls get_rob_skill() to get appropriate RoB instructions
+        3. We inject the skill AND RoB-related files (disclosure, protocol, COI)
+        4. Model calls submit_extraction() with complete data
+        
+        Args:
+            pdf_paths: List of PDF files to process
+            rob_files: List of RoB-related PDFs (disclosure, protocol, COI) to inject with skill
+            verbose: If True, print thinking process and tool calls
+            save_state: If True, save extraction state for later interactive review
+            state_path: Optional path for state file (auto-generated if not provided)
+            
+        Returns:
+            Tuple of (extraction data dict, ExtractionState or None if save_state=False)
+        """
+        
+        # Build contents with PDF parts
+        contents = []
+        for pdf_path in pdf_paths:
+            with open(pdf_path, 'rb') as f:
+                pdf_data = f.read()
+            contents.append(
+                types.Part.from_bytes(
+                    data=pdf_data,
+                    mime_type='application/pdf'
+                )
+            )
+        
+        # System prompt for tool-based extraction
+        system_prompt = """You are a systematic review data extractor for liver transplantation machine perfusion studies.
+
+## YOUR TASK
+Extract ALL available data from this paper for meta-analysis and assess Risk of Bias.
+
+## WORKFLOW
+1. Read the paper carefully and determine the study design (RCT or NRS)
+2. Call get_rob_skill(study_type, study_id) to get detailed RoB assessment instructions
+3. Extract all data following the returned instructions
+4. Call submit_extraction() with complete results
+
+## STUDY CONTEXT
+This systematic review compares:
+- HOPE (Hypothermic Oxygenated Perfusion) vs SCS (Static Cold Storage)
+- NMP (Normothermic Machine Perfusion) vs SCS
+- In extended criteria donor (ECD) liver transplantation
+
+## OUTCOME DEFINITIONS AND HETEROGENEITY
+Different papers may use different definitions for the same outcome. Handle this as follows:
+1. ALWAYS record the paper's EXACT definition in the 'definition' field
+2. If the paper's definition differs from standard criteria, still extract the data
+3. For composite outcomes (like TBC/Total Biliary Complications), sum ALL component types mentioned
+4. When multiple time points are available, prefer 6 months for NAS, 1 year for survival
+5. If definition is unclear or non-standard, note this in 'extraction_notes.unclear_items_for_review'
+
+Common definition variations to watch for:
+- EAD: Olthoff criteria vs other criteria (always specify which)
+- NAS: different follow-up periods (6mo, 12mo, etc.)
+- PRS: 20% vs 30% MAP threshold
+- AKI: KDIGO vs RIFLE vs AKIN criteria
+- Major complications: Clavien-Dindo grade threshold
+
+## NRS: MATCHED DATA ONLY
+For non-randomized studies (NRS):
+1. Extract data from MATCHED cohorts ONLY, not unmatched/entire cohort
+2. If the paper reports both matched and unmatched results, use ONLY the matched results
+3. Record matching details in study_characteristics:
+   - matching_method: PSM, IPTW, case-control, caliper matching, etc.
+   - matching_ratio: 1:1, 1:2, 1:3, etc.
+   - matching_variables: list of variables used (age, MELD, DRI, donor type, etc.)
+4. n_intervention and n_control should reflect the MATCHED sample sizes
+5. If no matching was performed, note this in extraction_notes
+
+## ECD/DCD SUBGROUP PRIORITY
+This systematic review focuses on EXTENDED CRITERIA DONORS (ECD). 
+
+### ECD Definition:
+Extended Criteria Donors include:
+- Age ≥60 years, OR
+- Age 50-60 with 2+ of: hypertension, terminal creatinine >1.5, CVA as cause of death
+- DCD (Donation after Circulatory Death) donors
+- High DRI (Donor Risk Index) donors (typically DRI >1.5 or >1.7)
+
+### Extraction Rules:
+1. If the paper includes both standard and ECD/DCD donors:
+   - PRIORITIZE the DCD or ECD SUBGROUP data over the full cohort
+   - If DCD-specific outcomes are reported separately, use those numbers
+2. If the paper reports results for DCD donors separately (e.g., "DCD subgroup analysis"):
+   - Extract from the DCD subgroup, NOT the entire cohort
+3. Record in study_characteristics.donor_type: "DCD", "DBD", "ECD-DBD", or "Mixed"
+4. If only pooled data is available (no ECD/DCD breakdown), extract the pooled data 
+   and note "No DCD/ECD subgroup available - using pooled data" in extraction_notes.general_notes
+
+## UNCERTAINTY FLAGGING
+When you encounter ambiguity, FLAG it explicitly:
+1. If MULTIPLE COHORTS exist (e.g., matched vs unmatched, different time periods):
+   - Add to unclear_items_for_review: "Multiple cohorts: [describe options and which you chose]"
+2. If N values seem inconsistent across outcomes:
+   - Add to data_quality_concerns: "N inconsistency: [describe]"
+3. If outcome definition is unclear:
+   - Add to unclear_items_for_review: "[Outcome] definition unclear: [describe]"
+
+## N VALUE CONSISTENCY
+- n_intervention and n_control should be CONSISTENT across all outcomes
+- If you extract EAD with N=50/25, all other outcomes should use the same N
+- If N differs for survival outcomes (due to follow-up), note this in general_notes
+
+## COHORT IDENTIFICATION (CRITICAL FOR OVERLAP DETECTION)
+For the study_characteristics, you MUST extract these fields for cohort tracking:
+
+1. **enrollment_period_start** and **enrollment_period_end**: 
+   - Look for "patients enrolled between...", "study period", "from X to Y"
+   - Format as "YYYY-MM" or "YYYY" if only year available
+   - Example: "2018-01" to "2020-12"
+
+2. **centers**: List of transplant centers/hospitals by name
+   - Look in Methods section, typically "patients were enrolled at..."
+   - Include city/country if center name alone is ambiguous
+   - Example: ["University Hospital Zurich", "King's College London"]
+
+3. **registry_id**: Clinical trial registration (NCT number, ISRCTN, etc.)
+   - Look at end of abstract, methods, or supplementary
+   - Include the full ID, e.g., "NCT02584283"
+
+4. **countries**: All countries where patients were enrolled
+
+These are essential for detecting overlapping patient cohorts between studies!
+
+## IMPORTANT
+- Use null for missing values
+- Include source_location for all extracted data points
+- For RCT studies, complete rob_rct in submit_extraction
+- For NRS studies, complete rob_nrs in submit_extraction
+
+Start by identifying the study design and calling get_rob_skill()."""
+
+        contents.append(system_prompt)
+        
+        # Initial config with only get_rob_skill tool
+        config = types.GenerateContentConfig(
+            temperature=0,
+            thinking_config=types.ThinkingConfig(
+                thinking_level="medium"
+            ),
+            tools=INITIAL_TOOLS,  # Only get_rob_skill initially
+        )
+        
+        # Track current study type for dynamic tool switching
+        current_study_type = None
+        extracted_study_id = "unknown"
+        
+        # Initialize extraction state for recording
+        extraction_state = ExtractionState(
+            study_id=extracted_study_id,  # Will be updated when identified
+            model_name=self.model_name,
+            pdf_paths=[str(p) for p in pdf_paths]
+        ) if save_state else None
+        
+        # Record initial user content (system prompt + PDFs)
+        if extraction_state:
+            extraction_state.add_turn("user", [{"text": system_prompt}])
+        
+        # Initial call
+        if verbose:
+            print("  [Tool Calling] Starting extraction...")
+        
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=contents,
+            config=config
+        )
+        
+        # Track conversation history for multi-turn
+        history = list(contents)
+        
+        # Process tool calls in a loop
+        max_iterations = 5
+        iteration = 0
+        final_result = None
+        
+        while iteration < max_iterations:
+            iteration += 1
+            
+            # Check for thinking content
+            if verbose and hasattr(response, 'candidates') and response.candidates:
+                for part in response.candidates[0].content.parts:
+                    if hasattr(part, 'thought') and part.thought:
+                        print(f"\n  💭 Thinking:\n{part.text[:500]}...")
+            
+            # Check for function calls
+            function_calls = []
+            if hasattr(response, 'candidates') and response.candidates:
+                for part in response.candidates[0].content.parts:
+                    if hasattr(part, 'function_call') and part.function_call:
+                        function_calls.append(part.function_call)
+            
+            if not function_calls:
+                # No more tool calls, check if we have text response
+                if response.text:
+                    try:
+                        final_result = json.loads(response.text)
+                    except json.JSONDecodeError:
+                        pass
+                break
+            
+            # Process each function call
+            tool_responses = []
+            for fc in function_calls:
+                if verbose:
+                    print(f"  🔧 Tool call: {fc.name}({json.dumps(fc.args, ensure_ascii=False)[:100]}...)")
+                
+                if fc.name == "get_rob_skill":
+                    # JIT skill injection + dynamic tool switching
+                    study_type = fc.args.get("study_type", "NRS")
+                    study_id = fc.args.get("study_id", "Unknown")
+                    skill = get_skill(study_type)
+                    current_study_type = study_type
+                    
+                    if verbose:
+                        print(f"  📥 Injecting {study_type} RoB skill for {study_id}")
+                        print(f"  🔄 Switching to submit_extraction_{study_type.lower()} tool")
+                    
+                    # Update config with appropriate submit tool for next turn
+                    config = types.GenerateContentConfig(
+                        temperature=0,
+                        thinking_config=types.ThinkingConfig(
+                            thinking_level="medium"
+                        ),
+                        tools=get_extraction_tools(study_type),  # Dynamic tool based on study type
+                    )
+                    
+                    tool_responses.append(
+                        types.Part.from_function_response(
+                            name="get_rob_skill",
+                            response={"instructions": skill}
+                        )
+                    )
+                    
+                    # Inject RoB-related files (disclosure, protocol, COI) if available
+                    if rob_files:
+                        if verbose:
+                            print(f"  📄 Injecting {len(rob_files)} RoB-related files")
+                        for rob_path in rob_files:
+                            try:
+                                with open(rob_path, 'rb') as f:
+                                    rob_data = f.read()
+                                tool_responses.append(
+                                    types.Part.from_bytes(
+                                        data=rob_data,
+                                        mime_type='application/pdf'
+                                    )
+                                )
+                                if verbose:
+                                    print(f"    • {Path(rob_path).name}")
+                            except Exception as e:
+                                if verbose:
+                                    print(f"    ⚠️ Failed to inject {Path(rob_path).name}: {e}")
+                    
+                    # Record tool response in state
+                    if extraction_state:
+                        extraction_state.add_tool_response("get_rob_skill", {"instructions": "[SKILL INJECTED]"})
+                    
+                elif fc.name == "submit_extraction":
+                    # Final extraction - return the data
+                    if verbose:
+                        print("  ✅ Extraction submitted")
+                    final_result = fc.args
+                    
+                    # Update study_id in state if available
+                    if extraction_state and final_result:
+                        study_chars = final_result.get("study_characteristics", {})
+                        extracted_study_id = study_chars.get("study_id", "unknown")
+                        extraction_state.study_id = extracted_study_id
+                        extraction_state.study_type = current_study_type
+                    
+                    # Continue to allow model to finish if needed
+                    tool_responses.append(
+                        types.Part.from_function_response(
+                            name="submit_extraction",
+                            response={"status": "success", "message": "Extraction data received"}
+                        )
+                    )
+            
+            # Record model response in state (including thought signatures)
+            if extraction_state and response.candidates:
+                extraction_state.add_model_response(response.candidates[0].content)
+            
+            if final_result and fc.name == "submit_extraction":
+                # We have the final result, exit loop
+                break
+            
+            # Add assistant response and tool responses to history
+            history.append(response.candidates[0].content)
+            history.append(types.Content(parts=tool_responses, role="user"))
+            
+            # Continue conversation
+            response = self.client.models.generate_content(
+                model=self.model_name,
+                contents=history,
+                config=config
+            )
+        
+        if final_result is None:
+            print("  ⚠️ Warning: No final result from tool calling, using empty dict")
+            final_result = {}
+        
+        # Record token usage from last response
+        if extraction_state and response.usage_metadata:
+            um = response.usage_metadata
+            extraction_state.token_usage["prompt_tokens"] += um.prompt_token_count or 0
+            extraction_state.token_usage["output_tokens"] += um.candidates_token_count or 0
+            extraction_state.token_usage["thoughts_tokens"] += getattr(um, 'thoughts_token_count', 0) or 0
+            extraction_state.token_usage["total_tokens"] += um.total_token_count or 0
+        
+        # Finalize and save extraction state
+        if extraction_state:
+            extraction_state.final_result = final_result
+            if save_state:
+                # Save to extraction_states directory
+                states_dir = Path(__file__).parent / "extraction_states"
+                states_dir.mkdir(exist_ok=True)
+                
+                if state_path is None:
+                    state_path = str(states_dir / f"extraction_state_{extraction_state.study_id}.json")
+                
+                saved_path = extraction_state.save(state_path)
+                if verbose:
+                    print(f"  💾 Extraction state saved to: {saved_path}")
+                    print(f"  📊 Token usage: {extraction_state.token_usage['total_tokens']:,} total")
+        
+        return final_result, extraction_state
 
 
 # =============================================================================
@@ -269,6 +609,23 @@ class ExcelWriter:
     
     def write_study_characteristics(self, data: Dict[str, Any]):
         """Write to Study_Characteristics sheet"""
+        # Handle enrollment period - can be nested or flat
+        enrollment_start = None
+        enrollment_end = None
+        if isinstance(data.get("enrollment_period"), dict):
+            enrollment_start = data.get("enrollment_period", {}).get("start")
+            enrollment_end = data.get("enrollment_period", {}).get("end")
+        else:
+            enrollment_start = data.get("enrollment_period_start")
+            enrollment_end = data.get("enrollment_period_end")
+        
+        # Handle centers - can be array or string
+        centers = data.get("centers", [])
+        if isinstance(centers, list):
+            centers_str = ", ".join(centers)
+        else:
+            centers_str = centers
+        
         row_data = [
             data.get("study_id"),
             data.get("first_author"),
@@ -278,9 +635,10 @@ class ExcelWriter:
             data.get("doi"),
             data.get("study_design"),
             data.get("is_multicenter"),
+            centers_str,  # Added Centers column
             ", ".join(data.get("countries", [])) if isinstance(data.get("countries"), list) else data.get("countries"),
-            data.get("enrollment_period", {}).get("start") if isinstance(data.get("enrollment_period"), dict) else None,
-            data.get("enrollment_period", {}).get("end") if isinstance(data.get("enrollment_period"), dict) else None,
+            enrollment_start,
+            enrollment_end,
             data.get("registry_id"),
             data.get("intervention_type"),
             data.get("comparator"),
@@ -495,6 +853,28 @@ class ExcelWriter:
             prs.get("ci_lower"), prs.get("ci_upper"), prs.get("p_value"),
             prs.get("source_quote"), prs.get("source_location")
         ])
+        
+        # Graft Survival by timepoint (6 fields each: Reported, Int_Events, Int_Total, Ctrl_Events, Ctrl_Total, Source)
+        gs = data.get("graft_survival", {})
+        for tp in ["30d", "90d", "1yr", "3yr", "5yr"]:
+            tp_data = gs.get(tp, {})
+            row_data.extend([
+                tp_data.get("reported"),
+                tp_data.get("intervention_events"), tp_data.get("intervention_total"),
+                tp_data.get("control_events"), tp_data.get("control_total"),
+                tp_data.get("source_location")
+            ])
+        
+        # Patient Survival by timepoint (6 fields each)
+        ps = data.get("patient_survival", {})
+        for tp in ["30d", "90d", "1yr", "3yr", "5yr"]:
+            tp_data = ps.get(tp, {})
+            row_data.extend([
+                tp_data.get("reported"),
+                tp_data.get("intervention_events"), tp_data.get("intervention_total"),
+                tp_data.get("control_events"), tp_data.get("control_total"),
+                tp_data.get("source_location")
+            ])
         
         self._append_row("outcomes", row_data)
     
@@ -732,6 +1112,130 @@ class ExcelWriter:
 
 
 # =============================================================================
+# Cohort Registry Writer (cohort_tracking.xlsx 자동 업데이트)
+# =============================================================================
+
+class CohortRegistryWriter:
+    """Auto-populate Study Registry in cohort_tracking.xlsx from extraction results"""
+    
+    def __init__(self, cohort_tracking_path: str = None):
+        if cohort_tracking_path is None:
+            # Use absolute path relative to this script
+            script_dir = Path(__file__).parent
+            cohort_tracking_path = str(script_dir.parent / "Papers" / "cohort_tracking.xlsx")
+        
+        self.cohort_path = cohort_tracking_path
+        if os.path.exists(cohort_tracking_path):
+            try:
+                self.wb = openpyxl.load_workbook(cohort_tracking_path)
+            except Exception as e:
+                print(f"  Warning: Could not load cohort_tracking.xlsx: {e}")
+                self.wb = None
+        else:
+            print(f"  Warning: cohort_tracking.xlsx not found at {cohort_tracking_path}")
+            self.wb = None
+    
+    def save(self):
+        if self.wb:
+            self.wb.save(self.cohort_path)
+            print(f"  Saved cohort tracking to: {self.cohort_path}")
+    
+    def add_to_registry(self, data: Dict[str, Any]):
+        """Add study to Study Registry sheet"""
+        if not self.wb or "Study Registry" not in self.wb.sheetnames:
+            return
+        
+        ws = self.wb["Study Registry"]
+        
+        # Check if already exists
+        study_id = data.get("study_id")
+        for row in ws.iter_rows(min_row=2, max_col=1):
+            if row[0].value == study_id:
+                print(f"  Study {study_id} already in registry, skipping")
+                return
+        
+        # Format enrollment period
+        enrollment = ""
+        if data.get("enrollment_period_start") and data.get("enrollment_period_end"):
+            enrollment = f"{data.get('enrollment_period_start')}/{data.get('enrollment_period_end')}"
+        elif data.get("enrollment_period_start"):
+            enrollment = data.get("enrollment_period_start")
+        
+        # Format centers
+        centers = data.get("centers", [])
+        if isinstance(centers, list):
+            centers = ", ".join(centers)
+        
+        # Format countries
+        countries = data.get("countries", [])
+        if isinstance(countries, list):
+            countries = ",".join(countries)
+        
+        # Build row - matching Study Registry columns
+        row_data = [
+            study_id,                          # Study_ID
+            data.get("first_author"),          # First Author
+            data.get("year"),                  # Year
+            data.get("title", "")[:50],        # Title (truncated)
+            data.get("journal"),               # Journal
+            data.get("doi") or data.get("registry_id"),  # DOI/PMID
+            data.get("study_design"),          # Study Design
+            centers,                           # Center(s)
+            countries,                         # Country
+            enrollment,                        # Enrollment Period
+            data.get("registry_id"),           # Registry ID (NCT)
+            None,                              # Parent Study ID
+            None,                              # Relationship Type
+            data.get("n_total"),               # Sample Size (Total)
+            data.get("n_intervention"),        # Sample Size (Intervention)
+            data.get("n_control"),             # Sample Size (Control)
+            data.get("intervention_type"),     # Intervention Type
+            None                               # Notes
+        ]
+        
+        ws.append(row_data)
+        print(f"  Added {study_id} to Study Registry")
+    
+    def check_overlaps(self, data: Dict[str, Any]) -> List[Dict]:
+        """Check for potential cohort overlaps based on centers and enrollment period"""
+        if not self.wb or "Study Registry" not in self.wb.sheetnames:
+            return []
+        
+        ws = self.wb["Study Registry"]
+        current_id = data.get("study_id")
+        current_centers = set(data.get("centers", []) if isinstance(data.get("centers"), list) else [])
+        current_nct = data.get("registry_id")
+        
+        overlaps = []
+        
+        for row in ws.iter_rows(min_row=2, max_col=18, values_only=True):
+            if not row[0] or row[0] == current_id:
+                continue
+            
+            other_id = row[0]
+            other_centers = set(str(row[7] or "").split(", "))
+            other_nct = row[10]
+            
+            # Check NCT match
+            if current_nct and other_nct and current_nct == other_nct:
+                overlaps.append({
+                    "study_id": other_id,
+                    "type": "Same NCT",
+                    "evidence": f"Both use {current_nct}"
+                })
+            # Check center overlap
+            elif current_centers & other_centers:
+                shared = current_centers & other_centers
+                overlaps.append({
+                    "study_id": other_id,
+                    "type": "Shared Centers",
+                    "evidence": f"Both include: {', '.join(shared)}"
+                })
+        
+        return overlaps
+
+
+# =============================================================================
 # Main Extraction Pipeline (최적화 버전: Quick Screen 제거)
 # =============================================================================
 
@@ -832,19 +1336,121 @@ Also provide overall_judgment and overall_rationale."""
     def process_paper(self, file_path: str, output_path: str, 
                       include_rob: bool = True,
                       supplementary_files: List[str] = None,
-                      pdf_direct: bool = False):
+                      rob_files: List[str] = None,
+                      pdf_direct: bool = False,
+                      tool_calling: bool = False,
+                      verbose: bool = False):
         """Process a single paper and write to Excel
-        
-        최적화 버전: Quick Screen 제거, Full Extraction + RoB (2 API calls)
         
         Args:
             file_path: Main paper PDF/text file
             output_path: Output Excel file
-            include_rob: Include RoB extraction
+            include_rob: Include RoB extraction (ignored if tool_calling=True)
             supplementary_files: List of supplementary PDF/text files to include
+            rob_files: List of RoB-related files (disclosure, protocol, COI) for injection during RoB assessment
             pdf_direct: If True, send PDFs directly to Gemini (multimodal)
+            tool_calling: If True, use single API call with tool calling (recommended)
+            verbose: If True, print detailed extraction progress
         """
         
+        # Tool Calling Mode - Single API call with JIT skill injection
+        if tool_calling:
+            if not file_path.lower().endswith('.pdf'):
+                raise ValueError("Tool calling mode requires PDF input")
+            
+            pdf_files = [file_path]
+            if supplementary_files:
+                pdf_files.extend([f for f in supplementary_files if f.lower().endswith('.pdf')])
+            
+            print(f"  Tool Calling Mode: {len(pdf_files)} file(s)")
+            for pf in pdf_files:
+                print(f"    • {Path(pf).name}")
+            
+            # Single API call with tools
+            print("  [1/1] Unified extraction with tool calling...")
+            result, extraction_state = self.llm.extract_with_tools(
+                pdf_files, 
+                rob_files=rob_files,
+                verbose=verbose, 
+                save_state=True
+            )
+            
+            # Extract study info
+            if "study_characteristics" in result and isinstance(result["study_characteristics"], dict):
+                study_id = result["study_characteristics"].get("study_id", "Unknown")
+                design = result["study_characteristics"].get("study_design", "")
+            else:
+                study_id = result.get("study_id", "Unknown")
+                design = result.get("study_design", "")
+            
+            study_type = "NRS" if design and "RCT" not in design.upper() and "RANDOM" not in design.upper() else "RCT"
+            print(f"        → Study: {study_id}")
+            print(f"        → Design: {design} → {study_type}")
+            
+            # Prepare for writing - unified result contains everything
+            full_result = result
+            rob_result = result.get("rob_rct") if study_type == "RCT" else result.get("rob_nrs")
+            
+            # Write to Excel
+            print(f"  Writing to Excel...")
+            writer = ExcelWriter(self.template_path, output_path)
+            
+            if "study_characteristics" in result and isinstance(result["study_characteristics"], dict):
+                writer.write_study_characteristics(result["study_characteristics"])
+            
+            if "perfusion_settings" in result and isinstance(result.get("perfusion_settings"), dict):
+                perf = result["perfusion_settings"]
+                perf["study_id"] = study_id
+                writer.write_perfusion_settings(perf)
+            
+            if "time_metrics" in result and isinstance(result.get("time_metrics"), dict):
+                time_data = result["time_metrics"]
+                time_data["study_id"] = study_id
+                writer.write_time_metrics(time_data)
+            
+            if "outcome_data" in result and isinstance(result.get("outcome_data"), dict):
+                outcomes = result["outcome_data"]
+                outcomes["study_id"] = study_id
+                writer.write_outcome_data(outcomes)
+                writer.write_continuous_outcomes(outcomes)
+            
+            if rob_result and isinstance(rob_result, dict):
+                rob_result["study_id"] = study_id
+                if study_type == "RCT":
+                    writer.write_rob2(rob_result)
+                else:
+                    writer.write_robins_i(rob_result)
+            
+            notes = result.get("extraction_notes", {}) if isinstance(result, dict) else {}
+            writer.write_notes(notes, study_id)
+            
+            writer.save()
+            
+            # Update Cohort Tracking
+            if "study_characteristics" in result and isinstance(result["study_characteristics"], dict):
+                try:
+                    cohort_writer = CohortRegistryWriter()
+                    cohort_writer.add_to_registry(result["study_characteristics"])
+                    
+                    # Check for overlaps
+                    overlaps = cohort_writer.check_overlaps(result["study_characteristics"])
+                    if overlaps:
+                        print(f"  ⚠️ Potential overlaps detected:")
+                        for ov in overlaps:
+                            print(f"     - {ov['study_id']}: {ov['type']} ({ov['evidence']})")
+                    
+                    cohort_writer.save()
+                except Exception as e:
+                    print(f"  Warning: Could not update cohort tracking: {e}")
+            
+            return {
+                "full_extraction": result,
+                "rob_information": rob_result,
+                "study_type": study_type,
+                "study_id": study_id
+            }
+        
+        # Legacy Mode - 2 API calls (PDF Direct or Text Mode)
         if pdf_direct and file_path.lower().endswith('.pdf'):
             # PDF Direct Mode - send files directly to Gemini
             pdf_files = [file_path]
@@ -1066,23 +1672,23 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Single paper extraction
-  python extractor_gemini.py -i paper.pdf -o results.xlsx
+  # Single paper extraction (RECOMMENDED: Tool Calling mode)
+  python extractor_gemini.py -i paper.pdf -o results.xlsx --tool-calling
+  
+  # With verbose output to see thinking process
+  python extractor_gemini.py -i paper.pdf -o results.xlsx --tool-calling --verbose
+  
+  # Legacy: 2 API calls mode (PDF direct)
+  python extractor_gemini.py -i paper.pdf -o results.xlsx --pdf-direct
   
   # With supplementary materials
-  python extractor_gemini.py -i paper.pdf -s supplementary.pdf -o results.xlsx
-  
-  # Multiple supplementary files
-  python extractor_gemini.py -i paper.pdf -s supp1.pdf supp2.pdf -o results.xlsx
-  
-  # Skip RoB extraction
-  python extractor_gemini.py -i paper.pdf -o results.xlsx --no-rob
+  python extractor_gemini.py -i paper.pdf -s supplementary.pdf -o results.xlsx --tool-calling
   
   # Batch process folder
   python extractor_gemini.py -i ./papers/ -o results.xlsx --batch
   
   # Save JSON alongside Excel
-  python extractor_gemini.py -i paper.pdf -o results.xlsx --json
+  python extractor_gemini.py -i paper.pdf -o results.xlsx --tool-calling --json
 
 Environment Variables:
   GOOGLE_API_KEY or GEMINI_API_KEY: Your Gemini API key
@@ -1096,7 +1702,9 @@ Environment Variables:
     parser.add_argument("--no-rob", action="store_true", help="Skip RoB information extraction")
     parser.add_argument("--batch", action="store_true", help="Batch process all files in directory")
     parser.add_argument("--json", action="store_true", help="Also save results as JSON file")
-    parser.add_argument("--pdf-direct", action="store_true", help="Send PDF directly to Gemini (multimodal, better for tables)")
+    parser.add_argument("--pdf-direct", action="store_true", help="Send PDF directly to Gemini (multimodal, 2 API calls)")
+    parser.add_argument("--tool-calling", action="store_true", help="Use tool calling mode (single API call, recommended)")
+    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed extraction progress and thinking")
     parser.add_argument("--update-tracking", metavar="FILE", help="Update cohort_tracking.xlsx with extraction results")
     
     args = parser.parse_args()
@@ -1107,8 +1715,12 @@ Environment Variables:
     print(f"Model: {args.model}")
     print(f"Template: {args.template}")
     print(f"Output: {args.output}")
-    if args.pdf_direct:
-        print(f"Mode: PDF Direct (Multimodal)")
+    if args.tool_calling:
+        print(f"Mode: Tool Calling (Single API call)")
+    elif args.pdf_direct:
+        print(f"Mode: PDF Direct (2 API calls)")
+    else:
+        print(f"Mode: Text (2 API calls)")
     if args.update_tracking:
         print(f"Tracking: {args.update_tracking}")
     
@@ -1135,7 +1747,9 @@ Environment Variables:
             args.output,
             include_rob=not args.no_rob,
             supplementary_files=supplementary_files,
-            pdf_direct=args.pdf_direct
+            pdf_direct=args.pdf_direct,
+            tool_calling=args.tool_calling,
+            verbose=args.verbose
         )
         
         if args.json:

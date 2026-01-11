@@ -1,0 +1,289 @@
+{
+  "full_extraction": {
+    "rob_nrs": {
+      "overall_judgment": "Moderate",
+      "d2_selection": {
+        "judgment": "Low",
+        "rationale": "Consecutive primary adult DBD LTs were included. Retransplants and DCD LTs were excluded. Selection was based on pre-defined criteria.",
+        "support_quotes": [
+          "Data on all consecutive primary adult (>18-year-old) DBD LTs performed between March 16th, 2016 and June 12th, 2018... were prospectively collected and retrospectively analyzed."
+        ]
+      },
+      "d4_deviations": {
+        "judgment": "Low",
+        "rationale": "No significant deviations or co-interventions reported that would bias the results. Standard immunosuppression and surgical techniques were used."
+      },
+      "d6_measurement": {
+        "judgment": "Moderate",
+        "rationale": "Outcomes like EAD, AKI, and PRS are based on objective laboratory or hemodynamic data, but the study was not blinded, and knowledge of the intervention could potentially influence clinical management or reporting."
+      },
+      "d3_classification": {
+        "rationale": "Intervention (HOPE) is well-defined and applied according to a protocol. Control (SCS) is standard.",
+        "judgment": "Low",
+        "support_quotes": [
+          "HOPE was employed in selected cases of DBD liver transplantation following an established protocol since November 2017."
+        ]
+      },
+      "d7_selection": {
+        "rationale": "Endpoints were clearly defined in the methods section and reported in the results. Bayesian model averaging was used as a sensitivity analysis.",
+        "judgment": "Low"
+      },
+      "d1_confounding": {
+        "judgment": "Moderate",
+        "rationale": "Propensity score matching (1:2) was used to balance groups on donor age, steatosis, BMI, MELD, DRI, and BAR score. However, cold ischemia time was deliberately not balanced and was significantly shorter in the HOPE group (311 vs 391 min, p<0.001). Single-center study.",
+        "support_quotes": [
+          "To overcome the selection bias due to the allocation of HOPE to marginal grafts, propensity score matching with a 1:2 ratio was carried out.",
+          "We deliberately chose not to balance on cold ischemia time, as this difference was due to HOPE logistics. Thus, significant unbalance concerning cold ischemia time persisted in the matched cohort (391 [72] versus 499 [59] minutes; p < 0.001)."
+        ]
+      },
+      "overall_rationale": "The study is a well-conducted single-center cohort study using propensity score matching to address selection bias. The main limitation is the lack of blinding and the significant difference in cold ischemia time between groups, which was a direct consequence of the intervention logistics.",
+      "d5_missing_data": {
+        "rationale": "Complete follow-up for primary outcomes (minimum 6 months). No mention of significant loss to follow-up.",
+        "judgment": "Low",
+        "support_quotes": [
+          "Minimal follow-up was six months."
+        ]
+      },
+      "study_id": "Patrono_2019"
+    },
+    "perfusion_settings": {
+      "cannulation": "Dual (PV+HA) in 23/25; PV-only in 2/25",
+      "temperature_celsius": 10,
+      "temperature_setting": "Hypothermic",
+      "perfusate_type": "Belzer MPS solution (3L)",
+      "device_name": "LiverAssist (OrganAssist)",
+      "study_id": "Patrono_2019"
+    },
+    "time_metrics": {
+      "perfusion_initiation": "End-ischemic",
+      "cold_ischemia_time_hours": 5.18,
+      "perfusion_time_hours": 3.1,
+      "warm_ischemia_time_minutes": 23,
+      "study_id": "Patrono_2019"
+    },
+    "study_characteristics": {
+      "countries": [
+        "Italy"
+      ],
+      "comparator": "Static Cold Storage (SCS)",
+      "title": "Hypothermic Oxygenated Machine Perfusion of Liver Grafts from Brain-Dead Donors",
+      "centers": [
+        "A.O.U. Città della Salute e della Scienza di Torino, Italy"
+      ],
+      "registry_id": null,
+      "matching_method": "PSM",
+      "donor_type": "DBD",
+      "enrollment_period_end": "2018-06-12",
+      "matching_ratio": "1:2",
+      "year": 2019,
+      "n_intervention": 25,
+      "enrollment_period_start": "2016-03-16",
+      "matching_variables": [
+        "donor age",
+        "macrovesicular steatosis ≥15%",
+        "donor BMI",
+        "MELD at LT",
+        "DRI",
+        "BAR score"
+      ],
+      "first_author": "Damiano Patrono",
+      "is_multicenter": false,
+      "study_id": "Patrono_2019",
+      "intervention_type": "HOPE",
+      "n_total": 75,
+      "study_design": "Retrospective cohort",
+      "n_control": 50,
+      "journal": "Scientific Reports",
+      "doi": "10.1038/s41598-019-45843-3"
+    },
+    "outcome_data": {
+      "nas": {
+        "p_value": 1,
+        "control_events": 4,
+        "reported": true,
+        "definition": "Post-transplant cholangiopathy (PTC) / Non-anastomotic strictures defined according to Weeder et al.",
+        "intervention_total": 25,
+        "control_total": 50,
+        "source_location": "Table 2, page 6",
+        "intervention_events": 2
+      },
+      "icu_stay_days": {
+        "control_value": 4.2,
+        "measure": "mean",
+        "control_sd_or_iqr": "2.6",
+        "intervention_value": 3.9,
+        "reported": true,
+        "source_location": "Table 2, page 6",
+        "intervention_sd_or_iqr": "4.0"
+      },
+      "pnf": {
+        "intervention_total": 25,
+        "source_location": "Results, page 4",
+        "control_total": 50,
+        "intervention_events": 0,
+        "control_events": 0,
+        "definition": "Primary non-function (not further defined, but reported as zero cases)",
+        "reported": true
+      },
+      "major_complications": {
+        "intervention_events": 5,
+        "definition": "Clavien-Dindo grade ≥3",
+        "reported": true,
+        "source_location": "Table 2, page 6",
+        "control_events": 11,
+        "control_total": 50,
+        "intervention_total": 25,
+        "p_value": 1
+      },
+      "rrt": {
+        "intervention_total": 25,
+        "reported": true,
+        "intervention_events": 1,
+        "control_events": 2,
+        "definition": "Post-LT dialysis requirement",
+        "p_value": 1,
+        "source_location": "Table 2, page 6",
+        "control_total": 50
+      },
+      "aki": {
+        "control_total": 50,
+        "intervention_total": 25,
+        "p_value": 0.046,
+        "source_location": "Table 2, page 6",
+        "intervention_events": 4,
+        "control_events": 21,
+        "definition": "Moderate-to-severe (Stage 2-3) AKI according to 2012 KDIGO guidelines",
+        "reported": true
+      },
+      "follow_up_months": 6,
+      "graft_survival_1yr": {
+        "reported": true,
+        "source_location": "Figure 3, page 9; Results, page 4",
+        "intervention_percent": 100,
+        "p_value": 0.16
+      },
+      "ead": {
+        "p_value": 1,
+        "control_events": 17,
+        "intervention_total": 25,
+        "intervention_events": 8,
+        "source_location": "Table 2, page 6",
+        "control_total": 50,
+        "definition": "Olthoff criteria: bilirubin ≥10 mg/dL on day 7, INR ≥1.6 on day 7, or ALT/AST >2000 U/L within first 7 days",
+        "reported": true
+      },
+      "hat": {
+        "reported": false
+      },
+      "retransplantation": {
+        "control_total": 50,
+        "reported": true,
+        "control_events": 0,
+        "intervention_total": 25,
+        "source_location": "Results, page 4 (implied by 100% graft survival)",
+        "intervention_events": 0
+      },
+      "hospital_stay_days": {
+        "measure": "mean",
+        "control_sd_or_iqr": "6.6",
+        "reported": true,
+        "intervention_value": 15.1,
+        "intervention_sd_or_iqr": "9.4",
+        "control_value": 14.3,
+        "source_location": "Table 2, page 6"
+      },
+      "tbc": {
+        "control_events": 9,
+        "source_location": "Table 2, page 6",
+        "p_value": 0.76,
+        "intervention_events": 6,
+        "control_total": 50,
+        "definition": "Overall biliary complications (sum of anastomotic and non-anastomotic)",
+        "reported": true,
+        "intervention_total": 25
+      },
+      "acr": {
+        "intervention_events": 4,
+        "definition": "Acute rejection rate (not further specified, likely biopsy-proven)",
+        "p_value": 0.9,
+        "control_events": 6,
+        "control_total": 50,
+        "intervention_total": 25,
+        "source_location": "Table 2, page 6",
+        "reported": true
+      },
+      "patient_survival_1yr": {
+        "intervention_percent": 100,
+        "source_location": "Figure 3, page 9; Results, page 4",
+        "reported": true
+      },
+      "prs": {
+        "source_location": "Table 2, page 6",
+        "intervention_events": 1,
+        "control_total": 50,
+        "definition": "Severe PRS defined according to Hilmi et al. as a persistent drop in MAP (>30% of the anhepatic level), asystole or hemodynamically significant arrhythmias",
+        "control_events": 10,
+        "p_value": 0.13,
+        "reported": true,
+        "intervention_total": 25
+      },
+      "study_id": "Patrono_2019"
+    },
+    "extraction_notes": {
+      "unclear_items_for_review": [
+        "Graft and patient survival percentages for the matched SCS group are not explicitly stated in text or tables, only shown in Kaplan-Meier curves."
+      ],
+      "data_quality_concerns": [],
+      "potential_overlaps": [],
+      "general_notes": "Single-center study from Italy. Used PSM (1:2) to compare HOPE vs SCS in DBD livers. CIT was significantly shorter in the HOPE group due to logistical coordination. Dual-HOPE was intended for all, but 2 cases were PV-only due to pump malfunction."
+    }
+  },
+  "rob_information": {
+    "overall_judgment": "Moderate",
+    "d2_selection": {
+      "judgment": "Low",
+      "rationale": "Consecutive primary adult DBD LTs were included. Retransplants and DCD LTs were excluded. Selection was based on pre-defined criteria.",
+      "support_quotes": [
+        "Data on all consecutive primary adult (>18-year-old) DBD LTs performed between March 16th, 2016 and June 12th, 2018... were prospectively collected and retrospectively analyzed."
+      ]
+    },
+    "d4_deviations": {
+      "judgment": "Low",
+      "rationale": "No significant deviations or co-interventions reported that would bias the results. Standard immunosuppression and surgical techniques were used."
+    },
+    "d6_measurement": {
+      "judgment": "Moderate",
+      "rationale": "Outcomes like EAD, AKI, and PRS are based on objective laboratory or hemodynamic data, but the study was not blinded, and knowledge of the intervention could potentially influence clinical management or reporting."
+    },
+    "d3_classification": {
+      "rationale": "Intervention (HOPE) is well-defined and applied according to a protocol. Control (SCS) is standard.",
+      "judgment": "Low",
+      "support_quotes": [
+        "HOPE was employed in selected cases of DBD liver transplantation following an established protocol since November 2017."
+      ]
+    },
+    "d7_selection": {
+      "rationale": "Endpoints were clearly defined in the methods section and reported in the results. Bayesian model averaging was used as a sensitivity analysis.",
+      "judgment": "Low"
+    },
+    "d1_confounding": {
+      "judgment": "Moderate",
+      "rationale": "Propensity score matching (1:2) was used to balance groups on donor age, steatosis, BMI, MELD, DRI, and BAR score. However, cold ischemia time was deliberately not balanced and was significantly shorter in the HOPE group (311 vs 391 min, p<0.001). Single-center study.",
+      "support_quotes": [
+        "To overcome the selection bias due to the allocation of HOPE to marginal grafts, propensity score matching with a 1:2 ratio was carried out.",
+        "We deliberately chose not to balance on cold ischemia time, as this difference was due to HOPE logistics. Thus, significant unbalance concerning cold ischemia time persisted in the matched cohort (391 [72] versus 499 [59] minutes; p < 0.001)."
+      ]
+    },
+    "overall_rationale": "The study is a well-conducted single-center cohort study using propensity score matching to address selection bias. The main limitation is the lack of blinding and the significant difference in cold ischemia time between groups, which was a direct consequence of the intervention logistics.",
+    "d5_missing_data": {
+      "rationale": "Complete follow-up for primary outcomes (minimum 6 months). No mention of significant loss to follow-up.",
+      "judgment": "Low",
+      "support_quotes": [
+        "Minimal follow-up was six months."
+      ]
+    },
+    "study_id": "Patrono_2019"
+  },
+  "study_type": "NRS",
+  "study_id": "Patrono_2019"
+}

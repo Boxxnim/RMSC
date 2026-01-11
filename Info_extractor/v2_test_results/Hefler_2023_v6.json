@@ -1,0 +1,644 @@
+{
+  "result": {
+    "study_id": "Hefler_2023",
+    "study_design": "NRS",
+    "population": {
+      "type": "Mixed",
+      "subgroup_available": true,
+      "subgroup_used": "DCD subgroup data prioritized for selection per protocol",
+      "matching": "PSM 1:1"
+    },
+    "arms": {
+      "intervention": {
+        "name": "NMP",
+        "N": 79
+      },
+      "control": {
+        "name": "SCS",
+        "N": 386
+      }
+    },
+    "outcomes": [
+      {
+        "outcome_name": "EAD",
+        "definition": {
+          "criteria": "Olthoff criteria (AST > 2000 U/L on POD 1-7, bilirubin > 170 μmoL/L on POD 7, or INR ≥ 1.6 on POD 7)",
+          "timeframe": "within 7 days",
+          "source": "Methods, p. 977"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2",
+              "page": 5
+            },
+            "quote": "EAD (%) 109 (28.2) vs 20 (25.3)",
+            "intervention": {
+              "n": 20,
+              "N": 79,
+              "pct": 25.3
+            },
+            "control": {
+              "n": 109,
+              "N": 386,
+              "pct": 28.2
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "EAD (%) 33 (64.7) vs 7 (43.8)",
+            "intervention": {
+              "n": 7,
+              "N": 16,
+              "pct": 43.8
+            },
+            "control": {
+              "n": 33,
+              "N": 51,
+              "pct": 64.7
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "PNF",
+        "definition": {
+          "criteria": "Primary nonfunction",
+          "timeframe": "Not specified",
+          "source": "Table 2"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2",
+              "page": 5
+            },
+            "quote": "Primary nonfunction 9 (2.3) vs 0 (0.0)",
+            "intervention": {
+              "n": 0,
+              "N": 79,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 9,
+              "N": 386,
+              "pct": 2.3
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "Primary non-function 2 (3.9) vs 0 (0.0)",
+            "intervention": {
+              "n": 0,
+              "N": 16,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 2,
+              "N": 51,
+              "pct": 3.9
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "NAS",
+        "definition": {
+          "criteria": "Ischemic cholangiopathy (nonanastomotic biliary strictures occurring with a patent, nonstenotic hepatic artery)",
+          "timeframe": "Not specified",
+          "source": "Methods, p. 977"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2 (continued)",
+              "page": 6
+            },
+            "quote": "Ischemic cholangiopathy 4 (1.0) vs 1 (1.3)",
+            "intervention": {
+              "n": 1,
+              "N": 79,
+              "pct": 1.3
+            },
+            "control": {
+              "n": 4,
+              "N": 386,
+              "pct": 1.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "Ischemic cholangiopathy 2 (3.9) vs 1 (6.3)",
+            "intervention": {
+              "n": 1,
+              "N": 16,
+              "pct": 6.3
+            },
+            "control": {
+              "n": 2,
+              "N": 51,
+              "pct": 3.9
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "TBC",
+        "definition": {
+          "criteria": "Biliary complications within 1 y",
+          "timeframe": "1 year",
+          "source": "Table 2"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2 (continued)",
+              "page": 6
+            },
+            "quote": "Biliary complications within 1 y 60 (15.4) vs 17 (21.5)",
+            "intervention": {
+              "n": 17,
+              "N": 79,
+              "pct": 21.5
+            },
+            "control": {
+              "n": 60,
+              "N": 386,
+              "pct": 15.4
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "Biliary complications at 1yr 18 (35.3) vs 7 (43.8)",
+            "intervention": {
+              "n": 7,
+              "N": 16,
+              "pct": 43.8
+            },
+            "control": {
+              "n": 18,
+              "N": 51,
+              "pct": 35.3
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "HAT",
+        "definition": {
+          "criteria": "HA thrombosis",
+          "timeframe": "1 year",
+          "source": "Table 2"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2 (continued)",
+              "page": 6
+            },
+            "quote": "HA thrombosis 7 (1.8) vs 1 (0.9)",
+            "intervention": {
+              "n": 1,
+              "N": 79,
+              "pct": 0.9
+            },
+            "control": {
+              "n": 7,
+              "N": 386,
+              "pct": 1.8
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "HA thrombosis 0 (0.0) vs 0 (0.0)",
+            "intervention": {
+              "n": 0,
+              "N": 16,
+              "pct": 0.0
+            },
+            "control": {
+              "n": 0,
+              "N": 51,
+              "pct": 0.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "ACR",
+        "definition": {
+          "criteria": "Rejection episode within 1 y",
+          "timeframe": "1 year",
+          "source": "Table 2"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2 (continued)",
+              "page": 6
+            },
+            "quote": "Rejection episode within 1 y 74 (19.2) vs 16 (20.3)",
+            "intervention": {
+              "n": 16,
+              "N": 79,
+              "pct": 20.3
+            },
+            "control": {
+              "n": 74,
+              "N": 386,
+              "pct": 19.2
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "Rejection episode within 1yr 9 (17.7) vs 2 (12.5)",
+            "intervention": {
+              "n": 2,
+              "N": 16,
+              "pct": 12.5
+            },
+            "control": {
+              "n": 9,
+              "N": 51,
+              "pct": 17.7
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "MC",
+        "definition": {
+          "criteria": "Major complications (Clavien-Dindo classification ≥ 3b)",
+          "timeframe": "Not specified",
+          "source": "Methods, p. 977"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2 (continued)",
+              "page": 6
+            },
+            "quote": "Major complications (Clavien-Dindo ≥3b) 185 (47.9) vs 43 (54.4)",
+            "intervention": {
+              "n": 43,
+              "N": 79,
+              "pct": 54.4
+            },
+            "control": {
+              "n": 185,
+              "N": 386,
+              "pct": 47.9
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "Major complications (Clavien-Dindo ≥3b) 33 (64.7) vs 9 (56.3)",
+            "intervention": {
+              "n": 9,
+              "N": 16,
+              "pct": 56.3
+            },
+            "control": {
+              "n": 33,
+              "N": 51,
+              "pct": 64.7
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "Graft Survival",
+        "definition": {
+          "criteria": "Crude graft survival",
+          "timeframe": "30 days",
+          "source": "Table 2"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2",
+              "page": 5
+            },
+            "quote": "30 d (n = 386/79) 364 (94.3) vs 79 (100.0)",
+            "intervention": {
+              "n": 79,
+              "N": 79,
+              "pct": 100.0
+            },
+            "control": {
+              "n": 364,
+              "N": 386,
+              "pct": 94.3
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "30 days (n=51/16) 47 (92.2) vs 16 (100.0)",
+            "intervention": {
+              "n": 16,
+              "N": 16,
+              "pct": 100.0
+            },
+            "control": {
+              "n": 47,
+              "N": 51,
+              "pct": 92.2
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "Graft Survival",
+        "definition": {
+          "criteria": "Crude graft survival",
+          "timeframe": "1 year",
+          "source": "Table 2"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2",
+              "page": 5
+            },
+            "quote": "1 y (n = 349/76) 311 (89.1) vs 66 (86.8)",
+            "intervention": {
+              "n": 66,
+              "N": 76,
+              "pct": 86.8
+            },
+            "control": {
+              "n": 311,
+              "N": 349,
+              "pct": 89.1
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "1 year (n=44/15) 41 (93.2) vs 13 (86.7)",
+            "intervention": {
+              "n": 13,
+              "N": 15,
+              "pct": 86.7
+            },
+            "control": {
+              "n": 41,
+              "N": 44,
+              "pct": 93.2
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "Patient Survival",
+        "definition": {
+          "criteria": "Crude patient survival",
+          "timeframe": "30 days",
+          "source": "Table 2"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2",
+              "page": 5
+            },
+            "quote": "30 d (n = 369/76) 358 (97.0) vs 76 (100.0)",
+            "intervention": {
+              "n": 76,
+              "N": 76,
+              "pct": 100.0
+            },
+            "control": {
+              "n": 358,
+              "N": 369,
+              "pct": 97.0
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "30 days (n=50/16) 49 (98.0) vs 16 (100.0)",
+            "intervention": {
+              "n": 16,
+              "N": 16,
+              "pct": 100.0
+            },
+            "control": {
+              "n": 49,
+              "N": 50,
+              "pct": 98.0
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "Patient Survival",
+        "definition": {
+          "criteria": "Crude patient survival",
+          "timeframe": "1 year",
+          "source": "Table 2"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Results",
+              "element": "Table 2",
+              "page": 5
+            },
+            "quote": "1 y (n = 331/73) 307 (92.8) vs 67 (91.8)",
+            "intervention": {
+              "n": 67,
+              "N": 73,
+              "pct": 91.8
+            },
+            "control": {
+              "n": 307,
+              "N": 331,
+              "pct": 92.8
+            },
+            "is_subgroup": false,
+            "is_estimated": false
+          },
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 5",
+              "page": "supp-5"
+            },
+            "quote": "1 year (n=44/15) 43 (97.7) vs 14 (93.3)",
+            "intervention": {
+              "n": 14,
+              "N": 15,
+              "pct": 93.3
+            },
+            "control": {
+              "n": 43,
+              "N": 44,
+              "pct": 97.7
+            },
+            "is_subgroup": true,
+            "subgroup_type": "DCD",
+            "is_estimated": false
+          }
+        ],
+        "selected_mention": 1,
+        "selection_reason": "DCD subgroup data prioritized per extraction rules"
+      },
+      {
+        "outcome_name": "Retx",
+        "definition": {
+          "criteria": "Retransplantation",
+          "timeframe": "Study period",
+          "source": "Supplementary Table 10"
+        },
+        "mentions": [
+          {
+            "location": {
+              "section": "Supplementary",
+              "element": "Supplementary Table 10",
+              "page": "supp-12"
+            },
+            "quote": "Detail cause of death and/or graft failure for study patients.",
+            "intervention": {
+              "n": 3,
+              "N": 79
+            },
+            "control": {
+              "n": 17,
+              "N": 386
+            },
+            "is_subgroup": false,
+            "is_estimated": true
+          }
+        ],
+        "selected_mention": 0,
+        "selection_reason": "Calculated from detailed patient list in Supplementary Table 10 (NMP: ORGX24-1, ORGX57, ORGX70; SCS: SCS15, SCS19, SCS25, SCS38, SCS76, SCS86, SCS89, SCS188, SCS215, SCS236, SCS359, SCS361, SCS366, SCS375, SCS391, SCS400, SCS543)"
+      }
+    ],
+    "extraction_notes": {
+      "data_quality_concerns": [],
+      "ambiguities": [
+        "Retransplantation outcome was manually aggregated from the detailed list in Supplementary Table 10 as it was not summarized in a primary table."
+      ],
+      "general_notes": "The study provides comprehensive data for pooled, matched, and subgroup (DCD, local) cohorts. DCD subgroup data from Supplementary Table 5 was prioritized for selection where available."
+    }
+  }
+}

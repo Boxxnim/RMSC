@@ -1,0 +1,453 @@
+{
+  "result": [
+    {
+      "study_id": "Hefler_2023",
+      "study_design": "NRS",
+      "population": {
+        "type": "Mixed",
+        "subgroup_available": true,
+        "subgroup_used": "Matched 1:1 cohort (n=79 each) and DCD subgroup (n=51 SCS, n=16 NMP)",
+        "matching": "PSM 1:1"
+      },
+      "arms": {
+        "intervention": {
+          "name": "NMP",
+          "N": 79
+        },
+        "control": {
+          "name": "SCS",
+          "N": 386
+        }
+      },
+      "outcomes": [
+        {
+          "outcome_name": "Early allograft dysfunction",
+          "definition": {
+            "criteria": "AST > 2000 U/L (POD 1-7), serum bilirubin > 170 μmoL/L on POD7, or INR ≥ 1.6 on POD7",
+            "timeframe": "within 7 days",
+            "source": "Methods, p. 977"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2",
+                "page": 5
+              },
+              "quote": "EAD (%) 109 (28.2) vs 20 (25.3)",
+              "intervention": {
+                "n": 20,
+                "N": 79,
+                "pct": 25.3
+              },
+              "control": {
+                "n": 109,
+                "N": 386,
+                "pct": 28.2
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            },
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 3",
+                "page": 7
+              },
+              "quote": "EAD (%) 26 (32.9) vs 20 (25.3)",
+              "intervention": {
+                "n": 20,
+                "N": 79,
+                "pct": 25.3
+              },
+              "control": {
+                "n": 26,
+                "N": 79,
+                "pct": 32.9
+              },
+              "is_subgroup": true,
+              "subgroup_type": "Matched 1:1",
+              "is_estimated": false
+            },
+            {
+              "location": {
+                "section": "Supplementary",
+                "element": "Supplementary Table 5",
+                "page": 5
+              },
+              "quote": "EAD (%) 33 (64.7) vs 7 (43.8)",
+              "intervention": {
+                "n": 7,
+                "N": 16,
+                "pct": 43.8
+              },
+              "control": {
+                "n": 33,
+                "N": 51,
+                "pct": 64.7
+              },
+              "is_subgroup": true,
+              "subgroup_type": "DCD",
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 1,
+          "selection_reason": "Matched cohort data prioritized for NRS to minimize confounding."
+        },
+        {
+          "outcome_name": "Primary non-function",
+          "definition": {
+            "criteria": "Primary nonfunction",
+            "timeframe": "Not specified",
+            "source": "Table 2"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2",
+                "page": 5
+              },
+              "quote": "Primary nonfunction 9 (2.3) vs 0 (0.0)",
+              "intervention": {
+                "n": 0,
+                "N": 79,
+                "pct": 0.0
+              },
+              "control": {
+                "n": 9,
+                "N": 386,
+                "pct": 2.3
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            },
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 3",
+                "page": 8
+              },
+              "quote": "Primary nonfunction 2 (2.5) vs 0 (0.0)",
+              "intervention": {
+                "n": 0,
+                "N": 79,
+                "pct": 0.0
+              },
+              "control": {
+                "n": 2,
+                "N": 79,
+                "pct": 2.5
+              },
+              "is_subgroup": true,
+              "subgroup_type": "Matched 1:1",
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 1,
+          "selection_reason": "Matched cohort data prioritized."
+        },
+        {
+          "outcome_name": "Hepatic artery thrombosis",
+          "definition": {
+            "criteria": "HA thrombosis",
+            "timeframe": "within 1 year",
+            "source": "Table 2 (continued)"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2 (continued)",
+                "page": 6
+              },
+              "quote": "HA thrombosis 7 (1.8) vs 1 (0.9)",
+              "intervention": {
+                "n": 1,
+                "N": 79,
+                "pct": 0.9
+              },
+              "control": {
+                "n": 7,
+                "N": 386,
+                "pct": 1.8
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 0,
+          "selection_reason": "Crude data mention."
+        },
+        {
+          "outcome_name": "Ischemic cholangiopathy",
+          "definition": {
+            "criteria": "presence of nonanastomotic biliary strictures occurring with a patent, nonstenotic hepatic artery",
+            "timeframe": "Not specified",
+            "source": "Methods, p. 977"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2 (continued)",
+                "page": 6
+              },
+              "quote": "Ischemic cholangiopathy 4 (1.0) vs 1 (1.3)",
+              "intervention": {
+                "n": 1,
+                "N": 79,
+                "pct": 1.3
+              },
+              "control": {
+                "n": 4,
+                "N": 386,
+                "pct": 1.0
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 0,
+          "selection_reason": "Crude data mention."
+        },
+        {
+          "outcome_name": "Major complications",
+          "definition": {
+            "criteria": "Clavien-Dindo classification ≥ 3b",
+            "timeframe": "Not specified",
+            "source": "Table 2 (continued)"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2 (continued)",
+                "page": 6
+              },
+              "quote": "Major complications (Clavien-Dindo ≥3b) 185 (47.9) vs 43 (54.4)",
+              "intervention": {
+                "n": 43,
+                "N": 79,
+                "pct": 54.4
+              },
+              "control": {
+                "n": 185,
+                "N": 386,
+                "pct": 47.9
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 0,
+          "selection_reason": "Crude data mention."
+        },
+        {
+          "outcome_name": "Graft survival",
+          "definition": {
+            "criteria": "Crude graft survival",
+            "timeframe": "30 days",
+            "source": "Table 2"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2",
+                "page": 5
+              },
+              "quote": "30 d (n = 386/79) 364 (94.3) vs 79 (100.0)",
+              "intervention": {
+                "n": 79,
+                "N": 79,
+                "pct": 100.0
+              },
+              "control": {
+                "n": 364,
+                "N": 386,
+                "pct": 94.3
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            },
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 3",
+                "page": 7
+              },
+              "quote": "30 d (n = 79/79) 73 (92.4) vs 79 (100.0)",
+              "intervention": {
+                "n": 79,
+                "N": 79,
+                "pct": 100.0
+              },
+              "control": {
+                "n": 73,
+                "N": 79,
+                "pct": 92.4
+              },
+              "is_subgroup": true,
+              "subgroup_type": "Matched 1:1",
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 1,
+          "selection_reason": "Matched cohort data prioritized."
+        },
+        {
+          "outcome_name": "Graft survival",
+          "definition": {
+            "criteria": "Crude graft survival",
+            "timeframe": "1 year",
+            "source": "Table 2"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2",
+                "page": 5
+              },
+              "quote": "1 y (n = 349/76) 311 (89.1) vs 66 (86.8)",
+              "intervention": {
+                "n": 66,
+                "N": 76,
+                "pct": 86.8
+              },
+              "control": {
+                "n": 311,
+                "N": 349,
+                "pct": 89.1
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            },
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 3",
+                "page": 7
+              },
+              "quote": "1 y (n = 71/76) 62 (87.3) vs 66 (86.8)",
+              "intervention": {
+                "n": 66,
+                "N": 76,
+                "pct": 86.8
+              },
+              "control": {
+                "n": 62,
+                "N": 71,
+                "pct": 87.3
+              },
+              "is_subgroup": true,
+              "subgroup_type": "Matched 1:1",
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 1,
+          "selection_reason": "Matched cohort data prioritized."
+        },
+        {
+          "outcome_name": "Patient survival",
+          "definition": {
+            "criteria": "Crude patient survival",
+            "timeframe": "1 year",
+            "source": "Table 2"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2",
+                "page": 5
+              },
+              "quote": "1 y (n = 331/73) 307 (92.8) vs 67 (91.8)",
+              "intervention": {
+                "n": 67,
+                "N": 73,
+                "pct": 91.8
+              },
+              "control": {
+                "n": 307,
+                "N": 331,
+                "pct": 92.8
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            },
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 3",
+                "page": 7
+              },
+              "quote": "1 y (n = 66/73) 60 (90.9) vs 67 (91.8)",
+              "intervention": {
+                "n": 67,
+                "N": 73,
+                "pct": 91.8
+              },
+              "control": {
+                "n": 60,
+                "N": 66,
+                "pct": 90.9
+              },
+              "is_subgroup": true,
+              "subgroup_type": "Matched 1:1",
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 1,
+          "selection_reason": "Matched cohort data prioritized."
+        },
+        {
+          "outcome_name": "Acute cellular rejection",
+          "definition": {
+            "criteria": "Rejection episode within 1 y",
+            "timeframe": "within 1 year",
+            "source": "Table 2 (continued)"
+          },
+          "mentions": [
+            {
+              "location": {
+                "section": "Results",
+                "element": "Table 2 (continued)",
+                "page": 6
+              },
+              "quote": "Rejection episode within 1 y 74 (19.2) vs 16 (20.3)",
+              "intervention": {
+                "n": 16,
+                "N": 79,
+                "pct": 20.3
+              },
+              "control": {
+                "n": 74,
+                "N": 386,
+                "pct": 19.2
+              },
+              "is_subgroup": false,
+              "is_estimated": false
+            }
+          ],
+          "selected_mention": 0,
+          "selection_reason": "Crude data mention."
+        }
+      ],
+      "extraction_notes": {
+        "data_quality_concerns": [
+          "N for survival outcomes (graft and patient) decreases over time due to varying follow-up durations for patients."
+        ],
+        "ambiguities": [],
+        "general_notes": "This study reports outcomes from a single North American center (University of Alberta) over a 7-year period. It includes a 1:1 matched analysis to control for baseline differences."
+      }
+    }
+  ],
+  "usage": {
+    "prompt": 14494,
+    "output": 3765,
+    "thoughts": 8188,
+    "total": 26447
+  }
+}
